@@ -4,7 +4,7 @@ from sqlalchemy.orm import selectinload
 from ..base.base_dal import BaseDAL
 from core.models.association_models import ProgramClients
 from core.models.payment_models import ClientProgramPayment
-from core.models.utils import ClientProgramStatus
+
 
 
 

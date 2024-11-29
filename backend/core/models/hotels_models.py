@@ -17,12 +17,12 @@ if TYPE_CHECKING:
 
 class Hotels(Base):
   __tablename__ = 'hotel'
-  title: Mapped[str]
+  title: Mapped[str] = mapped_column(index=True)
   address: Mapped[str]
   contacts: Mapped[str]
   desc: Mapped[str] = mapped_column(nullable=True)
   city: Mapped[str]
-  email: Mapped[str]
+  email: Mapped[str] = mapped_column(unique=True, index=True)
   
   rooms: Mapped[List['HotelRooms']] = relationship(back_populates='hotel')
   program_hotel_room: Mapped[list['ProgramRooms']] = relationship(back_populates='hotel')

@@ -2,29 +2,37 @@ from enum import Enum
 
 
 class ProgramStatus(str, Enum):
-  ACTIVE = 'Active'
-  CLOSED = 'Closed'
+  AC = 'Active'
+  CL = 'Closed'
 
 
 class ClientProgramStatus(str, Enum):
-  NOT_ACCEPTED = 'Not Accepted'
-  ACCEPTED = 'Accepted'
-  PAID_FULL = 'Full Payed'
+  NC = 'Not Accepted'
+  AC = 'Accepted'
+  PF = 'Full Payed'
+
+
+
+class ClientPorgramContractStatus(str, Enum):
+  NS = 'Not Sended'
+  SD = 'Sended'
+  SG = 'Signed'
+  
 
 
 class ClientStatus(str, Enum):
-  NEW = 'New'
-  REGULAR = 'Regular'
+  NW = 'New'
+  RG = 'Regular'
 
 
 
 class ClientDocumentType(str, Enum):
-  PASSPORT = 'Passport'
-  CERTIFICATE = 'Certificate'
+  PS = 'Passport'
+  CT = 'Certificate'
 
 
 class ClientFamilyRelation(str, Enum):
-  HUSBAND = 'Husband'
-  WIFE = 'Wife'
-  CHILD = 'Child'
-  FRIEND = 'Friend'
+  HB = 'Husband'
+  WF = 'Wife'
+  CD = 'Child'
+  FD = 'Friend'

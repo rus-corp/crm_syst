@@ -6,12 +6,13 @@ import { handleClientCount, handleContractCount } from '../helpers';
 import { getProgramClients } from '../../../api';
 
 
-export default function ClientListComponent({ programSlug }) {
+export default function ClientListComponent({ programId }) {
   const [clientList, setClientList] = React.useState([])
   const handleGetProgramClients = async (slug) => {
     const response = await getProgramClients(slug)
     if (response.status === 200) {
-      setClientList(response.data)
+      console.log(response)
+      setClientList(response.data.program_clients_detail)
     }
   }
 
@@ -19,10 +20,10 @@ export default function ClientListComponent({ programSlug }) {
   const contractCount = handleContractCount(clientList)
   
   React.useEffect(() => {
-    if (programSlug) {
-      handleGetProgramClients(programSlug)
+    if (programId) {
+      handleGetProgramClients(programId)
     }
-  }, [programSlug])
+  }, [programId])
 
   return(
     <section className={style.programClients}>
@@ -67,9 +68,9 @@ export default function ClientListComponent({ programSlug }) {
 
 function ClientItem({ clientLastName, clientName, clientPhone, contractStatus, createdDate, clientPrice, clientStatus }) {
   const formatedStatus = (status) => {
-    if (status === 'CF') {
+    if (status === "Accepted") {
       return 'Аванс Оплачен'
-    } else if (status === 'PF') {
+    } else if (status === "Full Payed") {
       return 'Полная оплата'
     } else {
       return 'Не оплачено'

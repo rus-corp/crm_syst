@@ -9,9 +9,8 @@ import ClientListComponent from './ClientListComponent';
 
 
 
-export default function ProgramInfoComponent({ programSlug }) {
+export default function ProgramInfoComponent({ programId }) {
   const [option, setOption] = React.useState(true)
-  const [programClients, setProgramClients] = React.useState([])
 
   const handleChangeOption = (data) => {
     setOption(data)
@@ -26,7 +25,7 @@ export default function ProgramInfoComponent({ programSlug }) {
         componentSetData={handleChangeOption}
         />
       </div>
-      {option ? <ClientListComponent programSlug={programSlug} /> : <HotelsListComponent programSlug={programSlug} />}
+      {option ? <ClientListComponent programId={programId} /> : <HotelsListComponent programSlug={programSlug} />}
       
     </section>
   );

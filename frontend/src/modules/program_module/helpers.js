@@ -5,9 +5,9 @@ export const handleClientCount = (clientList) => {
   let notPaid = 0
   for (const clientObj of clientList) {
     const clientStatus = clientObj.status
-    if (clientStatus === 'PF') {
+    if (clientStatus === "Full Payed") {
       fullPaid ++
-    } else if (clientStatus === 'CF') {
+    } else if (clientStatus === "Accepted") {
       avansPaid ++
     } else {
       notPaid ++

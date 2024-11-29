@@ -4,7 +4,7 @@ import { backend } from "../_variables";
 export const getPrograms = async () => {
   try {
     const response = await backend.get(
-      `programs`
+      `/programs/`
     )
     return response
   } catch (error) {
@@ -36,10 +36,10 @@ export const getProgramItem = async(programSlug) => {
   }
 }
 
-export const getProgramClients = async(programSlug) => {
+export const getProgramClients = async(programId) => {
   try {
     const response = await backend.get(
-      `programs/${programSlug}/clients`
+      `/programs/clients/${programId}`
     )
     return response
   } catch (error) {

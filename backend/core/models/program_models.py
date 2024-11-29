@@ -18,13 +18,13 @@ if TYPE_CHECKING:
 class Program(Base):
   __tablename__ = 'program'
   
-  title: Mapped[str]
+  title: Mapped[str] = mapped_column(index=True)
   start_date: Mapped[date]
   end_date: Mapped[date]
   place: Mapped[str]
   desc: Mapped[str]
   price: Mapped[int]
-  status: Mapped[ProgramStatus] = mapped_column(SQLEnum(ProgramStatus), default=ProgramStatus.ACTIVE)
+  status: Mapped[ProgramStatus] = mapped_column(SQLEnum(ProgramStatus), default=ProgramStatus.AC)
   slug: Mapped[str] = mapped_column(unique=True)
   
   program_clients_detail: Mapped[list['ProgramClients']] = relationship(back_populates='program')

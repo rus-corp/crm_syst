@@ -7,7 +7,7 @@ from datetime import datetime, date
 
 
 from ..database import Base
-from .utils import ClientProgramStatus
+from .utils import ClientProgramStatus, ClientPorgramContractStatus
 
 
 from .hotels_models import Hotels, HotelRooms
@@ -28,7 +28,8 @@ class ProgramClients(Base):
   client_id: Mapped[int] = mapped_column(ForeignKey('client.id'))
   program_id: Mapped[int] = mapped_column(ForeignKey('program.id'))
   price: Mapped[int] = mapped_column(nullable=True)
-  status: Mapped[ClientProgramStatus] = mapped_column(SQLEnum(ClientProgramStatus), default=ClientProgramStatus.NOT_ACCEPTED)
+  status: Mapped[ClientProgramStatus] = mapped_column(SQLEnum(ClientProgramStatus), default=ClientProgramStatus.NC)
+  contract_status: Mapped[ClientPorgramContractStatus] = mapped_column(SQLEnum(ClientPorgramContractStatus), default=ClientPorgramContractStatus.NS)
   created_at: Mapped[datetime] = mapped_column(server_default=func.now())
   
   program: Mapped["Program"] = relationship(back_populates='program_clients_detail')

@@ -38,7 +38,7 @@ class PaymentHandler(BaseHandler):
         for payment in client_payments:
           paid_amount += payment.amount
         if paid_amount < current_client_program.price:
-          await self.payment_dal.update_program_client_status(current_client_program.id, status=ClientProgramStatus.ACCEPTED)
+          await self.payment_dal.update_program_client_status(current_client_program.id, status=ClientProgramStatus.AC)
         elif paid_amount >= current_client_program.price:
-          await self.payment_dal.update_program_client_status(current_client_program.id, status=ClientProgramStatus.PAID_FULL)
+          await self.payment_dal.update_program_client_status(current_client_program.id, status=ClientProgramStatus.PF)
         return client_payment

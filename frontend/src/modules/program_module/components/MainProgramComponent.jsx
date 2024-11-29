@@ -8,6 +8,8 @@ import { CreateNewItemBtn } from '../../../ui';
 
 import { getPrograms } from '../../../api';
 
+
+
 export default function MainProgramComponent() {
   const [selectedProgram, setSelectedProgram] = React.useState('')
   const [programsData, setProgramsData] = React.useState([])
@@ -39,7 +41,7 @@ export default function MainProgramComponent() {
         selectedProgram={handleSelectProgram}
         programsList={programsData}
         />
-        <ProgramInfoComponent programSlug={selectedProgram}/>
+        <ProgramInfoComponent programId={selectedProgram}/>
       </div>
     </section>
   );
