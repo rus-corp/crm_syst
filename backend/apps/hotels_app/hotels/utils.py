@@ -1,7 +1,7 @@
 from apps.program_app.schemas import ProgramResponseForAppendHoteAndRoom
 from apps.hotels_app.hotels.schemas import HotelForAppendToProgramResponse
 from apps.hotels_app.hotel_rooms.schemas import RoomForAppendToProgramResponse
-
+from core.models.hotels_models import HotelRooms
 
 
 
@@ -31,3 +31,11 @@ def format_room_data(data):
     room_volume=data.room_volume,
     room_price=data.room_price
   )
+
+
+
+def get_hotel_rooms_volume(rooms: list[HotelRooms]):
+  room_volume = 0
+  for room in rooms:
+    room_volume += room.room_volume
+  return room_volume

@@ -1,0 +1,59 @@
+.programDataList {
+  width: 100%;
+  flex: 2.5;
+  background-color: #fff;
+  height: 65rem;
+  border-radius: 24px;
+}
+
+.programDataHeader {
+  width: 100%;
+  padding: .6rem .3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #E4E6E8;
+  height: 15%;
+}
+
+.activeProgramList {
+  width: 100%;
+  height: 85%;
+}
+
+
+.programItem {
+  position: relative;
+  width: 95%;
+  margin: 1rem auto;
+  padding: .8rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid #E4E6E8;
+}
+
+.programItem > p {
+  margin: .4rem 0;
+  color: #91929E;
+}
+
+.activeProgram {
+  background-color: #F4F9FD;
+  border-radius: 24px;
+}
+
+.programItem.activeProgram::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -9px;
+  width: 5px;
+  height: 100%;
+  background-color: #3F8CFF;
+  border-radius: 2rem;
+}
+
+
+
+/* .programItemData {
+  
+} */

@@ -1,0 +1,12 @@
+.programInfoBlock {
+  flex: 7.5;
+  min-height: 65rem;
+  align-items: start;
+}
+
+.programBlockHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

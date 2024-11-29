@@ -1,0 +1,39 @@
+.menuItem {
+  position: relative;
+  margin: .9rem 0;
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  gap: 2rem;
+  padding: 0 .3rem;
+
+}
+
+.menuItem > img {
+  width: 2.1rem;
+  height: auto;
+}
+
+
+.menuItem {
+  fill: #7D8592;
+}
+
+
+.menuItem.active {
+  fill: #3F8CFF;
+  width: 110%;
+  background-color: rgb(237, 243, 254);
+  border-radius: 1rem;
+}
+
+.menuItem.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  background-color: #3F8CFF;
+  border-radius: 2rem;
+}

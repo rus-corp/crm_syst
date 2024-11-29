@@ -40,6 +40,7 @@ class HotelUpdateRequest(BaseModel):
 
 class HotelWithRooms(HotelBaseResponse):
   rooms: Optional[List[RoomForHotelResponse]] = []
+  hotel_rooms_volume: Optional[int] = None
 
 
 

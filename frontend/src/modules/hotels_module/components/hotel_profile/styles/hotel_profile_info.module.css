@@ -1,0 +1,17 @@
+.hotelProfileInfoContainer {
+  flex: 8;
+  display: block;
+  text-align: center;
+}
+
+.hotelRooms {
+  margin-top: 1rem;
+  width: 100%;
+  display: block;
+}
+
+.hoteRoomItem {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 24px;
+}

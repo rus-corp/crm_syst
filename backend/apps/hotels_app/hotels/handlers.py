@@ -7,7 +7,7 @@ from ..hotel_rooms.dals import HotelRoomsDAL
 from .dals import HotelDAL
 from . import schemas
 from core.models.hotels_models import HotelRooms
-from .utils import format_program_data, format_hotel_data, format_room_data
+from .utils import format_program_data, format_hotel_data, format_room_data, get_hotel_rooms_volume
 
 
 
@@ -38,7 +38,24 @@ class HotelHandler(BaseHandler):
     """if flag - get hotel with rooms"""
     async with self.session.begin():
       if flag:
+        hotels_list = []
         hotels = await self.hotel_dal.get_all_hotels_with_rooms()
+        for hotel in hotels:
+          rooms_volume = get_hotel_rooms_volume(hotel.rooms)
+          hotels_list.append(
+            schemas.HotelWithRooms(
+              id=hotel.id,
+              title=hotel.title,
+              address=hotel.address,
+              contacts=hotel.contacts,
+              city=hotel.city,
+              email=hotel.email,
+              desc=hotel.desc,
+              rooms=hotel.rooms,
+              hotel_rooms_volume=rooms_volume
+            )
+          )
+        return hotels_list
       else:
         hotels = await self.hotel_dal.get_all_hotels()
       return list(hotels)
@@ -49,6 +66,18 @@ class HotelHandler(BaseHandler):
     async with self.session.begin():
       if flag:
         hotel = await self.hotel_dal.get_hotel_item_with_rooms(hotel_id)
+        room_volumes = get_hotel_rooms_volume(hotel.rooms)
+        return schemas.HotelWithRooms(
+          id=hotel.id,
+          title=hotel.title,
+          address=hotel.address,
+          contacts=hotel.contacts,
+          city=hotel.city,
+          email=hotel.email,
+          desc=hotel.desc,
+          rooms=hotel.rooms,
+          hotel_rooms_volume=room_volumes
+        )
       else:
         hotel = await self.hotel_dal.get_hotel_by_id(hotel_id)
       return hotel

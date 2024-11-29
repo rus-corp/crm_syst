@@ -1,6 +1,6 @@
 from typing import List, TYPE_CHECKING
-from sqlalchemy.orm import Mapped, mapped_column, relationship, selectinload
-from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship, selectinload, Session
+from sqlalchemy import ForeignKey, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..database import Base
@@ -28,6 +28,14 @@ class Hotels(Base):
   program_hotel_room: Mapped[list['ProgramRooms']] = relationship(back_populates='hotel')
   
   # programs: Mapped[List['Program']] = relationship(secondary='program_rooms', back_populates='hotels')
+  
+  async def get_room_volumes(self, session: AsyncSession):
+    res = await session.execute(
+      select(HotelRooms.room_volume).where(HotelRooms.hotel_id == self.id)
+    )
+    room_vol = sum(row[0] for row in res.all())
+    return room_vol
+
 
 
 

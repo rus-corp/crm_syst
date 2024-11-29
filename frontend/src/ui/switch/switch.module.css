@@ -1,0 +1,46 @@
+.switchWrapper {
+  width: 18rem;
+  height: 3rem;
+  background-color: #CED5E0;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.wrap {
+  cursor: pointer;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.wrap > p {
+  color: #fff;
+  margin: 0;
+}
+
+.activeBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  border-radius: 2rem;
+  background-color: blue;
+  transition: transform 0.3s ease;
+}
+
+.activeLeft {
+  transform: translateX(0);
+}
+
+.activeRight {
+  transform: translateX(100%);
+}

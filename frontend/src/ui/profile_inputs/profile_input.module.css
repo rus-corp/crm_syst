@@ -1,0 +1,21 @@
+.infoData {
+  margin: .7rem 0;
+}
+
+.infoData > p {
+  color: #7D8592;
+  margin-bottom: .8rem;
+}
+
+.inputField {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: .8rem 1.2rem;
+}
+
+.inputField:focus {
+  color: #0A1629;
+  border: 1px solid #3F8CFF;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+}

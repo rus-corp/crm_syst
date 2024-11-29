@@ -1,0 +1,47 @@
+.activeHotels {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.activeHotelsHeader {
+  text-align: center;
+  width: 100%;
+  background-color: #E6EDF5;
+  border-radius: 14px;
+  padding: .4rem;
+}
+
+.hotelsList {
+  width: 100%;
+}
+
+.hotelItem {
+  margin-top: 1rem;
+  width: 100%;
+  padding: .3rem 1rem;
+  background-color: #fff;
+  border-radius: 24px;
+  min-height: 6rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: center;
+  gap: 1rem;
+
+  /* display: flex;
+  align-items: center;
+  justify-content: space-between; */
+  cursor: pointer;
+}
+
+.hotelItemData {
+  text-align: center;
+}
+
+.hotelItemData > p {
+  color: #91929E;
+  margin-bottom: .4rem;
+}
+
+.allHotelsList {
+  margin-top: 2rem;
+}

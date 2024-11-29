@@ -1,0 +1,200 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
+}
+
+body {
+  background-color: rgb(245, 249, 253);
+}
+
+a {
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1.3rem;
+  transition: color .3s;
+  text-transform: uppercase;
+  color: #7D8592;
+}
+
+a.active {
+  background-color: rgb(237, 243, 254);
+  color: #3F8CFF;
+  border-radius: 24px;
+}
+
+a.active img {
+  color: #3F8CFF;
+  
+}
+
+
+a.active > p {
+  color: #3F8CFF;
+  font-size: 1.2rem;
+  font-family: inherit;
+}
+
+li:hover {
+  color: #3A81EB;
+}
+
+
+a:hover {
+  color: #3A81EB;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+h1 {
+  font-size: 3.5rem;
+  color: #0A1629;
+  font-family: inherit;
+}
+
+h2 {
+  font-size: 2.7rem;
+  color: #0A1629;
+  font-family: inherit;
+}
+
+h3 {
+  font-size: 2rem;
+  color: #0A1629;
+  font-family: inherit;
+}
+
+h4 {
+  font-size: 1.4rem;
+  color: #0A1629;
+  font-family: inherit;
+}
+
+h5 {
+  font-size: 1.1rem;
+  color: #0A1629;
+  font-family: inherit;
+}
+
+h6 {
+  font-size: 1rem;
+  color: #0A1629;
+  font-family: inherit;
+}
+
+
+p {
+  font-family: inherit;
+  color: #3B3937;
+  font-family: inherit;
+}
+
+
+
+ul {
+  list-style: none;
+  cursor: pointer;
+}
+
+img, svg, video {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Form */
+input, textarea, button, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: #7D8592;
+}
+
+button, input[type="submit"] {
+  display: inline-block;
+  box-shadow: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color .5s ease;
+  padding: 0.2rem;
+  /* border: solid black 1px; */
+  border-radius: 14px;
+  transition: .4s;
+  transform: all .4s ease;
+  color: #fff;
+}
+
+button {
+  background-color: #3F8CFF;
+}
+
+button:hover {
+  background-color: #3A81EB;
+  border: none;
+  /* padding: 0.7rem 3rem; */
+  /* padding: .2rem; */
+
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: none;
+}
+
+label {
+  cursor: pointer;
+}
+
+.container {
+  /* width: 97%; */
+  padding: 1rem;
+}
+
+.container.program {
+  display: flex;
+  width: 97%;
+  gap: 2rem;
+}
+
+
+.container.hotels {
+  display: flex;
+  /* align-items: center; */
+  width: 97%;
+  gap: 2rem;
+}
+
+
+/* legend {
+  display: block;
+}
+
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.data_container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 2.3rem;
+}
+
+
+.active {
+  border-bottom: 2px solid #fff;
+}
+
+
+.subActive {
+  border: 1px solid black;
+} */

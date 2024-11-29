@@ -1,0 +1,44 @@
+.hoteRoomItem {
+  background-color: #fff;
+  border-radius: 24px;
+  margin: .8rem;
+  /* height: 6rem; */
+  /* min-height: 6rem; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+}
+
+.roomData {
+  width: 100%;
+  padding: .3rem;
+  border-right: 2px solid #E4E6E8;
+}
+
+.roomDataDesc {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: .6rem 0;
+}
+
+.roomGuests {
+  text-align: start;
+  width: 100%;
+  padding: .3rem .8rem;
+}
+
+.roomGuestsData {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.placeData {
+  margin-top: .8rem;
+  text-align: center;
+}
+
+.placeData > p {
+  color: #91929E;
+}

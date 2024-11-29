@@ -42,7 +42,7 @@ class HotelDAL(BaseDAL):
   async def get_all_hotels_with_rooms(self):
     query = select(Hotels).options(joinedload(Hotels.rooms)).order_by(Hotels.id)
     result = await self.db_session.execute(query)
-    return result.scalars().all()
+    return result.scalars().unique().all()
   
   
   async def get_hotel_item_with_rooms(self, hotel_id: int):

@@ -1,0 +1,86 @@
+.crmTable {
+  min-width: 90%;
+  display: flex;
+  gap: 2rem;
+  border-radius: 24px;
+}
+
+.boardItem {
+  background-color: #fff;
+  /* width: 25%; */
+  min-width: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 24px;
+  /* padding: 0 .3rem; */
+  min-height: 4rem;
+  cursor: pointer;
+}
+
+
+
+.createClient {
+  width: 95%;
+  height: 3rem;
+  border: 1px dashed grey;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: .4rem;
+}
+
+.createClient:hover {
+  background-color: #3A81EB;
+  color: #fff;
+  transition: .8s ease;
+}
+
+.tableHeader {
+  width: 90%;
+  border-bottom: 1px solid #1F6DE0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tableHeader > h4 {
+  margin-bottom: .6rem;
+}
+
+.tableContent {
+  width: 90%;
+}
+
+.clientData {
+  width: 90%;
+  height: 4.2rem;
+  margin: 1rem 0;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 0 .8rem;
+}
+
+.clientName {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.clientDate > p {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
+.createTable {
+  min-width: 22%;
+  max-height: 7rem;
+  border: 1px dashed black;
+  text-align: center;
+  background-color: #CED5E0;
+  border-radius: 24px;
+  cursor: pointer;
+}

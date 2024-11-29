@@ -60,7 +60,7 @@ async def get_hotel_by_id(
 
 
 @router.get(
-  '/with_rooms',
+  '/with_rooms/',
   status_code=status.HTTP_200_OK,
   response_model=List[schemas.HotelWithRooms]
 )
@@ -78,7 +78,7 @@ async def get_hotels_with_rooms(
   status_code=status.HTTP_200_OK,
   response_model=schemas.HotelWithRooms
 )
-async def get_hotel_by_id(
+async def get_hotel_by_id_with_rooms(
   hotel_id: int,
   session: AsyncSession = Depends(get_db)
 ):

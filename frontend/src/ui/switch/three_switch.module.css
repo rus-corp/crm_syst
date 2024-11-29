@@ -1,0 +1,59 @@
+.switchWrapper {
+  width: 30rem;
+  height: 3rem;
+  background-color: #CED5E0;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.wrap {
+  cursor: pointer;
+  width: 50%;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.wrap > p {
+  color: #0A1629;
+  margin: 0;
+}
+
+.activeBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
+}
+.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: blue;
+  color: #fff;
+  border-radius: 2rem;
+  width: 100%;
+  height: 100%;
+  transition: 0.1s;
+}
+
+.active > p {
+  color: #fff;
+}
+
+.activeLeft {
+  transform: translateX(0);
+}
+
+.activeRight {
+  transform: translateX(100%);
+}
