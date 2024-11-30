@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import style from './styles/clientInfo.module.css'
 import { handleClientCount, handleContractCount } from '../helpers';
@@ -11,7 +12,6 @@ export default function ClientListComponent({ programId }) {
   const handleGetProgramClients = async (slug) => {
     const response = await getProgramClients(slug)
     if (response.status === 200) {
-      console.log(response)
       setClientList(response.data.program_clients_detail)
     }
   }
@@ -56,6 +56,7 @@ export default function ClientListComponent({ programId }) {
             contractStatus={clientItem.client.contract_status}
             clientPrice={clientItem.price}
             clientStatus={clientItem.status}
+            clientSlug={clientItem.client.slug}
             />
           ))}
         </div>
@@ -66,7 +67,7 @@ export default function ClientListComponent({ programId }) {
 
 
 
-function ClientItem({ clientLastName, clientName, clientPhone, contractStatus, createdDate, clientPrice, clientStatus }) {
+function ClientItem({ clientLastName, clientName, clientPhone, contractStatus, createdDate, clientPrice, clientStatus, clientSlug }) {
   const formatedStatus = (status) => {
     if (status === "Accepted") {
       return 'Аванс Оплачен'
@@ -88,7 +89,7 @@ function ClientItem({ clientLastName, clientName, clientPhone, contractStatus, c
   }
 
   return (
-    <div className={style.clientItem}>
+    <Link to={`/clients/${clientSlug}`} className={style.clientItem}>
       <div className={style.clientFullName}>
         <p>{clientName}</p>
         <h5>{clientLastName}</h5>
@@ -113,7 +114,7 @@ function ClientItem({ clientLastName, clientName, clientPhone, contractStatus, c
         <p>Статус</p>
         <h6>{formatedStatus(clientStatus)}</h6>
       </div>
-    </div>
+    </Link>
   );
 }
 

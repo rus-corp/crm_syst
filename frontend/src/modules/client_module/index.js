@@ -1,3 +1,4 @@
-import ClientComponent from "./components/ClientComponent";
+import ClientProfile from "./components/client_profile/ClientProfile";
+import ClientMainListComponent from "./components/ClientMainListComponent";
 
-export { ClientComponent }
+export { ClientProfile, ClientMainListComponent }

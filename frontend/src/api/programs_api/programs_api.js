@@ -48,10 +48,10 @@ export const getProgramClients = async(programId) => {
 }
 
 
-export const getProgramHotels = async(programSlug) => {
+export const getProgramHotels = async(programId) => {
   try {
     const response = await backend.get(
-      `programs/${programSlug}/hotels`
+      `/programs/program_hotels/${programId}`
     )
     return response
   } catch (error) {

@@ -1,0 +1,12 @@
+.clientProfileSection {
+  width: 100%;
+}
+
+.clientData {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+

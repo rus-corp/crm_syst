@@ -10,7 +10,7 @@ from .utils import ProgramStatus
 if TYPE_CHECKING:
   from .client_models import Client
   from .hotels_models import Hotels, HotelRooms
-  from .association_models import ProgramClients, ProgramRooms
+  from .association_models import ProgramClients, ProgramRooms, ProgramClientRoom
 
 
 

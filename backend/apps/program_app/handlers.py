@@ -10,6 +10,7 @@ from core.models.association_models import ProgramClients
 from ..client_app.dals import ClientDAL
 from .utils import data_format
 from apps.hotels_app.hotels.schemas import HotelWithRooms
+from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 
 
 
@@ -44,8 +45,25 @@ class ProgramHandler(BaseHandler):
   
   async def _get_programs_list(self):
     async with self.session.begin():
-      programs_list = await self.program_dal.get_all_programs()
-      return list(programs_list)
+      programs_list = await self.program_dal.get_active_programs()
+      programs = []
+      for program in programs_list: # type Program
+        duration = program.duration()
+        programs.append(
+          schemas.ProgramBaseResponse(
+            id=program.id,
+            title=program.title,
+            start_date=program.start_date,
+            end_date=program.end_date,
+            place=program.place,
+            status=program.status,
+            price=program.price,
+            desc=program.desc,
+            slug=program.slug,
+            duration=duration
+          )
+        )
+      return programs
 
   
   
@@ -108,6 +126,7 @@ class ProgramHandler(BaseHandler):
       response_data = data_format(program_hotels)
       response_list = []
       for key, value in response_data.items():
+        rooms_volume = get_hotel_rooms_volume(value['rooms'])
         response_list.append(
           HotelWithRooms(
             id=key,
@@ -117,7 +136,8 @@ class ProgramHandler(BaseHandler):
             email=value['email'],
             desc=value['desc'],
             city=value['city'],
-            rooms=value['rooms']
+            rooms=value['rooms'],
+            hotel_rooms_volume=rooms_volume
           )
         )
       return response_list

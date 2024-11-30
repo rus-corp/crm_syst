@@ -31,7 +31,7 @@ export default function ProgramComponentData({ programsList, selectedProgram }) 
             programPlace={program.place}
             startDate={program.start_date}
             endDate={program.end_date}
-            selectedProgram={selectedProgram}
+            duration={program.duration}
             />
           </div>
         ))}
@@ -42,17 +42,15 @@ export default function ProgramComponentData({ programsList, selectedProgram }) 
 
 
 
-function ActiveProgramItem({ programName, programPlace, startDate, endDate }) {
+function ActiveProgramItem({ programName, programPlace, startDate, endDate, duration }) {
   const handleFormatDate = (dateString) => {
     const dateList = dateString.split('-')
     return `${dateList[2]}-${dateList[1]}-${dateList[0]}`
   }
-
   
-
   return (
     <div className={style.programItemData}>
-      <p>{programPlace}</p>
+      <p>{programPlace} {duration} д.</p>
       <h5>{programName}</h5>
       <p>с <strong>{handleFormatDate(startDate)}</strong> до <strong>{handleFormatDate(endDate)}</strong></p>
     </div>

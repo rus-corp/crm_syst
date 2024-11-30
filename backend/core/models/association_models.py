@@ -35,6 +35,8 @@ class ProgramClients(Base):
   program: Mapped["Program"] = relationship(back_populates='program_clients_detail')
   client: Mapped["Client"] = relationship(back_populates='client_program_detail')
   
+  program_client_room: Mapped['ProgramClientRoom'] = relationship(back_populates='program_client')
+  
   client_program_payments: Mapped[list[ClientProgramPayment]] = relationship(back_populates='client_program')
 
 
@@ -58,16 +60,16 @@ class ProgramRooms(Base):
 
 
 
-# class ProgramClientRoom(Base):
-#   __tablename__ = 'program_client_room'
-#   __table_args__ = (UniqueConstraint('client_id', 'program_id', 'room_id'),)
-#   client_id: Mapped[int] = mapped_column(ForeignKey('client.id'))
-#   program_id: Mapped[int] = mapped_column(ForeignKey('program.id'))
-#   room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
+class ProgramClientRoom(Base):
+  __tablename__ = 'program_client_room'
+  __table_args__ = (UniqueConstraint('program_client_id', 'room_id'),)
   
-#   enty_date:Mapped[date]
-#   departue_date: Mapped[date]
+  program_client_id: Mapped[int] = mapped_column(ForeignKey('program_clients.id'))
+  room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
   
-#   program: Mapped[Program] = relationship(back_populates='program_clients_rooms_assoc')
-#   client: Mapped[Client] = relationship(back_populates='program_client_rooms_assoc')
-#   room: Mapped[HotelRooms] = relationship(back_populates='program_client_rooms_assoc')
+  enty_date:Mapped[date]
+  departue_date: Mapped[date]
+  comment: Mapped[str] = mapped_column(nullable=True)
+  
+  room: Mapped[HotelRooms] = relationship(back_populates='program_client_room')
+  program_client: Mapped[ProgramClients] = relationship(back_populates='program_client_room')

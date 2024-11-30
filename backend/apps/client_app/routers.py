@@ -38,3 +38,29 @@ async def get_clients(
   client_handler = ClientHandler(session)
   clients = await client_handler._get_clients_list()
   return clients
+
+
+@router.get(
+  '/{client_slug}',
+  status_code=status.HTTP_200_OK
+)
+async def get_client_by_slug(
+  client_slug: str,
+  session: AsyncSession = Depends(get_db)
+):
+  client_handler = ClientHandler(session)
+  client = await client_handler._get_client_by_slug(client_slug)
+  return client
+
+
+@router.get(
+  '/program/{client_slug}',
+  status_code=status.HTTP_200_OK
+)
+async def get_client_current_program(
+  client_slug: str,
+  session: AsyncSession = Depends(get_db)
+):
+  client_handler = ClientHandler(session)
+  client_program = await client_handler._get_client_current_program(client_slug)
+  return client_program

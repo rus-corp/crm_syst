@@ -25,3 +25,24 @@ class ClientHandler(BaseHandler):
     async with self.session.begin():
       clients = await self.client_dal.get_clients()
       return list(clients)
+  
+  
+  async def _get_client_by_id(self, client_id: int):
+    async with self.session.begin():
+      client = await self.client_dal.get_client_by_id(client_id)
+      return client
+  
+  
+  async def _get_client_by_slug(self, client_slug: str):
+    async with self.session.begin():
+      client = await self.client_dal.get_client_by_slug(client_slug)
+      return client
+  
+  
+  async def _get_client_current_program(self, client_slug: str):
+    async with self.session.begin():
+      client_program = await self.client_dal.get_client_current_program(client_slug)
+      return client_program
+  
+  
+  async def _update_client(self, client_id: int, client_data):pass

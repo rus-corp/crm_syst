@@ -25,7 +25,7 @@ export default function ProgramInfoComponent({ programId }) {
         componentSetData={handleChangeOption}
         />
       </div>
-      {option ? <ClientListComponent programId={programId} /> : <HotelsListComponent programSlug={programSlug} />}
+      {option ? <ClientListComponent programId={programId} /> : <HotelsListComponent programId={programId} />}
       
     </section>
   );

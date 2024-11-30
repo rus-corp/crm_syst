@@ -1,0 +1,39 @@
+.clientProfile {
+  flex: 2;
+  width: 100%;
+  min-height: 65rem;
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 0 1rem;
+}
+
+.clientFio {
+  width: 100%;
+  margin-top: 1.1rem;
+  min-height: 7rem;
+  border-bottom: 1px solid #E4E6E8;
+}
+
+.clientProfileHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 1.2rem;
+}
+
+.clientCreated {
+  margin-top: 1rem;
+  
+}
+
+.clientCreated > p {
+  color: #91929E;
+  margin-bottom: .6rem;
+  font-size: .9rem;
+}
+
+.clientMainInfo {
+  margin-top: 1.5rem;
+  width: 100%;
+}

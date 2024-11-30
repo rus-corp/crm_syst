@@ -5,7 +5,7 @@ import { CrmPage, HotelPage, ClientPage } from "../pages";
 import ProgramPage from "../pages/program_page/ProgramPage";
 import { HotelMainComponent } from "../modules";
 import HotelProfileMainComponent from "../modules/hotels_module/components/hotel_profile/HotelProfileMainComponent";
-
+import { ClientProfile, ClientMainListComponent } from "../modules/client_module";
 
 
 
@@ -21,7 +21,17 @@ export const router = createBrowserRouter([
   },
   {
     path: '/clients',
-    element: <ClientPage />
+    element: <ClientPage />,
+    children: [
+      {
+        path: '',
+        element: <ClientMainListComponent />
+      },
+      {
+        path: ':clientSlug',
+        element: <ClientProfile />
+      }
+    ]
   },
   {
     path: '/hotels',

@@ -26,6 +26,10 @@ class ProgramBaseResponse(ProgramBase):
   id: int
   slug: str
   status: str
+  duration: Optional[int] = None
+  
+  class Config:
+    from_attributes = True
 
 
 class DeleteClientFromProgramRequest(BaseModel):

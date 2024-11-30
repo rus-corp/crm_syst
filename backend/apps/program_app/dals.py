@@ -9,7 +9,7 @@ from datetime import date
 
 from core.models.program_models import Program
 from core.models.association_models import ProgramClients, ProgramRooms
-
+from core.models.utils import ProgramStatus
 
 
 
@@ -40,6 +40,12 @@ class ProgramDAL(BaseDAL):
   
   async def get_all_programs(self):
     return await self.base_get_all_items(Program)
+  
+  
+  async def get_active_programs(self):
+    query = select(Program).order_by(Program.id).filter(Program.status == ProgramStatus.AC)
+    result = await self.db_session.execute(query)
+    return result.scalars().all()
   
   
   async def get_program_by_id(self, program_id: int):

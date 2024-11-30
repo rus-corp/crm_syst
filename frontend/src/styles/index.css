@@ -14,10 +14,7 @@ body {
 a {
   text-decoration: none;
   font-family: inherit;
-  font-weight: 600;
-  font-size: 1.3rem;
   transition: color .3s;
-  text-transform: uppercase;
   color: #7D8592;
 }
 

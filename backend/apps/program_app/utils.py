@@ -4,9 +4,10 @@ from apps.hotels_app.hotels.schemas import HotelForAppendToProgramResponse
 from apps.hotels_app.hotel_rooms.schemas import RoomForAppendToProgramResponse
 from apps.hotels_app.hotels.schemas import HotelWithRooms
 from apps.hotels_app.hotel_rooms.schemas import RoomForHotelResponse
+from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 
 
-def data_format(data: List[Dict]) -> List[HotelWithRooms]:
+def data_format(data: List[Dict]) -> Dict:
   hotels = {}
   
   for entry in data:

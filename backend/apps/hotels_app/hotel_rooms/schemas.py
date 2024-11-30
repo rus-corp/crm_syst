@@ -27,7 +27,7 @@ class HotelRoomUpdateRequest(BaseModel):
 
 class RoomForHotelResponse(BaseModel):
   model_config = ConfigDict(from_attributes=True)
-  
+  id: int
   room_type: str
   room_price: int
   room_volume: int
