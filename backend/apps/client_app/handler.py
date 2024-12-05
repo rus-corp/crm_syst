@@ -12,6 +12,9 @@ class ClientHandler(BaseHandler):
     self.client_dal = ClientDAL(self.session)
   
   
+  async def _get_or_create_client(self):...
+  
+  
   async def _create_client(self, client_body: schemas.CreateClient):
     async with self.session.begin():
       body_data = client_body.model_dump(exclude_none=True)

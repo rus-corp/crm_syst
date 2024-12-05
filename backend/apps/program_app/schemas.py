@@ -50,5 +50,9 @@ class ProgramResponseForAppendHoteAndRoom(BaseModel):
 
 
 
-# class ProgramHotelRoomsResponse(BaseModel):
-#   hotel: 
+class ClientProgramResponse(ProgramBase):
+  id: int
+  slug: str
+  status: str
+  
+  model_config = ConfigDict(from_attributes=True)

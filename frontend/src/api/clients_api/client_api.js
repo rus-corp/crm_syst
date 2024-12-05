@@ -36,3 +36,15 @@ export const createClient = async (clientData) => {
     console.error(error)
   }
 }
+
+
+export const getClientCurrentProgram = async (clientSlug) => {
+  try {
+    const response = await backend.get(
+      `/clients/program/${clientSlug}`
+    )
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}

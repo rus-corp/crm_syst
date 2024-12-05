@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -16,7 +17,8 @@ router = APIRouter(
 
 @router.post(
   '/',
-  status_code=status.HTTP_201_CREATED
+  status_code=status.HTTP_201_CREATED,
+  response_model=schemas.BaseShowClient
 )
 async def create_client(
   body: schemas.CreateClient,
@@ -30,7 +32,8 @@ async def create_client(
 
 @router.get(
   '/',
-  status_code=status.HTTP_200_OK
+  status_code=status.HTTP_200_OK,
+  response_model=List[schemas.BaseShowClient]
 )
 async def get_clients(
   session: AsyncSession = Depends(get_db)
@@ -42,7 +45,8 @@ async def get_clients(
 
 @router.get(
   '/{client_slug}',
-  status_code=status.HTTP_200_OK
+  status_code=status.HTTP_200_OK,
+  response_model=schemas.BaseShowClient
 )
 async def get_client_by_slug(
   client_slug: str,
@@ -55,7 +59,8 @@ async def get_client_by_slug(
 
 @router.get(
   '/program/{client_slug}',
-  status_code=status.HTTP_200_OK
+  status_code=status.HTTP_200_OK,
+  response_model=schemas.ClientCurrentProgramResponse
 )
 async def get_client_current_program(
   client_slug: str,
@@ -64,3 +69,11 @@ async def get_client_current_program(
   client_handler = ClientHandler(session)
   client_program = await client_handler._get_client_current_program(client_slug)
   return client_program
+
+
+
+# @router.patch(
+#   '/{client_slug}',
+#   status_code=status.HTTP_200_OK
+# )
+# async def 

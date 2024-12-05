@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import style from './styles/clientInfo.module.css'
 import { handleClientCount, handleContractCount } from '../helpers';
 
 import { getProgramClients } from '../../../api';
+import { setClientSlug } from '../../../store/clientSlice';
 
 
 export default function ClientListComponent({ programId }) {
@@ -67,7 +69,18 @@ export default function ClientListComponent({ programId }) {
 
 
 
-function ClientItem({ clientLastName, clientName, clientPhone, contractStatus, createdDate, clientPrice, clientStatus, clientSlug }) {
+function ClientItem({
+  clientLastName,
+  clientName,
+  clientPhone,
+  contractStatus,
+  createdDate,
+  clientPrice,
+  clientStatus,
+  clientSlug
+}) {
+  const dispatch = useDispatch()
+
   const formatedStatus = (status) => {
     if (status === "Accepted") {
       return 'Аванс Оплачен'
@@ -89,7 +102,11 @@ function ClientItem({ clientLastName, clientName, clientPhone, contractStatus, c
   }
 
   return (
-    <Link to={`/clients/${clientSlug}`} className={style.clientItem}>
+    <Link
+    to={`/clients/${clientSlug}`}
+    className={style.clientItem}
+    onClick={() => dispatch(setClientSlug(clientSlug))}>
+      
       <div className={style.clientFullName}>
         <p>{clientName}</p>
         <h5>{clientLastName}</h5>

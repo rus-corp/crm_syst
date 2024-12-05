@@ -16,7 +16,6 @@ export default function ClientProfile() {
     const response = await getClientBySlug(slug)
     if (response.status == 200) {
       setClientProfile(response.data)
-      console.log(response)
     }
   }
 

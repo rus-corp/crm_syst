@@ -1,4 +1,4 @@
-import { createClient, getClientBySlug, getClientList } from "./clients_api/client_api";
+import { createClient, getClientBySlug, getClientCurrentProgram, getClientList } from "./clients_api/client_api";
 import { getProgramClients,
   getProgramHotels,
   getPrograms }
@@ -9,5 +9,6 @@ import { getProgramClients,
 
   
 export { getPrograms, getProgramClients, getProgramHotels,
-  getClientList, getClientBySlug, createClient
+  getClientList, getClientBySlug, createClient,
+  getClientCurrentProgram,
  }

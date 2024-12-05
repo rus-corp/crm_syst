@@ -57,7 +57,7 @@ class ClientDAL(BaseDAL):
              .where(Client.slug == client_slug)
              .where(ProgramClients.program.has(Program.status == ProgramStatus.AC)))
     result = await self.db_session.execute(query)
-    return result.scalars().all()
+    return result.scalar()
   
   
   async def update_client_by_id(self, client_id, values):
