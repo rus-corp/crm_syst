@@ -3,6 +3,13 @@ from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from core.models.utils import ClientProgramStatus, ClientPorgramContractStatus
 from apps.program_app.schemas import ClientProgramResponse
+from datetime import date
+
+
+from .client_profile.schemas import ProfileResponse
+from .client_doc.schemas import DocumnetResponse
+
+
 
 
 class ClientBase(BaseModel):
@@ -32,10 +39,28 @@ class BaseShowClient(BaseModel):
   slug: str
 
 
-class ClientCurrentProgramResponse(BaseModel):
+class ShowClientProfileDocument(BaseShowClient):
+  profile: ProfileResponse
+  document: DocumnetResponse
+
+
+
+class ClientCurrentProgramBaseResponse(BaseModel):
   client_id: int
   status: ClientProgramStatus
   created_at: datetime
   price: int
   contract_status: ClientPorgramContractStatus
   program: ClientProgramResponse
+  client: BaseShowClient
+
+
+class ClientCurrentProgramResponse(BaseModel):
+  id: int
+  client_id: int
+  status: ClientProgramStatus
+  created_at: datetime
+  price: int
+  contract_status: ClientPorgramContractStatus
+  program: ClientProgramResponse
+  client: ShowClientProfileDocument

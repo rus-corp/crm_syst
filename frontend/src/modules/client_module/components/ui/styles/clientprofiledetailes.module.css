@@ -1,0 +1,21 @@
+.clientData {
+  width: 100%;
+  padding: 1rem;
+}
+
+.clientDataHeader {
+  text-align: center;
+}
+
+.clientPayments {
+  margin-top: 1rem;
+}
+
+.clientPayments > p {
+  color: #91929E;
+}
+
+.clientPaymentItem {
+  display: flex;
+  gap: 2rem;
+}

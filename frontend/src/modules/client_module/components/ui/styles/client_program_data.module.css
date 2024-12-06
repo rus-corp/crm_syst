@@ -1,0 +1,18 @@
+.programDataItem {
+  margin-top: 1rem;
+}
+
+.programDataItem > p {
+  color: #7D8592;
+}
+
+.programDates {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 1rem;
+}
+
+.programDate > p {
+  color: #7D8592;
+}

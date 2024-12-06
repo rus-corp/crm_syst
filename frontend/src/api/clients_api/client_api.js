@@ -13,6 +13,17 @@ export const getClientList = async() => {
 }
 
 
+export const getClientDataWithProgram = async (clientSlug) => {
+  try {
+    const response = await backend.get(
+      `/clients/program_profile_doc/${clientSlug}`
+    )
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export const getClientBySlug = async(clientSlug) => {
   try {
     const response = await backend.get(

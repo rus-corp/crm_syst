@@ -40,7 +40,7 @@ class PaymentDAL(BaseDAL):
   
   
   
-  async def get_client_payments(self, program_client_id: int):
+  async def get_client_program_payments(self, program_client_id: int):
     query = select(ClientProgramPayment).where(ClientProgramPayment.client_program_id == program_client_id)
     result = await self.db_session.execute(query)
     return result.scalars().all()

@@ -2,7 +2,7 @@ from sqlalchemy.orm import selectinload, joinedload, contains_eager
 from sqlalchemy import select, update, delete, and_
 
 
-from ..base.base_dal import BaseDAL
+from ...base.base_dal import BaseDAL
 
 from core.models.association_models import ProgramClients
 from core.models.client_models import Client
@@ -30,7 +30,7 @@ class ClientDAL(BaseDAL):
       slug=slug,
     )
     self.db_session.add(new_client)
-    await self.db_session.commit()
+    await self.db_session.flush()
     return new_client
   
   
@@ -50,7 +50,7 @@ class ClientDAL(BaseDAL):
     return result
   
   
-  async def get_client_current_program(self, client_slug):
+  async def get_client_current_program(self, client_slug: str):
     query = (select(ProgramClients)
              .join(Client, ProgramClients.client_id == Client.id)
              .options(joinedload(ProgramClients.program))
@@ -58,6 +58,34 @@ class ClientDAL(BaseDAL):
              .where(ProgramClients.program.has(Program.status == ProgramStatus.AC)))
     result = await self.db_session.execute(query)
     return result.scalar()
+  
+  
+  async def get_client_current_program_with_profile_and_doc(self, client_slug: str):
+    query = (
+        select(ProgramClients)
+        .options(
+            joinedload(ProgramClients.client).joinedload(Client.profile),
+            joinedload(ProgramClients.client).joinedload(Client.document),
+            joinedload(ProgramClients.program)
+        )
+        .join(Client, ProgramClients.client_id == Client.id)
+        .where(Client.slug == client_slug)
+        .where(ProgramClients.program.has(Program.status == ProgramStatus.AC))
+    )
+    result = await self.db_session.execute(query)
+    return result.scalar()
+  
+  
+  async def get_client_profile_and_doc(self, client_slug: str):
+    query = select(Client).where(Client.slug == client_slug).options(joinedload(Client.profile), joinedload(Client.document))
+    result = await self.db_session.scalar(query)
+    return result
+  
+  
+  async def get_get_client_profile_and_doc_with_family(self, client_slug: str):
+    query = select(Client).where(Client.slug == client_slug).options(joinedload(Client.profile), joinedload(Client.document), joinedload(Client.client_family))
+    result = await self.db_session.scalar(query)
+    return result
   
   
   async def update_client_by_id(self, client_id, values):

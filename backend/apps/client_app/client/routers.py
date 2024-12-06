@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 
 from .handler import ClientHandler
-from . import schemas
+from .. import schemas
 from core.database import get_db
 
 
@@ -60,7 +60,7 @@ async def get_client_by_slug(
 @router.get(
   '/program/{client_slug}',
   status_code=status.HTTP_200_OK,
-  response_model=schemas.ClientCurrentProgramResponse
+  response_model=schemas.ClientCurrentProgramBaseResponse
 )
 async def get_client_current_program(
   client_slug: str,
@@ -68,6 +68,23 @@ async def get_client_current_program(
 ):
   client_handler = ClientHandler(session)
   client_program = await client_handler._get_client_current_program(client_slug)
+  return client_program
+
+
+@router.get(
+  '/program_profile_doc/{client_slug}',
+  status_code=status.HTTP_200_OK,
+  response_model=schemas.ClientCurrentProgramResponse
+)
+async def get_client_program_with_profile_and_doc(
+  client_slug: str,
+  session: AsyncSession = Depends(get_db)
+):
+  client_handler = ClientHandler(session)
+  client_program = await client_handler._get_client_current_program(
+    client_slug=client_slug,
+    flag=True
+  )
   return client_program
 
 

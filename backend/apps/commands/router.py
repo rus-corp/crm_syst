@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
-from apps.client_app.dals import ClientDAL
+from apps.client_app.client.dals import ClientDAL
 from apps.hotels_app.hotels.dals import HotelDAL
 from apps.hotels_app.hotel_rooms.dals import HotelRoomsDAL
 from apps.utils.slug import create_slug

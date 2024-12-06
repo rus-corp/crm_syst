@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
-from apps.client_app.routers import router as client_router
+from apps.client_app.client.routers import router as client_router
 from apps.program_app.routers import router as program_router
 from apps.payments_app.router import router as payment_router
 from apps.hotels_app.hotels.routers import router as hotel_routers

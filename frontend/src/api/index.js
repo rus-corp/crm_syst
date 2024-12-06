@@ -1,4 +1,16 @@
-import { createClient, getClientBySlug, getClientCurrentProgram, getClientList } from "./clients_api/client_api";
+import { 
+  createClient,
+  getClientBySlug,
+  getClientCurrentProgram,
+  getClientDataWithProgram,
+  getClientList
+ } from "./clients_api/client_api";
+
+ import { 
+  createClientProgramPayment,
+  getClientProgramPayments
+ } from "./payments_api/api";
+
 import { getProgramClients,
   getProgramHotels,
   getPrograms }
@@ -10,5 +22,6 @@ import { getProgramClients,
   
 export { getPrograms, getProgramClients, getProgramHotels,
   getClientList, getClientBySlug, createClient,
-  getClientCurrentProgram,
+  getClientCurrentProgram, getClientDataWithProgram,
+  createClientProgramPayment, getClientProgramPayments
  }

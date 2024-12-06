@@ -2,47 +2,30 @@ import React from 'react';
 
 import style from './styles/current_program.module.css'
 import { useSelector } from 'react-redux';
+import ClientProgramData from '../ui/ClientProgramData';
 
-import { getClientCurrentProgram } from '../../../../api';
-
-
-export default function CurrentClientProgram() {
-  const [clientCurrentProgram, setClientCurrentProgram] = React.useState({
-    "status": "",
-    "created_at": "",
-    "price": 0,
-    "contract_status": "",
-    "program": {
-        "title": "",
-        "start_date": "",
-        "end_date": "",
-        "place": "",
-        "desc": "",
-        "price": 0,
-        "id": 0,
-        "slug": "",
-        "status": ""
-    }
-  })
-  const slug = useSelector((state) => state.client.slug)
+import { clientProgramInterface } from '../interfaces/clientProgram';
+import { getClientProgramPayments } from '../../../../api';
+import ClientProgramDetails from '../ui/ClientProgramDetails';
+import ClientProfileDetailes from '../ui/ClientProfileDetailes';
 
 
-  const clientProgram = async (clientSlug) => {
-    const response = await getClientCurrentProgram(clientSlug)
+export default function CurrentClientProgram({ clientProgramData }) {
+  const [clientPayments, setClientPayments] = React.useState([])
+
+  const clientProgramPayments = async (clientProgramId) => {
+    const response = await getClientProgramPayments(clientProgramId)
     if (response.status === 200) {
-      setClientCurrentProgram(response.data)
-      console.log(response)
+      setClientPayments(response.data)
     }
   }
-  
+
   React.useEffect(() => {
-    if (slug) {
-      clientProgram(slug)
+    if (clientProgramData?.id) {
+      clientProgramPayments(clientProgramData.id)
     }
-  }, [slug])
-
-
-
+  }, [clientProgramData?.id])
+  
   return(
     <section className={style.currentClientProgram}>
       <div className={style.clientProgramInfo}>
@@ -50,13 +33,13 @@ export default function CurrentClientProgram() {
           <h5>Текущая программа</h5>
         </div>
         <div className={style.programInfoDesc}>
-          <div className={style.programName}>
-            <h4>{clientCurrentProgram.program.title}</h4>
-          </div>
-          <div className={style.programData}>
-            <p>Начало: {clientCurrentProgram.program.start_date}</p>
-            <p>Конец: {clientCurrentProgram.program.end_date}</p>
-          </div>
+          <ClientProgramDetails
+          clientProgramData={clientProgramData ? clientProgramData : clientProgramInterface}
+          />
+          <ClientProfileDetailes
+          payments={clientPayments}
+          programPrice={clientProgramData.price}
+          />
         </div>
       </div>
     </section>

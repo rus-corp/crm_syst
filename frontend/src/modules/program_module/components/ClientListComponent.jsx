@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import style from './styles/clientInfo.module.css'
 import { handleClientCount, handleContractCount } from '../helpers';
+import { formatedContract, formatedStatus } from '../../../utils';
 
 import { getProgramClients } from '../../../api';
 import { setClientSlug } from '../../../store/clientSlice';
@@ -80,26 +81,6 @@ function ClientItem({
   clientSlug
 }) {
   const dispatch = useDispatch()
-
-  const formatedStatus = (status) => {
-    if (status === "Accepted") {
-      return 'Аванс Оплачен'
-    } else if (status === "Full Payed") {
-      return 'Полная оплата'
-    } else {
-      return 'Не оплачено'
-    }
-  }
-
-  const formatedContract = (contract) => {
-    if (contract === 'SG') {
-      return 'Подписан'
-    } else if (contract === 'SD') {
-      return 'Отправлен'
-    } else {
-      return 'Не отправлен'
-    }
-  }
 
   return (
     <Link

@@ -7,7 +7,7 @@ import HistoryClientPorgram from '../client_program/HistoryClientPorgram';
 
 
 
-export default function ClientProgram() {
+export default function ClientProgram({ programData }) {
   const [option, setOption] = React.useState(true)
 
   const handleChangeoption = (data) => {
@@ -21,7 +21,7 @@ export default function ClientProgram() {
       componentSetData={handleChangeoption}
       />
       <div className={style.clientProgramData}>
-        {option ? <CurrentClientProgram /> : <HistoryClientPorgram />}
+        {option ? <CurrentClientProgram clientProgramData={programData} /> : <HistoryClientPorgram />}
         
       </div>
     </section>

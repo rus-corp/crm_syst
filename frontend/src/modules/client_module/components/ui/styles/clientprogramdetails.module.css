@@ -1,0 +1,21 @@
+.programName {
+  text-align: center;
+}
+
+.programData {
+  width: 100%;
+  border-right: 1px solid #E4E6E8;
+  padding: 1rem;
+}
+
+
+.programDates {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 1rem;
+}
+
+.programDate > p {
+  color: #7D8592;
+}

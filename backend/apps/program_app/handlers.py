@@ -7,7 +7,7 @@ from .dals import ProgramDAL
 from . import schemas
 from core.models.program_models import Program
 from core.models.association_models import ProgramClients
-from ..client_app.dals import ClientDAL
+from ..client_app.client.dals import ClientDAL
 from .utils import data_format
 from apps.hotels_app.hotels.schemas import HotelWithRooms
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
