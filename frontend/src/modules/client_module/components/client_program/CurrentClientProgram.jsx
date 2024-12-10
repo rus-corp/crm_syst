@@ -1,8 +1,6 @@
 import React from 'react';
 
 import style from './styles/current_program.module.css'
-import { useSelector } from 'react-redux';
-import ClientProgramData from '../ui/ClientProgramData';
 
 import { clientProgramInterface } from '../interfaces/clientProgram';
 import { getClientProgramPayments } from '../../../../api';
@@ -38,7 +36,7 @@ export default function CurrentClientProgram({ clientProgramData }) {
           />
           <ClientProfileDetailes
           payments={clientPayments}
-          programPrice={clientProgramData.price}
+          programPrice={clientProgramData?.price}
           />
         </div>
       </div>

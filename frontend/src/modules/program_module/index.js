@@ -1,3 +1,4 @@
-import ProgramComponent from "./components/ProgramComponent";
+import CreateProgramComponent from "./components/create_program/CreateProgramComponent";
 
-export { ProgramComponent }
+
+export { CreateProgramComponent }

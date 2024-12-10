@@ -1,0 +1,9 @@
+.smallBtn {
+  width: 13rem;
+  text-align: center;
+}
+
+.smallBtn > button {
+  padding: .2rem .8rem;
+  margin-top: 1rem;
+}

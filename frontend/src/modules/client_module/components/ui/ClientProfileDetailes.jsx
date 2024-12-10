@@ -18,8 +18,8 @@ export default function ClientProfileDetailes({ payments, programPrice }) {
           </div>
         ))}
       </div>
-      <div className="clientProgramPrice">
-        <p>Стоимость поездки</p>
+      <div className={style.clientProgramPrice}>
+        <p>Стоимость поездки клиента</p>
         <h6>{programPrice}</h6>
       </div>
     </div>

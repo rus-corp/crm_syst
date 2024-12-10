@@ -15,7 +15,10 @@ export default function ComponentHeader({ componentName, componentDataCount, com
       leftData="Список"
       rightData="Карточки"
       componentSetData={componentSetData} />
-      <CreateNewItemBtn createDataName='Отель'/>
+      <CreateNewItemBtn
+      createDataName='Отель'
+      navi='/create_hotel'
+      />
 
     </div>
 

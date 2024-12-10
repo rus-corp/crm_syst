@@ -2,31 +2,31 @@ import React from 'react';
 
 import style from './three_switch.module.css'
 
-export default function ThreeComponentSwitch() {
+export default function ThreeComponentSwitch({ firstData, secondData, thirdData, componentSetData}) {
   const [activeOption, setActiveOption] = React.useState(0)
 
-  function handleChangeOption() {
-    setActiveOption(!activeOption)
-    // componentSetData(!activeOption)
+  function handleChangeOption(data) {
+    setActiveOption(data)
+    componentSetData(data)
   }
 
   return(
     <div className={style.switchWrapper}>
       <div className={style.activeBackground}></div>
       <div className={`${style.wrap} ${activeOption === 0 ? style.active : ''}`}
-      onClick={() => setActiveOption(0)}
+      onClick={() => handleChangeOption(0)}
       >
-        <p>Номера</p>
+        <p>{firstData}</p>
       </div>
       <div className={`${style.wrap} ${activeOption === 1 ? style.active : ''}`}
-      onClick={() => setActiveOption(1)}
+      onClick={() => handleChangeOption(1)}
       >
-        <p>Программы</p>
+        <p>{secondData}</p>
       </div>
       <div className={`${style.wrap} ${activeOption === 2 ? style.active : ''}`}
-      onClick={() => setActiveOption(2)}
+      onClick={() => handleChangeOption(2)}
       >
-        <p>История</p>
+        <p>{thirdData}</p>
       </div>
     </div>
   );

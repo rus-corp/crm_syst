@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 
-import { CrmPage, HotelPage, ClientPage } from "../pages";
+import { CrmPage, HotelPage, ClientPage, CreateProgramPage } from "../pages";
 import ProgramPage from "../pages/program_page/ProgramPage";
 import { HotelMainComponent } from "../modules";
 import HotelProfileMainComponent from "../modules/hotels_module/components/hotel_profile/HotelProfileMainComponent";
@@ -18,6 +18,10 @@ export const router = createBrowserRouter([
   {
     path: '/programs',
     element: <ProgramPage />
+  },
+  {
+    path: '/create_program',
+    element: <CreateProgramPage />
   },
   {
     path: '/clients',
