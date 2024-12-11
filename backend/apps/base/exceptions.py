@@ -13,7 +13,7 @@ class AppBaseExceptions:
   
   
   @staticmethod
-  def item_not_found(item_data):
+  def item_not_found(item_data: str):
     raise HTTPException(
       status_code=status.HTTP_404_NOT_FOUND,
       detail=f'{item_data} not found'

@@ -69,6 +69,7 @@ class ClientProfile(Base):
   comment: Mapped[str] = mapped_column(nullable=True)
   city: Mapped[str]
   date_of_birth: Mapped[date]
+  community: Mapped[bool] = mapped_column(default=False)
   
   client_id: Mapped[int] = mapped_column(ForeignKey('client.id'))
   client: Mapped[Client] = relationship(back_populates='profile')
