@@ -18,3 +18,18 @@ class AppBaseExceptions:
       status_code=status.HTTP_404_NOT_FOUND,
       detail=f'{item_data} not found'
     )
+  
+  @staticmethod
+  def item_create_error(item_data: str):
+    raise HTTPException(
+      status_code=status.HTTP_403_FORBIDDEN,
+      detail=f'Does not create {item_data}'
+    )
+  
+  
+  @staticmethod
+  def need_data(item_data: str):
+    raise HTTPException(
+      status_code=status.HTTP_404_NOT_FOUND,
+      detail=f'Need Data {item_data} for create'
+    )

@@ -1,8 +1,8 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, ConfigDict
 from datetime import date
 
-
+from apps.base.association_schemas import ProgramClientAssociationClientData
 
 
 
@@ -32,9 +32,11 @@ class ProgramBaseResponse(ProgramBase):
     from_attributes = True
 
 
+
 class DeleteClientFromProgramRequest(BaseModel):
   client_id: int
   program_id: int
+
 
 
 class AppendClientToProgramRequest(DeleteClientFromProgramRequest):
@@ -42,7 +44,7 @@ class AppendClientToProgramRequest(DeleteClientFromProgramRequest):
 
 
 
-class ProgramResponseForAppendHoteAndRoom(BaseModel):
+class ProgramResponseForAppendHotelAndRoom(BaseModel):
   id: int
   title: str
   place: str
@@ -50,9 +52,8 @@ class ProgramResponseForAppendHoteAndRoom(BaseModel):
 
 
 
-class ClientProgramResponse(ProgramBase):
-  id: int
-  slug: str
-  status: str
-  
-  model_config = ConfigDict(from_attributes=True)
+
+
+class ProgramClientsResponse(ProgramBaseResponse):
+  program_clients_detail: Optional[List[ProgramClientAssociationClientData]] = []
+

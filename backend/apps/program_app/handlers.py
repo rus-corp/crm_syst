@@ -21,6 +21,7 @@ class ProgramHandler(BaseHandler):
     self.program_dal = ProgramDAL(self.session)
   
   
+  
   async def _create_program(
     self,
     create_program_body: schemas.CreateProgramRequets
@@ -28,6 +29,9 @@ class ProgramHandler(BaseHandler):
     async with self.session.begin():
       body_data = create_program_body.model_dump(exclude_none=True)
       slug = create_slug(body_data['title'] + str(body_data['start_date']))
+      check_program = await self.program_dal.get_program_by_slug(slug)
+      if check_program:
+        slug += body_data['end_date']
       body_data['slug'] = slug
       created_program = await self.program_dal.create_program(**body_data)
       return schemas.ProgramBaseResponse(
@@ -44,27 +48,33 @@ class ProgramHandler(BaseHandler):
   
   
   async def _get_programs_list(self):
-    async with self.session.begin():
-      programs_list = await self.program_dal.get_active_programs()
-      programs = []
-      for program in programs_list: # type Program
-        duration = program.duration()
-        programs.append(
-          schemas.ProgramBaseResponse(
-            id=program.id,
-            title=program.title,
-            start_date=program.start_date,
-            end_date=program.end_date,
-            place=program.place,
-            status=program.status,
-            price=program.price,
-            desc=program.desc,
-            slug=program.slug,
-            duration=duration
-          )
+    programs_list = await self.program_dal.get_active_programs()
+    programs = []
+    for program in programs_list: # type Program
+      duration = program.duration()
+      programs.append(
+        schemas.ProgramBaseResponse(
+          id=program.id,
+          title=program.title,
+          start_date=program.start_date,
+          end_date=program.end_date,
+          place=program.place,
+          status=program.status,
+          price=program.price,
+          desc=program.desc,
+          slug=program.slug,
+          duration=duration
         )
-      return programs
-
+      )
+    return programs
+  
+  
+  async def _get_program_by_slug(
+    self,
+    program_slug: str
+  ):
+    program = await self.program_dal.get_program_by_slug(program_slug)
+    return program
   
   
   

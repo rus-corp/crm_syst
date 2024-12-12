@@ -1,8 +1,8 @@
 """first
 
-Revision ID: 373ca5853d12
+Revision ID: cf9014709856
 Revises: 
-Create Date: 2024-11-29 21:54:03.627129
+Create Date: 2024-12-12 17:09:03.455699
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '373ca5853d12'
+revision: str = 'cf9014709856'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -35,6 +35,13 @@ def upgrade() -> None:
     )
     op.create_index('client_indx', 'client', ['last_name', 'name'], unique=False)
     op.create_index(op.f('ix_client_email'), 'client', ['email'], unique=True)
+    op.create_table('employees',
+    sa.Column('first_name', sa.String(), nullable=False),
+    sa.Column('last_name', sa.String(), nullable=False),
+    sa.Column('position', sa.Enum('PM', 'AM', 'AV', 'LR', 'PH', 'PV', 'CK', 'KV', name='employeeposition'), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('hotel',
     sa.Column('title', sa.String(), nullable=False),
     sa.Column('address', sa.String(), nullable=False),
@@ -47,7 +54,7 @@ def upgrade() -> None:
     )
     op.create_index(op.f('ix_hotel_email'), 'hotel', ['email'], unique=True)
     op.create_index(op.f('ix_hotel_title'), 'hotel', ['title'], unique=False)
-    op.create_table('program',
+    op.create_table('programs',
     sa.Column('title', sa.String(), nullable=False),
     sa.Column('start_date', sa.Date(), nullable=False),
     sa.Column('end_date', sa.Date(), nullable=False),
@@ -60,7 +67,7 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('slug')
     )
-    op.create_index(op.f('ix_program_title'), 'program', ['title'], unique=False)
+    op.create_index(op.f('ix_programs_title'), 'programs', ['title'], unique=False)
     op.create_table('client_document',
     sa.Column('doc_type', sa.Enum('PS', 'CT', name='clientdocumenttype'), nullable=False),
     sa.Column('series', sa.String(length=10), nullable=False),
@@ -81,17 +88,28 @@ def upgrade() -> None:
     sa.Column('comment', sa.String(), nullable=True),
     sa.Column('city', sa.String(), nullable=False),
     sa.Column('date_of_birth', sa.Date(), nullable=False),
+    sa.Column('community', sa.Boolean(), nullable=False),
     sa.Column('client_id', sa.Integer(), nullable=False),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['client_id'], ['client.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('client_id')
     )
+    op.create_table('expenses',
+    sa.Column('category', sa.Enum('AC', 'TR', 'FD', 'SR', name='expensecategory'), nullable=False),
+    sa.Column('amount', sa.Integer(), nullable=False),
+    sa.Column('employee_id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['employee_id'], ['employees.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('category', 'amount', 'employee_id')
+    )
     op.create_table('hotel_rooms',
     sa.Column('room_type', sa.String(), nullable=False),
     sa.Column('room_price', sa.Integer(), nullable=False),
     sa.Column('room_volume', sa.Integer(), nullable=False),
     sa.Column('hotel_id', sa.Integer(), nullable=False),
+    sa.Column('desc', sa.String(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['hotel_id'], ['hotel.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -105,7 +123,7 @@ def upgrade() -> None:
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['client_id'], ['client.id'], ),
-    sa.ForeignKeyConstraint(['program_id'], ['program.id'], ),
+    sa.ForeignKeyConstraint(['program_id'], ['programs.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('program_id', 'client_id')
     )
@@ -132,13 +150,33 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('profile_id', 'document_id')
     )
+    op.create_table('program_client_room',
+    sa.Column('program_client_id', sa.Integer(), nullable=False),
+    sa.Column('room_id', sa.Integer(), nullable=False),
+    sa.Column('enty_date', sa.Date(), nullable=False),
+    sa.Column('departue_date', sa.Date(), nullable=False),
+    sa.Column('comment', sa.String(), nullable=True),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['program_client_id'], ['program_clients.id'], ),
+    sa.ForeignKeyConstraint(['room_id'], ['hotel_rooms.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('program_client_id', 'room_id')
+    )
+    op.create_table('program_expenses',
+    sa.Column('program_id', sa.Integer(), nullable=False),
+    sa.Column('expenses_id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['expenses_id'], ['expenses.id'], ),
+    sa.ForeignKeyConstraint(['program_id'], ['programs.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('program_rooms',
     sa.Column('program_id', sa.Integer(), nullable=False),
     sa.Column('hotel_id', sa.Integer(), nullable=False),
     sa.Column('room_id', sa.Integer(), nullable=False),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['hotel_id'], ['hotel.id'], ),
-    sa.ForeignKeyConstraint(['program_id'], ['program.id'], ),
+    sa.ForeignKeyConstraint(['program_id'], ['programs.id'], ),
     sa.ForeignKeyConstraint(['room_id'], ['hotel_rooms.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('program_id', 'hotel_id', 'room_id')
@@ -149,17 +187,21 @@ def upgrade() -> None:
 def downgrade() -> None:
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_table('program_rooms')
+    op.drop_table('program_expenses')
+    op.drop_table('program_client_room')
     op.drop_table('client_family')
     op.drop_table('client_Program_payment')
     op.drop_table('program_clients')
     op.drop_table('hotel_rooms')
+    op.drop_table('expenses')
     op.drop_table('client_profile')
     op.drop_table('client_document')
-    op.drop_index(op.f('ix_program_title'), table_name='program')
-    op.drop_table('program')
+    op.drop_index(op.f('ix_programs_title'), table_name='programs')
+    op.drop_table('programs')
     op.drop_index(op.f('ix_hotel_title'), table_name='hotel')
     op.drop_index(op.f('ix_hotel_email'), table_name='hotel')
     op.drop_table('hotel')
+    op.drop_table('employees')
     op.drop_index(op.f('ix_client_email'), table_name='client')
     op.drop_index('client_indx', table_name='client')
     op.drop_table('client')

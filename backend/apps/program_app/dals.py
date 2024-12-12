@@ -14,6 +14,8 @@ from core.models.utils import ProgramStatus
 
 
 class ProgramDAL(BaseDAL):
+  model = Program
+  
   async def create_program(
     self,
     title: str,
@@ -39,7 +41,7 @@ class ProgramDAL(BaseDAL):
   
   
   async def get_all_programs(self):
-    return await self.base_get_all_items(Program)
+    return await self.base_get_all_items(model=self.model)
   
   
   async def get_active_programs(self):
@@ -49,8 +51,19 @@ class ProgramDAL(BaseDAL):
   
   
   async def get_program_by_id(self, program_id: int):
-    query = select(Program).where(Program.id == program_id)
-    return await self.db_session.scalar(query)
+    result = await self.base_get_one_item(
+      model=self.model,
+      item_id=program_id
+    )
+    return result
+  
+  
+  async def get_program_by_slug(self, program_slug: str):
+    result = await self.base_get_one_item_by_slug(
+      model=self.model,
+      item_slug=program_slug
+    )
+    return result
   
   
   async def get_program_by_id_with_clients(self, program_id: int):
@@ -113,3 +126,8 @@ class ProgramDAL(BaseDAL):
     result = await self.db_session.execute(query)
     # return result.scalar()
     return result.scalars().unique().all()
+  
+  
+  async def get_program_for_append_expenses(self, program_id: int):
+    query = select(Program).where(Program.id == program_id).options(selectinload(Program.expenses))
+    return await self.db_session.scalar(query)

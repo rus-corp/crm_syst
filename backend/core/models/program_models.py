@@ -11,12 +11,13 @@ if TYPE_CHECKING:
   from .client_models import Client
   from .hotels_models import Hotels, HotelRooms
   from .association_models import ProgramClients, ProgramRooms, ProgramClientRoom
+  from .staff_models import Expenses
 
 
 
 
 class Program(Base):
-  __tablename__ = 'program'
+  __tablename__ = 'programs'
   
   title: Mapped[str] = mapped_column(index=True)
   start_date: Mapped[date]
@@ -30,6 +31,12 @@ class Program(Base):
   program_clients_detail: Mapped[list['ProgramClients']] = relationship(back_populates='program')
   
   program_hotel_room: Mapped[list['ProgramRooms']] = relationship(back_populates='program')
+  expenses: Mapped[List['Expenses']] = relationship(
+    secondary='program_expenses',
+    back_populates='programs'
+  )
+  
+  
   # program: Mapped[List['Hotels']] = relationship(secondary='program_rooms', back_populates='programs')
   # rooms: Mapped[List['HotelRooms']] = relationship(secondary='program_rooms', back_populates='programs')
   

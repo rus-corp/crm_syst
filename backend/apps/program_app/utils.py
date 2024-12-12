@@ -1,5 +1,4 @@
 from typing import List, Dict
-from apps.program_app.schemas import ProgramResponseForAppendHoteAndRoom
 from apps.hotels_app.hotels.schemas import HotelForAppendToProgramResponse
 from apps.hotels_app.hotel_rooms.schemas import RoomForAppendToProgramResponse
 from apps.hotels_app.hotels.schemas import HotelWithRooms

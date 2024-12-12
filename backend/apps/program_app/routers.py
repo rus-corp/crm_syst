@@ -3,9 +3,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Depends, status
 
 
+
+
 from core.database import get_db
 from . import schemas
 from .handlers import ProgramHandler
+from apps.base.base_schemas import BaseMessageResponseModel
+from apps.base.association_schemas import ProgramClientsPayments
 
 
 
@@ -48,10 +52,27 @@ async def get_all_programs(
   return program_list
 
 
+@router.get(
+  '/{program_slug}',
+  status_code=status.HTTP_200_OK,
+  response_model=schemas.ProgramBaseResponse
+)
+async def get_program_by_slug(
+  program_slug: str,
+  session: AsyncSession = Depends(get_db)
+):
+  program_handler = ProgramHandler(session)
+  program = await program_handler._get_program_by_slug(
+    program_slug=program_slug
+  )
+  return program
+
+
 
 @router.get(
   '/clients/{program_id}',
-  status_code=status.HTTP_200_OK
+  status_code=status.HTTP_200_OK,
+  response_model=schemas.ProgramClientsResponse
 )
 async def get_program_clients(
   program_id: int,
@@ -66,7 +87,8 @@ async def get_program_clients(
 
 @router.post(
   '/append',
-  status_code=status.HTTP_201_CREATED
+  status_code=status.HTTP_201_CREATED,
+  response_model=BaseMessageResponseModel
 )
 async def appen_client_to_program(
   body: schemas.AppendClientToProgramRequest,
@@ -93,7 +115,8 @@ async def delete_client_from_program(
 
 @router.get(
   '/program_clients_payments/{program_id}',
-  status_code=status.HTTP_200_OK
+  status_code=status.HTTP_200_OK,
+  response_model=List[ProgramClientsPayments]
 )
 async def get_program_clients_with_payments(
   program_id: int,
