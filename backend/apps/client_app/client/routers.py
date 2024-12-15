@@ -88,6 +88,16 @@ async def get_client_program_with_profile_and_doc(
   return client_program
 
 
+@router.post(
+  ''
+)
+async def create_client_with_profile():...
+
+
+@router.post(
+  ''
+)
+async def create_client_with_profile_and_doc():...
 
 # @router.patch(
 #   '/{client_slug}',

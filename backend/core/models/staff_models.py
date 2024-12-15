@@ -11,6 +11,12 @@ if TYPE_CHECKING:
   from .program_models import Program
 
 
+# class CostItem(Base):
+#   __tablename__ = 'cost_items'
+#   title: Mapped[str]
+
+
+
 
 class Employee(Base):
   __tablename__ = 'employees'

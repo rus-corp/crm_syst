@@ -15,7 +15,7 @@ class DocumentBase(BaseModel):
 
 
 
-class DocumnetResponse(DocumentBase):
+class DocumentResponse(DocumentBase):
   id: int
 
 
@@ -30,4 +30,3 @@ class UpdateDocumentRequest(BaseModel):
   issued_by: Optional[str] = None
   doc_type: Optional[ClientDocumentType] = None
   date_of_issue: Optional[date] = None
-  client_id: Optional[int] = None

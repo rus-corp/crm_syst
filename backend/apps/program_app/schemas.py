@@ -22,6 +22,18 @@ class CreateProgramRequets(ProgramBase):
   pass
 
 
+class ProgramUpdateRequest(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  
+  title: Optional[str] = None
+  start_date: Optional[date] = None
+  end_date: Optional[date] = None
+  place: Optional[str] = None
+  desc: Optional[str] = None
+  price: Optional[int] = None
+
+
+
 class ProgramBaseResponse(ProgramBase):
   id: int
   slug: str

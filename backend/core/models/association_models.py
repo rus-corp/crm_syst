@@ -68,7 +68,7 @@ class ProgramClientRoom(Base):
   program_client_id: Mapped[int] = mapped_column(ForeignKey('program_clients.id'))
   room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
   
-  enty_date:Mapped[date]
+  entry_date:Mapped[date]
   departue_date: Mapped[date]
   comment: Mapped[str] = mapped_column(nullable=True)
   

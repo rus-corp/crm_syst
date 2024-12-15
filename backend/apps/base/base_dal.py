@@ -24,7 +24,7 @@ class BaseDAL:
     return result.scalars().all()
   
   
-  async def base_get_one_item(self, model, item_id):
+  async def base_get_one_item(self, model, item_id: int):
     query = select(model).where(model.id == item_id)
     return await self.db_session.scalar(query)
   

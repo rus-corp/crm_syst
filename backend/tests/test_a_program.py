@@ -24,9 +24,34 @@ async def test_create_program(ac: AsyncClient):
 
 
 
-# async def test_get_one_program(ac: AsyncClient):
-  
+async def test_get_one_program(ac: AsyncClient):
+  programs_list = await ac.get('/programs/')
+  assert programs_list.status_code == 200
+  programs_list_data = programs_list.json()
+  program_slug = programs_list_data[0]['slug']
+  programItem = await ac.get(f'/programs/{program_slug}')
+  assert programItem.status_code == 200
+  programItemData = programItem.json()
+  program = schemas.ProgramBaseResponse(**programItemData)
+  assert program.id == programs_list_data[0]['id']
+  assert program.title == programs_list_data[0]['title']
 
-# async def test_update_program(ac: AsyncClient):...
+
+
+async def test_update_program(ac: AsyncClient):
+  updated_data = {'title': 'New Program Title'}
+  programs_list = await ac.get('/programs/')
+  assert programs_list.status_code == 200
+  programs_list_data = programs_list.json()
+  program_slug = programs_list_data[0]['slug']
+  updatedProgramItem = await ac.patch(f'/programs/{program_slug}', json=updated_data)
+  assert updatedProgramItem.status_code == 200
+  updatedProgramJson = updatedProgramItem.json()
+  programItem = await ac.get(f'/programs/{program_slug}')
+  assert programItem.status_code == 200
+  programDataJson = programItem.json()
+  program = schemas.ProgramBaseResponse(**programDataJson)
+  assert program.id == updatedProgramJson['id']
+  assert program.title == updated_data['title']
 
 

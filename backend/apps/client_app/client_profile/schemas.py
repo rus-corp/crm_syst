@@ -17,26 +17,30 @@ class ProfileBase(BaseModel):
   city: str
   client_id: int
   date_of_birth: date
+  
 
 
 class ProfileResponse(ProfileBase):
   id: int
+  community: bool
   nutrition_features: Optional[str] = None
   comment: Optional[str] = None
+
 
 
 class ProfileCreateRequest(ProfileBase):
+  community: Optional[bool] = None
   nutrition_features: Optional[str] = None
   comment: Optional[str] = None
 
 
-class ProfilUpdateRequest(BaseModel):
+class ProfileUpdateRequest(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   
   shirt_size: Optional[str] = None
   status: Optional[ClientStatus] = None
   city: Optional[str] = None
-  client_id: Optional[int] = None
   date_of_birth: Optional[date] = None
   nutrition_features: Optional[str] = None
   comment: Optional[str] = None
+  community: Optional[bool] = None

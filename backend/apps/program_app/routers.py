@@ -69,6 +69,25 @@ async def get_program_by_slug(
 
 
 
+@router.patch(
+  '/{program_slug}',
+  status_code=status.HTTP_200_OK,
+  response_model=schemas.ProgramBaseResponse
+)
+async def update_program(
+  program_slug: str,
+  body: schemas.ProgramUpdateRequest,
+  session: AsyncSession = Depends(get_db)
+):
+  program_handler = ProgramHandler(session)
+  updated_program = await program_handler._update_program(
+    program_slug=program_slug,
+    values=body
+  )
+  return updated_program
+
+
+
 @router.get(
   '/clients/{program_id}',
   status_code=status.HTTP_200_OK,
@@ -90,7 +109,7 @@ async def get_program_clients(
   status_code=status.HTTP_201_CREATED,
   response_model=BaseMessageResponseModel
 )
-async def appen_client_to_program(
+async def append_client_to_program(
   body: schemas.AppendClientToProgramRequest,
   session: AsyncSession = Depends(get_db)
 ):

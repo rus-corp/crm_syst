@@ -8,26 +8,13 @@ from core.models.utils import ClientDocumentType
 
 
 class ClientDocumentDAL(BaseDAL):
+  model = ClientDocument
 
-  async def create_client_document(
-    self,
-    series: str,
-    number: str,
-    date_of_issue: date,
-    issued_by: str,
-    client_id: int,
-    doc_type: ClientDocumentType,
-  ):
-    client_document = ClientDocument(
-      series=series,
-      number=number,
-      date_of_issue=date_of_issue,
-      issued_by=issued_by,
-      client_id=client_id,
-      doc_type=doc_type
+  async def create_client_document(self, values: dict):
+    client_document = self.base_create_item(
+      model=self.model,
+      values=values
     )
-    self.db_session.add(client_document)
-    await self.db_session.commit()
     return client_document
   
   
@@ -36,7 +23,7 @@ class ClientDocumentDAL(BaseDAL):
     return await self.db_session.scalar(query)
   
   
-  async def update_client_doc(self, client_id: int):
-    query = update(ClientDocument).where(ClientDocument.client_id == client_id).returning(ClientDocument)
+  async def update_client_doc(self, client_id: int, values):
+    query = update(ClientDocument).where(ClientDocument.client_id == client_id).values(**values).returning(ClientDocument)
     result = await self.db_session.scalar(query)
     return result

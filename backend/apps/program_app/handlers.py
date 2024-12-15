@@ -11,7 +11,7 @@ from ..client_app.client.dals import ClientDAL
 from .utils import data_format
 from apps.hotels_app.hotels.schemas import HotelWithRooms
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
-
+from apps.base.exceptions import AppBaseExceptions
 
 
 
@@ -74,7 +74,19 @@ class ProgramHandler(BaseHandler):
     program_slug: str
   ):
     program = await self.program_dal.get_program_by_slug(program_slug)
-    return program
+    duration = program.duration()
+    return schemas.ProgramBaseResponse(
+      id=program.id,
+      title=program.title,
+      start_date=program.start_date,
+      end_date=program.end_date,
+      place=program.place,
+      status=program.status,
+      price=program.price,
+      desc=program.desc,
+      slug=program.slug,
+      duration=duration
+    )
   
   
   
@@ -151,3 +163,31 @@ class ProgramHandler(BaseHandler):
           )
         )
       return response_list
+  
+  
+  async def _update_program(
+    self,
+    program_slug: str,
+    values: schemas.ProgramUpdateRequest
+  ):
+    async with self.session.begin():
+      body_data = values.model_dump(exclude_none=True)
+      updated_program = await self.program_dal.update_program_by_slug(
+        program_slug=program_slug,
+        values=body_data
+      )
+      if updated_program is None:
+        return AppBaseExceptions.item_not_found('Program')
+      duration = updated_program.duration()
+      return schemas.ProgramBaseResponse(
+        id=updated_program.id,
+        title=updated_program.title,
+        start_date=updated_program.start_date,
+        end_date=updated_program.end_date,
+        place=updated_program.place,
+        status=updated_program.status,
+        price=updated_program.price,
+        desc=updated_program.desc,
+        slug=updated_program.slug,
+        duration=duration
+      )

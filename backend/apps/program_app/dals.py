@@ -88,8 +88,8 @@ class ProgramDAL(BaseDAL):
     return result.scalars().unique().all()
   
   
-  async def update_program_by_id(self, program_id: int, **values):
-    stmt = update(Program).where(Program.id == program_id).values(values).returning(Program)
+  async def update_program_by_slug(self, program_slug: str, values):
+    stmt = update(Program).where(Program.slug == program_slug).values(**values).returning(Program)
     result = await self.db_session.execute(stmt)
     return result.scalar()
   

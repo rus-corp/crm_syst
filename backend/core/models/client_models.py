@@ -80,7 +80,7 @@ class ClientProfile(Base):
 
 class ClientDocument(Base):
   __tablename__ = 'client_document'
-  __table_args__ = (UniqueConstraint('client_id'),)
+  __table_args__ = (UniqueConstraint('client_id', 'series', 'number'),)
   
   doc_type: Mapped[ClientDocumentType] = mapped_column(SQLEnum(ClientDocumentType))
   series: Mapped[str] = mapped_column(String(10))
