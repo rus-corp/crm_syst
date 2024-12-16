@@ -4,16 +4,24 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_db
 from . import schemas
 from .handler import ClientProfileHandler
+from apps.base.base_schemas import BaseMessageResponseModel
+
+
 
 router = APIRouter(
   prefix='/profile',
   tags=['Client Profile']
 )
 
+
+
 @router.post(
   '/',
   status_code=status.HTTP_201_CREATED,
-  response_model=schemas.ProfileResponse
+  response_model=schemas.ProfileResponse,
+  responses={
+    404: {'model': BaseMessageResponseModel}
+  }
 )
 async def create_client_profile(
   body: schemas.ProfileCreateRequest,
@@ -22,6 +30,8 @@ async def create_client_profile(
   profile_handler  = ClientProfileHandler(session)
   client_profile = await profile_handler._create_client_profile(body)
   return client_profile
+
+
 
 @router.get(
   '/{client_id}',
@@ -35,6 +45,7 @@ async def get_client_profile(
   profile_handler  = ClientProfileHandler(session)
   client_profile = await profile_handler._get_client_profile(client_id)
   return client_profile
+
 
 
 @router.patch(

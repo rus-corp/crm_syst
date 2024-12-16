@@ -38,7 +38,7 @@ class ClientDAL(BaseDAL):
     return await self.base_get_all_items(Client)
   
   
-  async def get_client_by_id(self, client_id):
+  async def get_client_by_id(self, client_id: int):
     query = select(Client).where(Client.id == client_id)
     result = await self.db_session.scalar(query)
     return result

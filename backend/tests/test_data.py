@@ -183,13 +183,20 @@ test_clients_data = [
         "second_name": "Олеговна",
         "phone": "+79983334466",
         "email": "darya.zhukova@example.com"
+    },
+    {
+        "name": "Алексей",
+        "last_name": "Иванов",
+        "second_name": "Петрович",
+        "phone": "+799900000",
+        "email": "alexey.ivanovich@example.com"
     }
 ]
 
 test_client_details = [
     {
         "shirt_size": "M",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": "Вегетарианец",
         "comment": "Постоянный клиент",
         "city": "Москва",
@@ -199,7 +206,7 @@ test_client_details = [
     },
     {
         "shirt_size": "L",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": "Аллергия на орехи",
         "comment": None,
         "city": "Санкт-Петербург",
@@ -209,7 +216,7 @@ test_client_details = [
     },
     {
         "shirt_size": "S",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": None,
         "comment": "Просьба звонить после 18:00",
         "city": "Новосибирск",
@@ -219,7 +226,7 @@ test_client_details = [
     },
     {
         "shirt_size": "M",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": "Безглютеновая диета",
         "comment": "Рекомендован другом",
         "city": "Екатеринбург",
@@ -229,7 +236,7 @@ test_client_details = [
     },
     {
         "shirt_size": "L",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": None,
         "comment": None,
         "city": "Казань",
@@ -239,7 +246,7 @@ test_client_details = [
     },
     {
         "shirt_size": "XL",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": "Веган",
         "comment": "Не переносит молочные продукты",
         "city": "Челябинск",
@@ -249,7 +256,7 @@ test_client_details = [
     },
     {
         "shirt_size": "M",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": None,
         "comment": "Любит активный отдых",
         "city": "Самара",
@@ -259,7 +266,7 @@ test_client_details = [
     },
     {
         "shirt_size": "S",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": "Кетодиета",
         "comment": None,
         "city": "Ростов-на-Дону",
@@ -269,7 +276,7 @@ test_client_details = [
     },
     {
         "shirt_size": "M",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": None,
         "comment": "Участвует в городских мероприятиях",
         "city": "Уфа",
@@ -279,19 +286,29 @@ test_client_details = [
     },
     {
         "shirt_size": "L",
-        "status": "NW",
+        "status": "New",
         "nutrition_features": "Не ест мясо",
         "comment": "Постоянно участвует в опросах",
         "city": "Волгоград",
         "date_of_birth": "1988-01-13",
         "community": True,
         "client_id": 10
-    }
+    },
+    {
+        "shirt_size": "M",
+        "status": "New",
+        "nutrition_features": "Вегетарианец",
+        "comment": "Постоянный клиент",
+        "city": "Москва",
+        "date_of_birth": "1990-05-15",
+        "community": True,
+        "client_id": 101
+    },
 ]
 
 test_client_documents = [
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "4510",
         "number": "1234567890",
         "date_of_issue": "2010-05-15",
@@ -299,7 +316,7 @@ test_client_documents = [
         "client_id": 1
     },
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "4012",
         "number": "9876543210",
         "date_of_issue": "2015-08-22",
@@ -307,7 +324,7 @@ test_client_documents = [
         "client_id": 2
     },
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "5403",
         "number": "1122334455",
         "date_of_issue": "2018-03-10",
@@ -315,7 +332,7 @@ test_client_documents = [
         "client_id": 3
     },
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "3204",
         "number": "6677889900",
         "date_of_issue": "2017-07-05",
@@ -323,7 +340,7 @@ test_client_documents = [
         "client_id": 4
     },
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "8706",
         "number": "9988776655",
         "date_of_issue": "2014-12-01",
@@ -331,7 +348,7 @@ test_client_documents = [
         "client_id": 5
     },
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "1007",
         "number": "4455667788",
         "date_of_issue": "2012-11-18",
@@ -339,7 +356,7 @@ test_client_documents = [
         "client_id": 6
     },
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "6511",
         "number": "2233445566",
         "date_of_issue": "2013-04-25",
@@ -347,7 +364,7 @@ test_client_documents = [
         "client_id": 7
     },
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "4412",
         "number": "7788990011",
         "date_of_issue": "2020-09-30",
@@ -355,7 +372,7 @@ test_client_documents = [
         "client_id": 8
     },
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "3905",
         "number": "5566778899",
         "date_of_issue": "2019-06-20",
@@ -363,12 +380,20 @@ test_client_documents = [
         "client_id": 9
     },
     {
-        "doc_type": "PASSPORT",
+        "doc_type": "Passport",
         "series": "2710",
         "number": "3344556677",
         "date_of_issue": "2016-01-13",
         "issued_by": "УФМС России по г. Волгограду",
         "client_id": 10
+    },
+    {
+        "doc_type": "Passport",
+        "series": "2711",
+        "number": "3341556677",
+        "date_of_issue": "2016-01-13",
+        "issued_by": "УФМС России по г. Волгограду",
+        "client_id": 99
     }
 ]
 
@@ -413,6 +438,7 @@ test_hotels = [
         "city": "Казань",
         "email": "kazanresort@example.com"
     }
+    
 ]
 
 

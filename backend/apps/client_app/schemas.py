@@ -7,7 +7,7 @@ from datetime import date
 
 
 from .client_profile.schemas import ProfileResponse
-from .client_doc.schemas import DocumnetResponse
+from .client_doc.schemas import DocumentResponse
 
 
 
@@ -57,7 +57,19 @@ class BaseShowClient(BaseModel):
 
 class ShowClientProfileDocument(BaseShowClient):
   profile: ProfileResponse
-  document: DocumnetResponse
+  document: DocumentResponse
+
+
+
+class UpdateClientRequest(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  last_name: Optional[str] = None
+  name: Optional[str] = None
+  second_name: Optional[str] = None
+  phone: Optional[str] = None
+  email: Optional[str] = None
+
+
 
 
 

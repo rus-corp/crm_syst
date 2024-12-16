@@ -4,8 +4,14 @@ from apps.base.base_handler import BaseHandler
 from .dal import ClientProfileDAL
 from . import schemas
 from apps.base.exceptions import AppBaseExceptions
+from ..mixin import ClientMixin
+from apps.base.exceptions import AppBaseExceptions
 
-class ClientProfileHandler(BaseHandler):
+
+
+
+
+class ClientProfileHandler(ClientMixin, BaseHandler):
   def __init__(self, session):
     super().__init__(session)
     self.profile_dal = ClientProfileDAL(self.session)
@@ -14,6 +20,9 @@ class ClientProfileHandler(BaseHandler):
   async def _create_client_profile(self, values:schemas.ProfileCreateRequest):
     async with self.session.begin():
       body_data = values.model_dump(exclude_none=True)
+      has_client = await self.get_client_data(body_data['client_id'])
+      if has_client is None:
+        return AppBaseExceptions.item_not_found(item_data='Client')
       created_profile = await self.profile_dal.create_profile(body_data)
       if created_profile is None:
         raise AppBaseExceptions.item_not_found(item_data='Client')

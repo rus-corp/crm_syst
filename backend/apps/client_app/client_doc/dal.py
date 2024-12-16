@@ -10,8 +10,8 @@ from core.models.utils import ClientDocumentType
 class ClientDocumentDAL(BaseDAL):
   model = ClientDocument
 
-  async def create_client_document(self, values: dict):
-    client_document = self.base_create_item(
+  async def create_client_document(self, values):
+    client_document = await self.base_create_item(
       model=self.model,
       values=values
     )

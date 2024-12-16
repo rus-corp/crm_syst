@@ -3,9 +3,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from apps.base.base_handler import BaseHandler
 from .dal import ClientDocumentDAL
 from . import schemas
+from ..mixin import ClientMixin
+from apps.base.exceptions import AppBaseExceptions
 
 
-class ClientDocumentHandler(BaseHandler):
+class ClientDocumentHandler(ClientMixin, BaseHandler):
   def __init__(self, session):
     super().__init__(session)
     self.doc_dal = ClientDocumentDAL(self.session)
@@ -14,6 +16,9 @@ class ClientDocumentHandler(BaseHandler):
   async def _create_client_doc(self, values: schemas.CreateDocumentRequest):
     async with self.session.begin():
       body_data = values.model_dump()
+      has_client = await self.get_client_data(client_id=body_data['client_id'])
+      if has_client is None:
+        return AppBaseExceptions.item_not_found(item_data='Client')
       client_doc = await self.doc_dal.create_client_document(body_data)
       return client_doc
   

@@ -5,19 +5,23 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_db
 from . import schemas
 from .handler import ClientDocumentHandler
+from apps.base.base_schemas import BaseMessageResponseModel
 
 
 
 router = APIRouter(
-  prefix='doc',
+  prefix='/doc',
   tags=['Docs']
 )
 
 
 @router.post(
   '/',
-  status_code=status.HTTP_200_OK,
-  response_model=schemas.DocumentResponse
+  status_code=status.HTTP_201_CREATED,
+  response_model=schemas.DocumentResponse,
+  responses={
+    404: {'model': BaseMessageResponseModel}
+  }
 )
 async def create_client_doc(
   body: schemas.CreateDocumentRequest,
