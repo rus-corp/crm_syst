@@ -121,7 +121,7 @@ async def delete_hotel(
 
 
 @router.post(
-  '/append_hotel_to_program',
+  '/append_room_to_program',
   status_code=status.HTTP_201_CREATED,
   response_model=schemas.ProgramHotelRoomResponse
 )
@@ -134,3 +134,16 @@ async def append_hotel_to_program(
     body
   )
   return appended_hotel
+
+
+@router.delete(
+  '/delete_room_from_program',
+  status_code=status.HTTP_200_OK,
+)
+async def delete_room_from_program(
+  body: schemas.AppendHotelAndRoomToProgram,
+  session: AsyncSession = Depends(get_db)
+):
+  hotel_handler = HotelHandler(session)
+  deleted_room = await hotel_handler.
+  return deleted_room

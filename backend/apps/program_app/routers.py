@@ -105,7 +105,7 @@ async def get_program_clients(
 
 
 @router.post(
-  '/append',
+  '/append_client',
   status_code=status.HTTP_201_CREATED,
   response_model=BaseMessageResponseModel
 )
@@ -120,7 +120,7 @@ async def append_client_to_program(
 
 
 @router.post(
-  '/delete',
+  '/delete_client',
   status_code=status.HTTP_200_OK
 )
 async def delete_client_from_program(
@@ -130,6 +130,7 @@ async def delete_client_from_program(
   program_handler = ProgramHandler(session)
   deleted_client = await program_handler._delete_client_from_program(body)
   return deleted_client
+
 
 
 @router.get(
@@ -158,3 +159,17 @@ async def get_program_hotels(
   program_handler = ProgramHandler(session)
   program_hotels = await program_handler.get_program_hotels(program_id)
   return program_hotels
+
+
+
+@router.post(
+  '/append_hotel_room',
+  status_code=status.HTTP_201_CREATED
+)
+async def append_hotel_room_to_program(
+  body,
+  session: AsyncSession = Depends(get_db)
+):
+  program_handler = ProgramHandler(session)
+  program_hotel_room = await program_handler
+  return program_hotel_room

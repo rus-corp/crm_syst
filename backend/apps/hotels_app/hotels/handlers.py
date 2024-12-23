@@ -83,12 +83,6 @@ class HotelHandler(BaseHandler):
       return hotel
   
   
-  # async def _get_all_hotels_with_rooms(self):
-  #   async with self.session.begin():
-  #     hotels = await self.hotel_dal.get_all_hotels_with_rooms()
-  #     return list(hotels)
-  
-  
   async def _update_hotel(self, hotel_id: int, hotel_body: schemas.HotelUpdateRequest):
     async with self.session.begin():
       hotel_data = hotel_body.model_dump(exclude_none=True)
@@ -139,3 +133,11 @@ class HotelHandler(BaseHandler):
         )
       except:
         await self.session.rollback()
+  
+  
+  async def _delete_hotel_room_from_program(
+    self,
+    body: schemas.AppendHotelAndRoomToProgram
+  ):
+    async with self.session.begin():
+      body_data = body.model_dump()

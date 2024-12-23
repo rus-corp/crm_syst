@@ -215,3 +215,13 @@ async def test_create_client_profile_doc(ac: AsyncClient):
   for item in test_client_prof_doc:
     client_prof_doc = await ac.post('/clients/base/client_profile_doc', json=item)
     assert client_prof_doc.status_code == 201
+
+
+
+# async def test_update_client_data(ac: AsyncClient):
+
+# async def test_update_client_profile(ac: AsyncClient):
+
+# async def test_update_client_doc(ac: AsyncClient):
+
+# async def test_get_client_prof_doc(ac: AsyncClient):

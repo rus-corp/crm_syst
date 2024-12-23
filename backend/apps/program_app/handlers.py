@@ -29,9 +29,6 @@ class ProgramHandler(BaseHandler):
     async with self.session.begin():
       body_data = create_program_body.model_dump(exclude_none=True)
       slug = create_slug(body_data['title'] + str(body_data['start_date']))
-      check_program = await self.program_dal.get_program_by_slug(slug)
-      if check_program:
-        slug += body_data['end_date']
       body_data['slug'] = slug
       created_program = await self.program_dal.create_program(**body_data)
       return schemas.ProgramBaseResponse(
