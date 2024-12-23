@@ -23,6 +23,15 @@ class CreateDocumentRequest(DocumentBase):
   pass
 
 
+class DocumentCreateRequestWithUser(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  number: str
+  series: str
+  issued_by: str
+  doc_type: ClientDocumentType
+  date_of_issue: date
+
+
 class UpdateDocumentRequest(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   number: Optional[str] = None

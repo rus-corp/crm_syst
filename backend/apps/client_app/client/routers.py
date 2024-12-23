@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from .handler import ClientHandler
 from .. import schemas
 from core.database import get_db
+from apps.base.base_schemas import BaseMessageResponseModel
 
 
 router = APIRouter(
@@ -107,16 +108,47 @@ async def get_client_program_with_profile_and_doc(
   return client_program
 
 
-@router.post(
-  ''
-)
-async def create_client_with_profile():...
-
 
 @router.post(
-  ''
+  '/client_profile',
+  status_code=status.HTTP_201_CREATED,
+  response_model=schemas.ClientProfileCreateResponse,
+  responses={
+    404: {'model': BaseMessageResponseModel},
+    403: {'model': BaseMessageResponseModel}
+  }
 )
-async def create_client_with_profile_and_doc():...
+async def create_client_with_profile(
+  body: schemas.CreateClientWithProfileRequest,
+  session: AsyncSession = Depends(get_db)
+):
+  client_handler = ClientHandler(session)
+  client_with_profile = await client_handler._create_client_with_profile(
+    client_data=body
+  )
+  return client_with_profile
+
+
+
+@router.post(
+  '/client_profile_doc',
+  status_code=status.HTTP_201_CREATED,
+  response_model=schemas.ClientProfileDocCreateResponse,
+  responses={
+    404: {'model': BaseMessageResponseModel},
+    403: {'model': BaseMessageResponseModel}
+  }
+)
+async def create_client_with_profile_and_doc(
+  body: schemas.CreateClientWithProfileAndDocRequest,
+  session: AsyncSession = Depends(get_db)
+):
+  client_handler = ClientHandler(session)
+  client_profile_doc = await client_handler._create_client_profile_doc(
+    client_data=body
+  )
+  return client_profile_doc
+
 
 
 @router.get(

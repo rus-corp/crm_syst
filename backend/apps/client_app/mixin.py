@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-
+from datetime import datetime
 from .client.dals import ClientDAL
+from ..utils.slug import create_slug
 
 
 class ClientMixin:
@@ -14,6 +15,14 @@ class ClientMixin:
     return client
   
   
-  async def check_client_slug(self, client_slug: str):
-    client = await self.client_dal.get_client_by_slug(client_slug)
-    return client
+  async def check_and_create_client_slug(self, client_data: dict):
+    unique_slug = create_slug(client_data['name'] + client_data['last_name'])
+    client = await self.client_dal.get_client_by_slug(unique_slug)
+    if client:
+      unique_slug = create_slug(
+        client_data['name'] 
+        + client_data['last_name'] 
+        + client_data['second_name'] 
+        + (datetime.now()).strftime('%Y-%m-%d').split(' ')[0]
+      )
+    return unique_slug

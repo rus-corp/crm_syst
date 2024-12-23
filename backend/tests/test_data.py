@@ -612,6 +612,89 @@ test_staff = [
     }
 ]
 
+test_client_with_profile = [
+    {
+        "name": "John",
+        "last_name": "Doe",
+        "second_name": "Michael",
+        "phone": "+1234567890",
+        "email": "john.doe@example.com",
+        "profile": {
+            "shirt_size": "M",
+            "status": "New",
+            "city": "New York",
+            "date_of_birth": "1990-05-14",
+            "community": True,
+            "nutrition_features": "Vegetarian",
+            "comment": "Loyal client, prefers online interactions"
+        }
+    },
+    {
+        "name": "Alice",
+        "last_name": "Smith",
+        "second_name": "Marie",
+        "phone": "+9876543210",
+        "email": "alice.smith@example.com",
+        "profile": {
+            "shirt_size": "S",
+            "status": "New",
+            "city": "Los Angeles",
+            "date_of_birth": "1985-11-23",
+            "community": False,
+            "nutrition_features": "No specific requirements",
+            "comment": "Interested in premium services"
+        }
+    }
+]
+
+test_client_prof_doc = [
+    {
+        "name": "Emily",
+        "last_name": "Johnson",
+        "second_name": "Grace",
+        "phone": "+11234567890",
+        "email": "emily.johnson@example.com",
+        "profile": {
+            "shirt_size": "L",
+            "status": "New",
+            "city": "Seattle",
+            "date_of_birth": "1995-07-08",
+            "community": True,
+            "nutrition_features": "Gluten-free",
+            "comment": "Enjoys participating in community events"
+        },
+        "doc": {
+            "number": "123456",
+            "series": "AB",
+            "issued_by": "Seattle Department of Records",
+            "doc_type": "Passport",
+            "date_of_issue": "2018-05-12",
+        }
+    },
+    {
+        "name": "Mark",
+        "last_name": "Williams",
+        "second_name": "Edward",
+        "phone": "+19876543210",
+        "email": "mark.williams@example.com",
+        "profile": {
+            "shirt_size": "XL",
+            "status": "New",
+            "city": "Chicago",
+            "date_of_birth": "1980-03-22",
+            "community": False,
+            "nutrition_features": "Vegan",
+            "comment": "Requires assistance with document processing"
+        },
+        "doc": {
+            "number": "654321",
+            "series": "CD",
+            "issued_by": "Chicago Passport Office",
+            "doc_type": "Passport",
+            "date_of_issue": "2015-09-15",
+        }
+    }
+]
 
 test_expenses = [
     {

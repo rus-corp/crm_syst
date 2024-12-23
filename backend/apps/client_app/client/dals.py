@@ -12,6 +12,8 @@ from core.models.utils import ProgramStatus
 
 
 class ClientDAL(BaseDAL):
+  model = Client
+  
   async def create_client(
     self,
     name:(str),
@@ -35,7 +37,7 @@ class ClientDAL(BaseDAL):
   
   
   async def get_clients(self):
-    return await self.base_get_all_items(Client)
+    return await self.base_get_all_items(model=self.model)
   
   
   async def get_client_by_id(self, client_id: int):
@@ -91,6 +93,14 @@ class ClientDAL(BaseDAL):
   async def update_client_by_id(self, client_id, values):
     query = update(Client).where(Client.id == client_id).values(**values).returning(Client)
     result = await self.db_session.scalar(query)
+  
+  
+  async def get_or_create_client(self, values):
+    result = await self.base_get_or_create(
+      model=self.model,
+      values=values
+    )
+    return result
   
   
   async def append_client_to_room(self):pass

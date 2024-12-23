@@ -3,6 +3,7 @@ from . import schemas
 from .dals import HotelRoomsDAL
 
 
+
 class HotelRoomsHandler(BaseHandler):
   def __init__(self, session):
     super().__init__(session)

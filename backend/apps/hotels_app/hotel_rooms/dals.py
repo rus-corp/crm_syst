@@ -1,9 +1,10 @@
 from ...base.base_dal import BaseDAL
 from sqlalchemy import update
 
-from core.models.hotels_models import HotelRooms, Hotels
+from core.models.hotels_models import HotelRooms
 
 class HotelRoomsDAL(BaseDAL):
+  model = HotelRooms
   async def create_room(
     self,
     room_type: str,
@@ -23,16 +24,25 @@ class HotelRoomsDAL(BaseDAL):
   
   
   async def get_all_rooms(self):
-    return await self.base_get_all_items(HotelRooms)
+    result = await self.base_get_all_items(model=self.model)
+    return result
   
   
   async def get_room_by_id(self, hotel_room_id: int):
-    return await self.base_get_one_item(HotelRooms, hotel_room_id)
+    result = await self.base_get_one_item(
+      model=self.model,
+      item_id=hotel_room_id
+    )
+    return result
   
   
   async def update_hotel_room(self, room_id: int, values):
-    query = update(HotelRoomsDAL).where(HotelRooms.id == room_id).values(**values).returning(HotelRooms)
-    return await self.db_session.scalar(query)
+    result = await self.base_update_item(
+      model=self.model,
+      item_id=room_id,
+      values=values
+    )
+    return result
   
   
   async def delete_hotel_room(self, room_id: int):

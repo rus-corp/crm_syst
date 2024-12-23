@@ -6,8 +6,8 @@ from core.models.utils import ClientProgramStatus, ClientPorgramContractStatus
 from datetime import date
 
 
-from .client_profile.schemas import ProfileResponse
-from .client_doc.schemas import DocumentResponse
+from .client_profile.schemas import ProfileResponse, ProfileCreateRequestWithUser, ProfileResponse
+from .client_doc.schemas import DocumentResponse, DocumentCreateRequestWithUser
 
 
 
@@ -92,3 +92,19 @@ class ClientCurrentProgramResponse(BaseModel):
   contract_status: ClientPorgramContractStatus
   program: ClientProgramBase
   client: ShowClientProfileDocument
+
+
+class CreateClientWithProfileRequest(CreateClient):
+  profile: ProfileCreateRequestWithUser
+
+
+class ClientProfileCreateResponse(BaseShowClient):
+  profile: ProfileResponse
+
+
+class CreateClientWithProfileAndDocRequest(CreateClientWithProfileRequest):
+  doc: DocumentCreateRequestWithUser
+
+
+class ClientProfileDocCreateResponse(ClientProfileCreateResponse):
+  document: DocumentResponse

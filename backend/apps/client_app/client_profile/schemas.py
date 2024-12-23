@@ -34,6 +34,20 @@ class ProfileCreateRequest(ProfileBase):
   comment: Optional[str] = None
 
 
+
+class ProfileCreateRequestWithUser(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  
+  shirt_size: str
+  status: ClientStatus
+  city: str
+  date_of_birth: date
+  community: Optional[bool] = None
+  nutrition_features: Optional[str] = None
+  comment: Optional[str] = None
+
+
+
 class ProfileUpdateRequest(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   
