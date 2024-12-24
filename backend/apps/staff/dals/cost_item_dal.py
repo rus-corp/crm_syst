@@ -14,6 +14,12 @@ class CostItemDAL(BaseDAL):
     return result
   
   
+  async def get_all_cost_items(self):
+    result = await self.base_get_all_items(
+      model=self.model
+    )
+    return result
+  
   async def get_cost_item(self, cost_id: int):
     result = await self.base_get_one_item(
       model=self.model,

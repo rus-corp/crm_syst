@@ -41,9 +41,9 @@ class Expenses(Base):
   amount: Mapped[int]
   caregory_id: Mapped[int] = mapped_column(ForeignKey('cost_items.id'), nullable=True)
   employee_id: Mapped[int] = mapped_column(ForeignKey('employees.id'), nullable=True)
-  category: Mapped[CostItem] = relationship(back_populates='expenses', lazy='joined')
   
-  employee: Mapped[Employee] = relationship(back_populates='expenses')
+  category: Mapped[CostItem] = relationship(back_populates='expenses', lazy='joined')
+  employee: Mapped[Employee] = relationship(back_populates='expenses', lazy='joined')
   programs: Mapped[List['Program']] = relationship(
     secondary='program_expenses',
     back_populates='expenses'

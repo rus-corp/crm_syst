@@ -29,16 +29,6 @@ class EmployeeHandler(BaseHandler):
     return employee
   
   
-  async def _get_all_employees_with_expenses(self):
-    employees = await self.employee_dal.get_all_employees_with_expenses()
-    return list(employees)
-  
-  
-  async def _get_employee_with_expenses(self, employee_id: int):
-    employee = await self.employee_dal.get_employee_by_id_with_expenses(employee_id)
-    return employee
-  
-  
   async def _update_employee(self, employee_id: int, body: schemas.EmployeeUpdateRequest):
     async with self.session.begin():
       body_data = body.model_dump(exclude_none=True)
@@ -53,6 +43,17 @@ class EmployeeHandler(BaseHandler):
     async with self.session.begin():
       deleted_employee = await self.employee_dal.delete_employee(employee_id)
       return deleted_employee
+  
+  
+  
+  async def _get_all_employees_with_expenses(self):
+    employees = await self.employee_dal.get_all_employees_with_expenses()
+    return list(employees)
+  
+  
+  async def _get_employee_with_expenses(self, employee_id: int):
+    employee = await self.employee_dal.get_employee_by_id_with_expenses(employee_id)
+    return employee
   
   
   async def _create_employee_and_expenses(self, body: schemas.CreateEmployeeWithExpensesRequest):

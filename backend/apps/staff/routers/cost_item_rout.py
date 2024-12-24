@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -26,6 +27,21 @@ async def create_cost_item(
   cost_handler = CostItemHandler(session)
   cost_item = await cost_handler._create_cost_item(body)
   return cost_item
+
+
+
+@router.get(
+  '/',
+  status_code=status.HTTP_200_OK,
+  response_model=List[schemas.CostItemResponse]
+)
+async def get_all_cost_items(
+  session: AsyncSession = Depends(get_db)
+):
+  cost_handler = CostItemHandler(session)
+  cost_items = await cost_handler._get_all_cost_items()
+  return cost_items
+
 
 
 @router.get(
@@ -64,7 +80,7 @@ async def update_cost_item_by_id(
   '/{item_id}',
   status_code=status.HTTP_204_NO_CONTENT
 )
-async def delte_cost_item_by_id(
+async def delete_cost_item_by_id(
   item_id: int,
   session: AsyncSession = Depends(get_db)
 ):

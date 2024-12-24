@@ -12,6 +12,8 @@ from .utils import data_format
 from apps.hotels_app.hotels.schemas import HotelWithRooms
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 from apps.base.exceptions import AppBaseExceptions
+from apps.staff.schemas import AppendExpensesToProgram
+from apps.staff.dals.expenses_dal import ExpensesDAL
 
 
 
@@ -188,3 +190,52 @@ class ProgramHandler(BaseHandler):
         slug=updated_program.slug,
         duration=duration
       )
+  
+  
+  async def _get_program_expenses(self, program_slug: str):
+    program = await self.program_dal.get_program_expenses(program_slug)
+    return program
+  
+  
+  async def _append_expensive_to_program(self, body: AppendExpensesToProgram):
+    async with self.session.begin():
+      body_data = body.model_dump()
+      program = await self.program_dal.get_program_for_append_expenses(body_data['program_id'])
+      if program is None:
+        raise AppBaseExceptions.item_not_found(
+          item_data='Program'
+        )
+      expense_dal = ExpensesDAL(self.session)
+      expensive_item = await expense_dal.get_one_expense(body_data['expenses_id'])
+      if expensive_item is None:
+        raise AppBaseExceptions.item_not_found(
+          item_data='Expenses'
+        )
+      program.expenses.append(expensive_item)
+      return JSONResponse(content='Expenses added to Program', status_code=200)
+  
+  
+  async def _delete_expensive_from_program(self, body: AppendExpensesToProgram):
+    async with self.session.begin():
+      body_data = body.model_dump()
+      program = await self.program_dal.get_program_for_append_expenses(body.program_id)
+      if program is None:
+        raise AppBaseExceptions.item_not_found(
+          item_data='Program'
+        )
+      expense_dal = ExpensesDAL(self.session)
+      expensive_item = await expense_dal.get_one_expense(body_data['expenses_id'])
+      if expensive_item is None:
+        raise AppBaseExceptions.item_not_found(
+          item_data='Expenses'
+        )
+      if expensive_item not in program.expenses:
+        raise AppBaseExceptions.relation_not_exsist(
+          main_model='Program',
+          main_item_id=body.program_id,
+          second_model='Expenses',
+          second_item_id=body.expenses_id
+        )
+      program.expenses.remove(expensive_item)
+      return JSONResponse(content='Expenses deleted from Program', status_code=200)
+      

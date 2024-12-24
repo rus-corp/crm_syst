@@ -20,6 +20,11 @@ class CostItemHandler(BaseHandler):
       return cost_item
   
   
+  async def _get_all_cost_items(self):
+    items = await self.cost_dal.get_all_cost_items()
+    return list(items)
+  
+  
   async def _get_cost_item(self, cost_item_id: int):
     cost_item = await self.cost_dal.get_cost_item(cost_item_id)
     return cost_item

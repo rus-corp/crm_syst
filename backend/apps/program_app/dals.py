@@ -131,3 +131,9 @@ class ProgramDAL(BaseDAL):
   async def get_program_for_append_expenses(self, program_id: int):
     query = select(Program).where(Program.id == program_id).options(selectinload(Program.expenses))
     return await self.db_session.scalar(query)
+  
+  
+  async def get_program_expenses(self, program_slug: str):
+    query = select(Program).where(Program.slug == program_slug).options(selectinload(Program.expenses))
+    result = await self.db_session.execute(query)
+    return result.scalar()

@@ -173,3 +173,33 @@ async def append_hotel_room_to_program(
   program_handler = ProgramHandler(session)
   program_hotel_room = await program_handler
   return program_hotel_room
+
+
+
+@router.post(
+  '/program_expenses',
+  status_code=status.HTTP_201_CREATED
+)
+async def append_program_expenses():...
+
+
+
+@router.get(
+  '/program_expenses/{program_slug}',
+  status_code=status.HTTP_200_OK,
+  
+)
+async def get_program_expenses(
+  program_slug: str,
+  session: AsyncSession = Depends(get_db)
+):
+  program_handler = ProgramHandler(session)
+  program_expenses = await program_handler._get_program_expenses(program_slug)
+  return program_expenses
+
+
+@router.delete(
+  '/program_expenses',
+  status_code=status.HTTP_200_OK
+)
+async def delete_program_expenses()
