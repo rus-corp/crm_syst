@@ -56,3 +56,10 @@ class ExpenseCategory(str, Enum):
   TR = 'Проезд'
   FD = 'Питание'
   SR = 'Зарплата'
+
+
+class ProgramPriceCategory(str, Enum):
+  FT = 'Первый раз'
+  WC = 'Были / пара'
+  CM = 'Сообщество'
+  ID = 'Индивидульная'

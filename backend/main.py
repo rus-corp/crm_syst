@@ -9,7 +9,7 @@ from apps.payments_app.router import router as payment_router
 from apps.hotels_app.hotels.routers import router as hotel_routers
 from apps.hotels_app.hotel_rooms.routers import router as room_routers
 from apps.commands.router import router as command_router
-from apps.staff.router import router as staff_router
+from apps.staff.main_router import router as staff_router
 
 
 app = FastAPI(

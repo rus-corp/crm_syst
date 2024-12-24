@@ -696,6 +696,7 @@ test_client_prof_doc = [
     }
 ]
 
+
 test_expenses = [
     {
         "category": "SALARY",
@@ -757,4 +758,14 @@ test_expenses = [
         "amount": 10000,
         "employee_id": 7
     }
+]
+
+
+
+test_cost_items = [
+    {'title': 'Зарплата'},
+    {'title': 'Реклама'},
+    {'title': 'Аренда камина'},
+    {'title': 'Мерч'},
+    {'title': 'Трансфер'},
 ]

@@ -141,3 +141,12 @@ class HotelHandler(BaseHandler):
   ):
     async with self.session.begin():
       body_data = body.model_dump()
+      deleted_room = await self.hotel_dal.delete_hotel_room_from_program(**body_data)
+      if deleted_room is None:
+        return AppBaseExceptions.relation_not_exsist(
+          main_model='Program',
+          main_item_id=body.program_id,
+          second_model='Hotel Room',
+          second_item_id=body.room_id
+        )
+      return deleted_room

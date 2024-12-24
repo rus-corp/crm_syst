@@ -6,6 +6,15 @@ from core.models.utils import EmployeePosition, ExpenseCategory
 
 
 
+class CostItemBase(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  title: str
+
+
+class CostItemResponse(CostItemBase):
+  id: int
+
+
 
 class ExpensesBase(BaseModel):
   model_config = ConfigDict(from_attributes=True)

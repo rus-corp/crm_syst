@@ -74,3 +74,15 @@ class HotelDAL(BaseDAL):
     self.db_session.add(program_hotel_rooms)
     await self.db_session.commit()
     return program_hotel_rooms
+  
+  
+  async def delete_hotel_room_from_program(
+    self,
+    program_id: int,
+    hotel_id: int,
+    room_id: int
+  ):
+    stmt = delete(ProgramRooms).where(ProgramRooms.program_id == program_id, ProgramRooms.hotel_id == hotel_id, ProgramRooms.room_id == room_id).returning(ProgramRooms.id)
+    result = await self.db_session.execute(stmt)
+    await self.db_session.commit()
+    return result.scalar()

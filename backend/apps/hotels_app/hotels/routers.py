@@ -120,6 +120,7 @@ async def delete_hotel(
   return deleted_hotel_id
 
 
+
 @router.post(
   '/append_room_to_program',
   status_code=status.HTTP_201_CREATED,
@@ -136,6 +137,7 @@ async def append_hotel_to_program(
   return appended_hotel
 
 
+
 @router.delete(
   '/delete_room_from_program',
   status_code=status.HTTP_200_OK,
@@ -145,5 +147,5 @@ async def delete_room_from_program(
   session: AsyncSession = Depends(get_db)
 ):
   hotel_handler = HotelHandler(session)
-  deleted_room = await hotel_handler.
+  deleted_room = await hotel_handler._delete_hotel_room_from_program(body)
   return deleted_room

@@ -40,7 +40,7 @@ class BaseDAL:
     return result.scalar()
   
   
-  async def base_delete_item(self, model, item_id: int):
+  async def base_delete_item(self, model, item_id: int) -> int:
     stmt = delete(model).where(model.id == item_id).returning(model.id)
     result = await self.db_session.execute(stmt)
     await self.db_session.commit()
