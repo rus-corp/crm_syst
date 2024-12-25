@@ -16,9 +16,14 @@ class ExpenseHandler(BaseHandler):
   
   async def _create_expenses(self, body: schemas.ExpenseCreateRequst):
     async with self.session.begin():
-      body_data = body.model_dump()
+      body_data = body.model_dump(exclude_none=True)
       expense_item = await self.expense_dal.get_or_create_expenses(values=body_data)
       return expense_item
+  
+  
+  async def _get_all_expenses(self):
+    expeneses = await self.expense_dal.get_all_expenses()
+    return list(expeneses)
   
   
   async def _get_expense_by_id(self, expenses_id: int):
@@ -45,13 +50,3 @@ class ExpenseHandler(BaseHandler):
     async with self.session.begin():
       expense_item = await self.expense_dal.delete_expense(expenses_id)
       return expense_item
-  
-  
-  
-  
-  
-  async def _delete_expensive_from_program(self, body: schemas.AppendExpensesToProgram):
-    async with self.session.begin():
-      body_data = body.model_dump()
-      
-      

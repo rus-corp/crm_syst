@@ -23,7 +23,6 @@ class ProgramDAL(BaseDAL):
     end_date: date,
     place: str,
     desc: str,
-    price: int,
     slug: str,
   ):
     new_program: Program = Program(
@@ -32,7 +31,6 @@ class ProgramDAL(BaseDAL):
       end_date=end_date,
       place=place,
       desc=desc,
-      price=price,
       slug=slug,
     )
     self.db_session.add(new_program)

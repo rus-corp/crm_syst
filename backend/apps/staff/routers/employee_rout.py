@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_db
 from .. import schemas
 from ..handlers.employee_handler import EmployeeHandler
-
+from .utils import employee_position_variants
 
 router = APIRouter(
   prefix='/employee',
@@ -62,7 +62,8 @@ async def get_employee(
 @router.patch(
   '/{employee_id}',
   status_code=status.HTTP_200_OK,
-  response_model=schemas.EmployeeResponse
+  response_model=schemas.EmployeeResponse,
+  description=employee_position_variants
 )
 async def update_employee(
   employee_id: int,
@@ -93,7 +94,7 @@ async def delete_employee_by_id(
 
 
 @router.post(
-  '/employee_expenses',
+  '/employee_expenses/',
   status_code=status.HTTP_201_CREATED,
   response_model=schemas.CreateEmployeeWithExpensesResponse
 )
@@ -108,7 +109,7 @@ async def create_employee_and_expenses(
 
 
 @router.get(
-  '/employee_expenses',
+  '/employee_expenses/',
   status_code=status.HTTP_200_OK,
   response_model=List[schemas.CreateEmployeeWithExpensesResponse]
 )

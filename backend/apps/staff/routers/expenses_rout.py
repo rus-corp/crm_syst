@@ -8,18 +8,19 @@ from apps.base.base_schemas import BaseMessageResponseModel
 
 
 router = APIRouter(
-  
+  prefix='/expenses',
+  tags=['Expenses']
 )
 
 
 
 
 @router.post(
-  '/expenses',
-  status_code=status.HTTP_200_OK,
+  '/',
+  status_code=status.HTTP_201_CREATED,
   response_model=schemas.ExpenseBaseResponse
 )
-async def crete_expenses(
+async def create_expenses(
   body: schemas.ExpenseCreateRequst,
   session: AsyncSession = Depends(get_db)
 ):
@@ -30,9 +31,23 @@ async def crete_expenses(
 
 
 @router.get(
-  '/expenses/{expense_id}',
+  '/',
   status_code=status.HTTP_200_OK,
-  response_model=schemas.ExpenseBaseResponse
+  response_model=list[schemas.ExpenseFullResponse]
+)
+async def get_all_expenses(
+  session: AsyncSession = Depends(get_db)
+):
+  expenses_handler = ExpenseHandler(session)
+  expenses = await expenses_handler._get_all_expenses()
+  return expenses
+
+
+
+@router.get(
+  '/{expense_id}',
+  status_code=status.HTTP_200_OK,
+  response_model=schemas.ExpenseFullResponse
 )
 async def get_expenses_by_id(
   expense_id: int,
@@ -43,19 +58,33 @@ async def get_expenses_by_id(
   return expense
 
 
-@router.post(
-  '/append_expense',
+@router.patch(
+  '/{expense_id}',
   status_code=status.HTTP_200_OK,
-  response_model=BaseMessageResponseModel
+  response_model=schemas.ExpenseBaseResponse
 )
-async def append_expenses_to_program(
-  body: schemas.AppendExpensesToProgram,
+async def update_expense(
+  expense_id: int,
+  body: schemas.ExpensesUpdateRequest,
   session: AsyncSession = Depends(get_db)
 ):
   expenses_handler = ExpenseHandler(session)
-  created_item = await expenses_handler._append_expensive_to_program(
-    body
+  updated_expense = await expenses_handler._update_expense_by_id(
+    expense_id, body=body
   )
-  return created_item
+  return updated_expense
 
 
+
+@router.delete(
+  '/{expense_id}',
+  status_code=status.HTTP_204_NO_CONTENT
+)
+async def delete_expense_by_id(
+  expense_id: int,
+  session: AsyncSession = Depends(get_db)
+):
+  expenses_handler = ExpenseHandler(session)
+  deleted_expense = await expenses_handler._delete_expense_by_id(expense_id)
+  return deleted_expense
+  

@@ -14,8 +14,6 @@ from core.models.client_models import ClientProfile, ClientDocument
 class ClientHandler(ClientMixin, BaseHandler):
   def __init__(self, session):
     super().__init__(session)
-    self.client_dal = ClientDAL(self.session)
-  
   
   async def _create_client(self, client_body: schemas.CreateClient):
     async with self.session.begin():

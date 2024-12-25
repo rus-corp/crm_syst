@@ -14,7 +14,6 @@ class ProgramBase(BaseModel):
   end_date: date
   place: str
   desc: str
-  price: int
 
 
 

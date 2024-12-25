@@ -10,7 +10,7 @@ from . import schemas
 from .handlers import ProgramHandler
 from apps.base.base_schemas import BaseMessageResponseModel
 from apps.base.association_schemas import ProgramClientsPayments
-
+from apps.staff.schemas import AppendExpensesToProgram
 
 
 
@@ -180,7 +180,13 @@ async def append_hotel_room_to_program(
   '/program_expenses',
   status_code=status.HTTP_201_CREATED
 )
-async def append_program_expenses():...
+async def append_program_expenses(
+  body: AppendExpensesToProgram,
+  session: AsyncSession = Depends(get_db)
+):
+  program_handler = ProgramHandler(session)
+  program_expenses = await program_handler._append_expensive_to_program(body)
+  return program_expenses
 
 
 
@@ -198,8 +204,15 @@ async def get_program_expenses(
   return program_expenses
 
 
+
 @router.delete(
   '/program_expenses',
   status_code=status.HTTP_200_OK
 )
-async def delete_program_expenses()
+async def delete_program_expenses(
+  body: AppendExpensesToProgram,
+  session: AsyncSession = Depends(get_db)
+):
+  program_handler = ProgramHandler(session)
+  deleted_program_expenses = await program_handler._delete_expensive_from_program(body)
+  return deleted_program_expenses

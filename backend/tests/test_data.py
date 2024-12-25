@@ -699,62 +699,60 @@ test_client_prof_doc = [
 
 test_expenses = [
     {
-        "category": "SALARY",
+        "category_id": 2,
         "amount": 150000,
         "employee_id": 1
     },
     {
-        "category": "TRAVEL",
+        "category_id": 1,
         "amount": 20000,
         "employee_id": 1
     },
     {
-        "category": "SALARY",
+        "category_id": 5,
         "amount": 120000,
         "employee_id": 2
     },
     {
-        "category": "SALARY",
+        "category_id": 4,
         "amount": 100000,
         "employee_id": 3
     },
     {
-        "category": "SOFTWARE",
+        "category_id": 3,
         "amount": 15000,
         "employee_id": 3
     },
     {
-        "category": "SALARY",
+        "category_id": 2,
         "amount": 110000,
-        "employee_id": 4
     },
     {
-        "category": "RESEARCH",
+        "category_id": 1,
         "amount": 8000,
         "employee_id": 4
     },
     {
-        "category": "SALARY",
+        "category_id": 5,
         "amount": 105000,
         "employee_id": 5
     },
     {
-        "category": "ADVERTISING",
+        "category_id": 4,
         "amount": 25000,
         "employee_id": 5
     },
     {
-        "category": "SALARY",
+        "category_id": 3,
         "amount": 95000,
         "employee_id": 6
     },
     {
-        "category": "SALARY",
+        "category_id": 2,
         "amount": 115000,
-        "employee_id": 7
     },
     {
-        "category": "TRAINING",
+        "category_id": 1,
         "amount": 10000,
         "employee_id": 7
     }

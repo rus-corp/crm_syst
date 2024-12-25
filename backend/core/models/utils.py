@@ -50,14 +50,6 @@ class EmployeePosition(str, Enum):
   KV = 'Волонтер на кухню'
 
 
-
-class ExpenseCategory(str, Enum):
-  AC = 'Проживание'
-  TR = 'Проезд'
-  FD = 'Питание'
-  SR = 'Зарплата'
-
-
 class ProgramPriceCategory(str, Enum):
   FT = 'Первый раз'
   WC = 'Были / пара'

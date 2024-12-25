@@ -2,7 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel, ConfigDict
 
 
-from core.models.utils import EmployeePosition, ExpenseCategory
+from core.models.utils import EmployeePosition
 
 
 
@@ -18,9 +18,9 @@ class CostItemResponse(CostItemBase):
 
 class ExpensesBase(BaseModel):
   model_config = ConfigDict(from_attributes=True)
-  category: ExpenseCategory
+  category_id: Optional[int] = None
   amount: int
-  employee_id: int
+  employee_id: Optional[int] = None
 
 
 class ExpenseCreateRequst(ExpensesBase):
@@ -33,7 +33,7 @@ class ExpenseBaseResponse(ExpensesBase):
 
 class ExpensesUpdateRequest(BaseModel):
   model_config = ConfigDict(from_attributes=True)
-  category: Optional[ExpenseCategory] = None
+  category_id: Optional[int] = None
   amount: Optional[int] = None
   employee_id: Optional[int] = None
 
@@ -67,8 +67,9 @@ class EmployeeUpdateRequest(BaseModel):
 
 
 
-class ExpensesWithEmployee(ExpenseBaseResponse):
-  employee: EmployeeResponse
+class ExpenseFullResponse(ExpenseBaseResponse):
+  category: Optional[CostItemResponse] = None
+  employee: Optional[EmployeeResponse] = None
 
 
 class AppendExpensesToProgram(BaseModel):

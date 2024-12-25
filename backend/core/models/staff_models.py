@@ -36,10 +36,10 @@ class Employee(Base):
 
 class Expenses(Base):
   __tablename__ = 'expenses'
-  __table_args__ = (UniqueConstraint('caregory_id', 'amount', 'employee_id'), )
+  __table_args__ = (UniqueConstraint('category_id', 'amount', 'employee_id'), )
   
   amount: Mapped[int]
-  caregory_id: Mapped[int] = mapped_column(ForeignKey('cost_items.id'), nullable=True)
+  category_id: Mapped[int] = mapped_column(ForeignKey('cost_items.id'), nullable=True)
   employee_id: Mapped[int] = mapped_column(ForeignKey('employees.id'), nullable=True)
   
   category: Mapped[CostItem] = relationship(back_populates='expenses', lazy='joined')
