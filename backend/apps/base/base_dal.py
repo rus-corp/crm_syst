@@ -34,7 +34,7 @@ class BaseDAL:
     return await self.db_session.scalar(query)
   
   
-  async def base_update_item(self, model, item_id: int, values):
+  async def base_update_item(self, model, item_id: int, values: dict):
     stmt = update(model).where(model.id == item_id).values(**values).returning(model)
     result = await self.db_session.execute(stmt)
     return result.scalar()

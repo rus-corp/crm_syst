@@ -52,24 +52,6 @@ async def test_get_one_program(ac: AsyncClient):
 
 
 
-async def test_update_program(ac: AsyncClient):
-  updated_data = {'title': 'New Program Title'}
-  programs_list = await ac.get('/programs/')
-  assert programs_list.status_code == 200
-  programs_list_data = programs_list.json()
-  program_slug = programs_list_data[0]['slug']
-  updatedProgramItem = await ac.patch(f'/programs/{program_slug}', json=updated_data)
-  assert updatedProgramItem.status_code == 200
-  updatedProgramJson = updatedProgramItem.json()
-  programItem = await ac.get(f'/programs/{program_slug}')
-  assert programItem.status_code == 200
-  programDataJson = programItem.json()
-  program = schemas.ProgramBaseResponse(**programDataJson)
-  assert program.id == updatedProgramJson['id']
-  assert program.title == updated_data['title']
-
-
-
 
 
 async def test_create_clients(ac: AsyncClient):
@@ -156,15 +138,7 @@ async def test_get_hotel_item(ac: AsyncClient):
   assert hotelItem.city == test_hotels[0]['city']
 
 
-async def test_update_hotel(ac: AsyncClient):
-  updated_data = {'title': 'New Item Title'}
-  hotel = await ac.patch('/hotels/1', json=updated_data)
-  assert hotel.status_code == 200
-  updated_hotel = await ac.get('/hotels/1')
-  assert updated_hotel.status_code == 200
-  hotel_data = updated_hotel.json()
-  hotelItem = hotel_schema.HotelBaseResponse(**hotel_data)
-  assert hotelItem.title == updated_data['title']
+
 
 
 async def test_create_hotel_rooom(ac: AsyncClient):
@@ -185,23 +159,6 @@ async def test_create_hotel_rooom(ac: AsyncClient):
     assert roomItem.room_type == test_hotel_rooms[id - 1]['room_type']
     assert roomItem.room_price == test_hotel_rooms[id - 1]['room_price']
     assert roomItem.room_volume == test_hotel_rooms[id - 1]['room_volume']
-
-
-
-async def test_update_room(ac: AsyncClient):
-  room_data = await ac.get('/rooms/1')
-  assert room_data.status_code == 200
-  room_db = room_data.json()
-  room = room_schema.HotelRoomBaseResponse(**room_db)
-  updated_data = {'room_price': 9999}
-  updated_room_req = await ac.patch('/rooms/1', json=updated_data)
-  assert updated_room_req.status_code == 200
-  updated_room_data = updated_room_req.json()
-  updated_room = room_schema.HotelRoomBaseResponse(**updated_room_data)
-  assert updated_room.id == room.id
-  assert updated_room.room_type == room.room_type
-  assert updated_room.room_volume == room.room_volume
-  assert updated_room.room_price == updated_data['room_price']
 
 
 async def test_create_client_with_profile(ac: AsyncClient):

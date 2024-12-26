@@ -2,7 +2,7 @@ from ...base.base_handler import BaseHandler
 from ...base.exceptions import AppBaseExceptions
 from fastapi.exceptions import HTTPException
 
-from ...program_app.dals import ProgramDAL
+from ...program_app.dals.program_dal import ProgramDAL
 from ..hotel_rooms.dals import HotelRoomsDAL
 from .dals import HotelDAL
 from . import schemas

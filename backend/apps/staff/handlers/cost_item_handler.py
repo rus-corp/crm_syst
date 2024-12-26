@@ -15,7 +15,7 @@ class CostItemHandler(BaseHandler):
   
   async def _create_cost_item(self, values: schemas.CostItemBase):
     async with self.session.begin():
-      body_data = values.model_dump()
+      body_data = {'title': values.title.lower()}
       cost_item = await self.cost_dal.get_or_create_item(body_data)
       return cost_item
   

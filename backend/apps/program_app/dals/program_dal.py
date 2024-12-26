@@ -3,7 +3,7 @@ from sqlalchemy.orm import selectinload, joinedload
 
 
 
-from ..base.base_dal import BaseDAL
+from ...base.base_dal import BaseDAL
 from datetime import date
 
 
@@ -87,7 +87,10 @@ class ProgramDAL(BaseDAL):
   
   
   async def update_program_by_slug(self, program_slug: str, values):
-    stmt = update(Program).where(Program.slug == program_slug).values(**values).returning(Program)
+    stmt = (update(Program)
+            .where(Program.slug == program_slug)
+            .values(**values)
+            .returning(Program))
     result = await self.db_session.execute(stmt)
     return result.scalar()
   
@@ -119,19 +122,34 @@ class ProgramDAL(BaseDAL):
   
   
   async def get_program_hotels(self, program_id: int):
-    # query = select(Program).where(Program.id == program_id).options(selectinload(Program.program_hotel_room).joinedload(ProgramRooms.hotel), joinedload(ProgramRooms.room))
-    query = select(ProgramRooms).where(ProgramRooms.program_id == program_id).options(joinedload(ProgramRooms.hotel), joinedload(ProgramRooms.room))
+    query = (select(ProgramRooms)
+             .where(ProgramRooms.program_id == program_id)
+             .options(
+               joinedload(ProgramRooms.hotel),
+               joinedload(ProgramRooms.room)
+             ))
     result = await self.db_session.execute(query)
-    # return result.scalar()
     return result.scalars().unique().all()
   
   
   async def get_program_for_append_expenses(self, program_id: int):
-    query = select(Program).where(Program.id == program_id).options(selectinload(Program.expenses))
+    query = (select(Program)
+             .where(Program.id == program_id)
+             .options(selectinload(Program.expenses)))
     return await self.db_session.scalar(query)
   
   
   async def get_program_expenses(self, program_slug: str):
-    query = select(Program).where(Program.slug == program_slug).options(selectinload(Program.expenses))
+    query = (select(Program)
+             .where(Program.slug == program_slug)
+             .options(selectinload(Program.expenses)))
+    result = await self.db_session.execute(query)
+    return result.scalar()
+  
+  
+  async def get_program_prices(self, program_slug: str):
+    query = (select(Program)
+             .where(Program.slug == program_slug)
+             .options(selectinload(Program.prices)))
     result = await self.db_session.execute(query)
     return result.scalar()

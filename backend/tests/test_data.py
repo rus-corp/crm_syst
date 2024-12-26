@@ -767,3 +767,20 @@ test_cost_items = [
     {'title': 'Мерч'},
     {'title': 'Трансфер'},
 ]
+
+
+test_program_expenses = [
+    {"program_id": 1, "expenses_id": 1},
+    {"program_id": 1, "expenses_id": 2},
+    {"program_id": 1, "expenses_id": 3},
+    {"program_id": 1, "expenses_id": 4},
+    {"program_id": 1, "expenses_id": 5},
+    {"program_id": 2, "expenses_id": 6},
+    {"program_id": 2, "expenses_id": 7},
+    {"program_id": 2, "expenses_id": 8},
+    {"program_id": 2, "expenses_id": 9},
+    {"program_id": 2, "expenses_id": 10},
+    {"program_id": 2, "expenses_id": 11},
+    {"program_id": 2, "expenses_id": 12},
+    {"program_id": 2, "expenses_id": 1},
+]

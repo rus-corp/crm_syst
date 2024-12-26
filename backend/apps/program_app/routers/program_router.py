@@ -6,8 +6,8 @@ from fastapi import APIRouter, Depends, status
 
 
 from core.database import get_db
-from . import schemas
-from .handlers import ProgramHandler
+from .. import schemas
+from ..handlers.program_handler import ProgramHandler
 from apps.base.base_schemas import BaseMessageResponseModel
 from apps.base.association_schemas import ProgramClientsPayments
 from apps.staff.schemas import AppendExpensesToProgram
@@ -105,7 +105,7 @@ async def get_program_clients(
 
 
 @router.post(
-  '/append_client',
+  '/append_client/',
   status_code=status.HTTP_201_CREATED,
   response_model=BaseMessageResponseModel
 )
@@ -164,7 +164,8 @@ async def get_program_hotels(
 
 @router.post(
   '/append_hotel_room',
-  status_code=status.HTTP_201_CREATED
+  status_code=status.HTTP_201_CREATED,
+  response_model=BaseMessageResponseModel
 )
 async def append_hotel_room_to_program(
   body,
@@ -178,7 +179,10 @@ async def append_hotel_room_to_program(
 
 @router.post(
   '/program_expenses',
-  status_code=status.HTTP_201_CREATED
+  status_code=status.HTTP_201_CREATED,
+  responses={
+    404: {'model': BaseMessageResponseModel}
+  }
 )
 async def append_program_expenses(
   body: AppendExpensesToProgram,
@@ -193,7 +197,7 @@ async def append_program_expenses(
 @router.get(
   '/program_expenses/{program_slug}',
   status_code=status.HTTP_200_OK,
-  
+  response_model=schemas.ProgramExpensesResponse
 )
 async def get_program_expenses(
   program_slug: str,

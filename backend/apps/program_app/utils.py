@@ -2,7 +2,7 @@ from typing import List, Dict
 from apps.hotels_app.hotel_rooms.schemas import RoomForHotelResponse
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 from .schemas import ProgramBaseResponse
-
+from core.models.program_models import Program
 
 def data_format(data: List[Dict]) -> Dict:
   hotels = {}
@@ -34,7 +34,7 @@ def data_format(data: List[Dict]) -> Dict:
 
 
 
-def program_response_format(data, duration: bool = False) -> ProgramBaseResponse:
+def program_response_format(data: Program, duration: bool = False) -> ProgramBaseResponse:
   common_data = {
         "id": data.id,
         "title": data.title,

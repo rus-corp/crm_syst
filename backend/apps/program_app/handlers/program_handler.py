@@ -1,19 +1,19 @@
 from fastapi.responses import JSONResponse
 
 
-from ..utils.slug import create_slug
-from ..base.base_handler import BaseHandler
-from . import schemas
+from ...utils.slug import create_slug
+from ...base.base_handler import BaseHandler
+from .. import schemas
 from core.models.program_models import Program
 from core.models.association_models import ProgramClients
-from ..client_app.client.dals import ClientDAL
-from .utils import data_format, program_response_format
+from ...client_app.client.dals import ClientDAL
+from ..utils import data_format, program_response_format
 from apps.hotels_app.hotels.schemas import HotelWithRooms
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 from apps.base.exceptions import AppBaseExceptions
 from apps.staff.schemas import AppendExpensesToProgram
 from apps.staff.dals.expenses_dal import ExpensesDAL
-from .mixin import ProgramMixin
+from ..mixin import ProgramMixin
 
 
 
@@ -152,7 +152,7 @@ class ProgramHandler(ProgramMixin, BaseHandler):
     async with self.session.begin():
       program, expensive_item = await self.check_program_and_expenses(body)
       program.expenses.append(expensive_item)
-      return JSONResponse(content='Expenses added to Program', status_code=201)
+      return JSONResponse(content=f'Expenses added to Program {program.title}', status_code=201)
   
   
   

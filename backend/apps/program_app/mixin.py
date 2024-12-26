@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from .dals import ProgramDAL
+from .dals.program_dal import ProgramDAL
 from apps.staff.dals.expenses_dal import ExpensesDAL
 from apps.staff.schemas import AppendExpensesToProgram
 from apps.base.exceptions import AppBaseExceptions

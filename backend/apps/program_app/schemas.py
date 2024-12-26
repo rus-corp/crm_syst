@@ -3,6 +3,7 @@ from pydantic import BaseModel, ConfigDict
 from datetime import date
 
 from apps.base.association_schemas import ProgramClientAssociationClientData
+from apps.staff.schemas import ExpenseFullResponse
 
 
 
@@ -38,10 +39,12 @@ class ProgramBaseResponse(ProgramBase):
   slug: str
   status: str
   duration: Optional[int] = None
-  
-  class Config:
-    from_attributes = True
 
+
+class ProgramBaseWithoutDurationResponse(ProgramBase):
+  id: int
+  slug: str
+  status: str
 
 
 class DeleteClientFromProgramRequest(BaseModel):
@@ -62,9 +65,10 @@ class ProgramResponseForAppendHotelAndRoom(BaseModel):
   price: int
 
 
-
-
-
 class ProgramClientsResponse(ProgramBaseResponse):
   program_clients_detail: Optional[List[ProgramClientAssociationClientData]] = []
 
+
+
+class ProgramExpensesResponse(ProgramBaseWithoutDurationResponse):
+  expenses: Optional[List[ExpenseFullResponse]] = []
