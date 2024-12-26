@@ -21,6 +21,9 @@ class BankAccountHandler(BaseHandler):
   async def _get_bank_account_by_id(self, account_id: int):
     account = await self.bank_dal.get_bank_account(account_id)
     return account
+  
+  
+  async def _update_banck_account(self, account_id: int, values):...
 
 
 
@@ -38,13 +41,21 @@ class PartnerHandler(BaseHandler):
       return partner
   
   
-  async def _get_all_partners(self):
-    partners = await self.partner_dal.get_all_partners()
+  async def _get_all_partners(self, flag: bool = False):
+    """if flag -> partner with bank"""
+    if flag:
+      partners = await self.partner_dal.get_partners_with_bank()
+    else:
+      partners = await self.partner_dal.get_all_partners()
     return list(partners)
   
   
-  async def _get_partner_by_id(self, partner_id: int):
-    partner = await self.partner_dal.get_one_partner(partner_id)
+  async def _get_partner_by_id(self, partner_id: int, flag: bool = False):
+    """if flag -> partner with bank"""
+    if flag:
+      partner = await self.partner_dal.ger_partner_by_id_with_account(partner_id)
+    else:
+      partner = await self.partner_dal.get_one_partner(partner_id)
     return partner
   
   

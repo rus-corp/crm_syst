@@ -9,12 +9,15 @@ class PartnerBase(BaseModel):
   law_title: str
   price: int
   contract_number: Optional[str] = None
-  bank_account_id: int
 
 
 
 class PartnerBaseShow(PartnerBase):
   id: int
+
+
+class CreatePartnerBaseRequest(PartnerBase):
+  pass
 
 
 class PartnerUpdateRequest(BaseModel):

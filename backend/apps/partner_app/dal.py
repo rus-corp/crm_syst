@@ -1,5 +1,6 @@
 from apps.base.base_dal import BaseDAL
-
+from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 
 
 from core.models.partners_models import Partner, BankAccount
@@ -11,7 +12,7 @@ from . import schemas
 class PartnerDAL(BaseDAL):
   model = Partner
   
-  async def create_partner(self, values: schemas.PartnerValues) -> schemas.PartnerBaseShow:
+  async def create_partner(self, values: dict) -> Partner:
     result = await self.base_create_item(
       model=self.model,
       values=values,
@@ -48,6 +49,18 @@ class PartnerDAL(BaseDAL):
       item_id=partner_id
     )
     return result
+  
+  
+  async def get_partners_with_bank(self):
+    query = select(Partner).options(joinedload(Partner.bank_account)).order_by(Partner.id)
+    result = await self.db_session.execute(query)
+    return result.scalars().all()
+  
+  
+  async def ger_partner_by_id_with_account(self, partner_id: int):
+    query = select(Partner).where(Partner.id == partner_id).options(joinedload(Partner.bank_account))
+    result = await self.db_session.execute(query)
+    return result.scalar()
 
 
 
@@ -70,3 +83,8 @@ class BankAccountDAL(BaseDAL):
       item_id=account_id
     )
     return result
+  
+  
+  async def update_bank_account(self, account_id: int, values: dict):...
+  
+  async def delete_bank_account(self, account_id: int):...

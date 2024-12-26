@@ -2,17 +2,42 @@ from httpx import AsyncClient
 from fastapi.exceptions import HTTPException
 import pytest
 
-from .test_data import test_program_expenses, program_test_data
+from .test_data import test_program_expenses, program_test_data, test_hotel_rooms, test_program_rooms, test_hotels
 from apps.base.base_schemas import BaseMessageResponseModel
+from apps.hotels_app.hotels import schemas as hote_schemas
+
+
+
 
 async def test_append_exp_to_prog(ac: AsyncClient):
   for item in test_program_expenses:
     programExpense = await ac.post('/programs/program_expenses', json=item)
     assert programExpense.status_code == 201
     programExpenseDAta = programExpense.json()
-    # print(programExpenseDAta)
     programTitle = programExpenseDAta.split('Program')
     assert programTitle[1].strip() == program_test_data[item['program_id'] - 1]['title']
+
+
+async def test_append_hotel_and_room_to_program(ac: AsyncClient):
+  for room in test_program_rooms:
+    prRoom = await ac.post('/hotels/room_to_program/', json=room)
+    assert prRoom.status_code == 201
+    progRoomDAta = prRoom.json()
+    program_data = hote_schemas.ProgramHotelRoomResponse(**progRoomDAta)
+    assert program_data.program.title == program_test_data[program_data.program.id - 1]['title']
+    assert program_data.hotel.title == test_hotels[program_data.hotel.id - 1]['title']
+    assert program_data.room.room_price == test_hotel_rooms[program_data.room.id - 1]['room_price']
+
+
+async def test_get_program_rooms(ac: AsyncClient):
+  progHot = await ac.get('/programs/program_hotels/1')
+  assert progHot.status_code == 200
+  programHotels = progHot.json()
+  for hotel in programHotels:
+    hotelData = hote_schemas.HotelWithRooms(**hotel)
+    assert hotelData.title == test_hotels[hotelData.id - 1]['title']
+
+
 
 
 
@@ -21,7 +46,6 @@ async def test_append_exp_to_prog(ac: AsyncClient):
 
 
 
-# async def test_append_hotel_and_room_to_program(ac: AsyncClient):...
 
 
 

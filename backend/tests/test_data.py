@@ -784,3 +784,20 @@ test_program_expenses = [
     {"program_id": 2, "expenses_id": 12},
     {"program_id": 2, "expenses_id": 1},
 ]
+
+
+test_program_rooms = [
+    {"program_id": 1, "hotel_id": 1, "room_id": 1},
+    {"program_id": 1, "hotel_id": 1, "room_id": 2},
+    {"program_id": 1, "hotel_id": 1, "room_id": 3},
+    {"program_id": 1, "hotel_id": 2, "room_id": 4},
+    {"program_id": 1, "hotel_id": 2, "room_id": 5},
+    {"program_id": 1, "hotel_id": 3, "room_id": 6},
+    {"program_id": 2, "hotel_id": 3, "room_id": 7},
+    {"program_id": 2, "hotel_id": 4, "room_id": 8},
+    {"program_id": 2, "hotel_id": 4, "room_id": 9},
+    {"program_id": 2, "hotel_id": 5, "room_id": 10},
+    {"program_id": 2, "hotel_id": 5, "room_id": 11},
+    {"program_id": 2, "hotel_id": 1, "room_id": 1},
+]
+

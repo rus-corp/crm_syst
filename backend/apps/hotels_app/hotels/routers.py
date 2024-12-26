@@ -122,7 +122,7 @@ async def delete_hotel(
 
 
 @router.post(
-  '/append_room_to_program',
+  '/room_to_program/',
   status_code=status.HTTP_201_CREATED,
   response_model=schemas.ProgramHotelRoomResponse
 )
@@ -139,7 +139,7 @@ async def append_hotel_to_program(
 
 
 @router.delete(
-  '/delete_room_from_program',
+  '/room_to_program/',
   status_code=status.HTTP_200_OK,
 )
 async def delete_room_from_program(

@@ -62,7 +62,6 @@ class ProgramResponseForAppendHotelAndRoom(BaseModel):
   id: int
   title: str
   place: str
-  price: int
 
 
 class ProgramClientsResponse(ProgramBaseResponse):

@@ -10,8 +10,7 @@ def format_program_data(data):
   return ProgramResponseForAppendHotelAndRoom(
     id=data.id,
     title=data.title,
-    place=data.place,
-    price=data.price
+    place=data.place
   )
 
 

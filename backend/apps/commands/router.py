@@ -20,12 +20,15 @@ router = APIRouter(
 
 @router.get('/')
 async def create_data(session: AsyncSession = Depends(get_db)):
-  client_dal = ClientDAL(session)
-  for client in clients:
-    slug = create_slug(client['last_name'] + client['name'])
-    client['slug'] = slug
-    new_client = await client_dal.create_client(**client)
-  return {'status': 'created'}
+  async with session.begin():
+    client_dal = ClientDAL(session)
+    created_client = []
+    for client in clients:
+      slug = create_slug(client['last_name'] + client['name'])
+      client['slug'] = slug
+      new_client = await client_dal.create_client(**client)
+      created_client.append(new_client)
+    return {'clients': created_client}
 
 
 
