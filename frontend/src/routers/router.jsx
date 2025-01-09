@@ -3,9 +3,10 @@ import { createBrowserRouter } from "react-router-dom";
 
 import { CrmPage, HotelPage, ClientPage, CreateProgramPage } from "../pages";
 import ProgramPage from "../pages/program_page/ProgramPage";
-import { HotelMainComponent } from "../modules";
+import { HotelMainComponent, CreateHotel, CreateRoom } from "../modules";
 import HotelProfileMainComponent from "../modules/hotels_module/components/hotel_profile/HotelProfileMainComponent";
 import { ClientProfile, ClientMainListComponent } from "../modules/client_module";
+
 
 
 
@@ -48,6 +49,14 @@ export const router = createBrowserRouter([
       {
         path: ':hotelId',
         element: <HotelProfileMainComponent />
+      },
+      {
+        path: 'create_hotel',
+        element: <CreateHotel />
+      },
+      {
+        path: 'create_hotel_rooms',
+        element: <CreateRoom />
       }
     ]
   },

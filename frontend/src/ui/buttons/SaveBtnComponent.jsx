@@ -3,11 +3,13 @@ import React from 'react';
 import style from './save_btn.module.css'
 
 
-export default function SaveBtnComponent({ saveTitle}) {
+export default function SaveBtnComponent({ saveTitle, clicked }) {
   return(
     <button
     className={style.btn}
-    type='submit'>
+    type='submit'
+    onClick={clicked}
+    >
       Сохранить {saveTitle}</button>
   );
 }

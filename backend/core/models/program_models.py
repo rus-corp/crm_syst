@@ -58,4 +58,5 @@ class ProgramPrices(Base):
   name: Mapped[ProgramPriceCategory] = mapped_column(SQLEnum(ProgramPriceCategory), default=ProgramPriceCategory.FT)
   price: Mapped[int]
   program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
+  
   program: Mapped['Program'] = relationship(back_populates='prices')

@@ -7,6 +7,29 @@ from apps.staff.schemas import ExpenseFullResponse
 
 
 
+class ProgramPricesBase(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  name: str
+  price: int
+  program_id: int
+
+
+class ProgramPricesBaseResponse(ProgramPricesBase):
+  id: int
+
+
+class ProgramPricesCreateRequest(ProgramPricesBase):
+  pass
+
+
+class ProgramPricesUpdateRequest(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  
+  name: Optional[str] = None
+  price: Optional[int] = None
+  program_id: Optional[int] = None
+
+
 class ProgramBase(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   

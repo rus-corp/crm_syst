@@ -6,6 +6,13 @@ import {
   getClientList
  } from "./clients_api/client_api";
 
+import {
+  createHotel,
+  getHotels,
+  getHotelById
+} from "./hotels_api/hotels";
+
+
  import { 
   createClientProgramPayment,
   getClientProgramPayments
@@ -23,5 +30,6 @@ import { getProgramClients,
 export { getPrograms, getProgramClients, getProgramHotels,
   getClientList, getClientBySlug, createClient,
   getClientCurrentProgram, getClientDataWithProgram,
-  createClientProgramPayment, getClientProgramPayments
+  createClientProgramPayment, getClientProgramPayments,
+  createHotel, getHotels, getHotelById
  }

@@ -12,19 +12,19 @@ router = APIRouter(
 )
 
 
-@router.post(
-  '/',
-  status_code=status.HTTP_200_OK
-)
-async def create_partner(
-  body: schemas.CreatePartnerBaseRequest,
-  session: AsyncSession = Depends(get_db)
-):
-  partner_handler = PartnerHandler(session)
-  new_partner = await partner_handler._create_partner(body)
-  return new_partner
+# @router.post(
+#   '/',
+#   status_code=status.HTTP_200_OK
+# )
+# async def create_partner(
+#   body: schemas.CreatePartnerBaseRequest,
+#   session: AsyncSession = Depends(get_db)
+# ):
+#   partner_handler = PartnerHandler(session)
+#   new_partner = await partner_handler._create_partner(body)
+#   return new_partner
 
-@router.get
-@router.get
-@router.patch
-@router.delete
+# @router.get
+# @router.get
+# @router.patch
+# @router.delete

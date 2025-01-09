@@ -43,9 +43,6 @@ class ProgramClients(Base):
 
 
 
-
-
-
 class ProgramRooms(Base):
   __tablename__ = 'program_rooms'
   __table_args__ = (UniqueConstraint('program_id', 'hotel_id', 'room_id'),)
@@ -63,16 +60,17 @@ class ProgramRooms(Base):
 
 class ProgramClientRoom(Base):
   __tablename__ = 'program_client_room'
-  __table_args__ = (UniqueConstraint('program_client_id', 'room_id'),)
+  __table_args__ = (UniqueConstraint('program_client_id', 'program_room_id'),)
   
   program_client_id: Mapped[int] = mapped_column(ForeignKey('program_clients.id'))
-  room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
-  
+  program_room_id: Mapped[int] = mapped_column(ForeignKey('program_rooms.id'))
+  # room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
+  # price: Mapped[int] = mapped_column(nullable=True)
   entry_date:Mapped[date]
   departue_date: Mapped[date]
   comment: Mapped[str] = mapped_column(nullable=True)
   
-  room: Mapped[HotelRooms] = relationship(back_populates='program_client_room')
+  # room: Mapped[HotelRooms] = relationship(back_populates='program_client_room')
   program_client: Mapped[ProgramClients] = relationship(back_populates='program_client_room')
 
 

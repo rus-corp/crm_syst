@@ -50,7 +50,7 @@ class HotelRooms(Base):
   
   hotel: Mapped[Hotels] = relationship(back_populates='rooms')
   program_hotel_room: Mapped[list['ProgramRooms']] = relationship(back_populates='room')
-  program_client_room: Mapped[list['ProgramClientRoom']] = relationship(back_populates='room')
+  # program_client_room: Mapped[list['ProgramClientRoom']] = relationship(back_populates='room')
   # programs: Mapped[List['Program']] = relationship(secondary='program_rooms', back_populates='rooms')
   
   # program_clients_rooms: Mapped[List['Program']] = relationship(secondary='program_client_room', back_populates='room_program_client')

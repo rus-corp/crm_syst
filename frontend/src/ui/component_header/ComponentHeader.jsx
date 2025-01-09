@@ -17,9 +17,8 @@ export default function ComponentHeader({ componentName, componentDataCount, com
       componentSetData={componentSetData} />
       <CreateNewItemBtn
       createDataName='Отель'
-      navi='/create_hotel'
+      navi='create_hotel'
       />
-
     </div>
 
   );

@@ -1,0 +1,40 @@
+.createHotel {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.createHotelData {
+  position: relative;
+  width: 80%;
+  display: block;
+}
+
+.sectionCreateData {
+  margin-top: 2rem;
+}
+
+.flexFields {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 2rem;
+}
+
+.createdField {
+  margin-top: 2rem;
+}
+
+.saveBtn {
+  position: absolute;
+  margin-top: 2rem;
+  right: 0;
+}
+
+.flexRoomsFields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
