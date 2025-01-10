@@ -1,29 +1,55 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import style from './create_hotel.module.css'
-import { CreateItemInput, SaveBtnComponent, TextAreaComponent } from '../../../../ui';
+import { SaveBtnComponent } from '../../../../ui';
+import CreateRoomItem from './CreateRoomItem';
+import { SmallButton } from '../../../../ui';
+import { createRoomsList } from '../../../../api';
+import { cleanData } from '../../utils/utils';
 
 
 export default function CreateRoom() {
+  const navigation = useNavigate()
   const location = useLocation()
   const { hotelId, hotelTitle } = location.state
-  const [roomData, setRoomData] = React.useState({
+  const [roomData, setRoomData] = React.useState([{
     room_type: '',
     room_price: 0,
     room_volume: 0,
     hotel_id: hotelId
-    })
-
-  const handleChangeField = (name, value) => {
-    setRoomData((prevData) => ({
+    }])
+  
+  const createRoomsDataList = async (roomsListData) => {
+    const cleanRooms = cleanData(roomsListData)
+    const response = await createRoomsList(cleanRooms)
+    console.log(response)
+    if (response.status === 201) {
+      navigation('/hotels')
+    }
+    return response
+  }
+  
+  const addComponent = () => {
+    setRoomData((prevData) => [
       ...prevData,
-      [name]: value
-    }))
+      {room_type: '',
+      room_price: 0,
+      room_volume: 0,
+      hotel_id: hotelId}
+    ])
+  }
+
+  const handleChangeField = (index, name, value) => {
+    setRoomData(
+      (prevData) => 
+        prevData.map((item, ind) => 
+        ind === index ? {...item, [name]: value} : item)
+    )
   }
 
   const handleSubmit = () => {
-    console.log(roomData)
+    createRoomsDataList(roomData)
   }
 
   return(
@@ -33,35 +59,16 @@ export default function CreateRoom() {
               <h3>Добавить номера отеля {hotelTitle}</h3>
             </div>
             <div className={style.sectionCreateData}>
-              <div className={style.flexRoomsFields}>
-                <div className={style.createdField}>
-                  <CreateItemInput
-                  fieldTitle='Тип Номера'
-                  fieldType='text'
-                  fieldName='room_type'
-                  value={roomData.room_type}
-                  changeFunc={handleChangeField}
-                  />
-                </div>
-                <div className={style.createdField}>
-                  <CreateItemInput
-                  fieldTitle='Вместимость номера'
-                  fieldType='number'
-                  fieldName='room_volume'
-                  value={roomData.room_volume}
-                  changeFunc={handleChangeField}
-                  />
-                </div>
-                <div className={style.createdField}>
-                  <CreateItemInput
-                  fieldTitle='Цена'
-                  fieldType='number'
-                  fieldName='room_price'
-                  value={roomData.room_price}
-                  changeFunc={handleChangeField}
-                  />
-                </div>
-              </div>
+              {roomData.map((data, index) => (
+                <CreateRoomItem key={index}
+                index={index}
+                roomData={data}
+                handleChange={handleChangeField}/>
+              ))}
+              <SmallButton
+              btnData='добавить номер'
+              handleClick={addComponent}
+              />
               <div className={style.saveBtn}>
                 <SaveBtnComponent
                 saveTitle='Номера'

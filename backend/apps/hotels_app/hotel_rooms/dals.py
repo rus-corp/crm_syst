@@ -1,5 +1,5 @@
 from ...base.base_dal import BaseDAL
-from sqlalchemy import update
+from sqlalchemy import update, insert
 
 from core.models.hotels_models import HotelRooms
 
@@ -21,6 +21,13 @@ class HotelRoomsDAL(BaseDAL):
     self.db_session.add(new_room)
     await self.db_session.commit()
     return new_room
+  
+  
+  async def create_many_rooms(self, values: list[dict]):
+    stmt = insert(self.model).values(values).returning(self.model)
+    result = await self.db_session.execute(stmt)
+    await self.db_session.commit()
+    return result.scalars().all()
   
   
   async def get_all_rooms(self):

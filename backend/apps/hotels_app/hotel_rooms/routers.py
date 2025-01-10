@@ -85,3 +85,18 @@ async def delete_hotel_room_by_id(
   room_handler = HotelRoomsHandler(session)
   room = await room_handler._delete_room_by_id(room_id)
   return room
+
+
+
+@router.post(
+  '/room_list/',
+  status_code=status.HTTP_201_CREATED,
+  response_model=list[schemas.HotelRoomBaseResponse]
+)
+async def create_rooms_list(
+  list_body: list[schemas.HoteRoomCreateRequset],
+  session: AsyncSession = Depends(get_db)
+):
+  room_handler = HotelRoomsHandler(session)
+  created_room = await room_handler._create_many_hotel_rooms(list_body)
+  return created_room

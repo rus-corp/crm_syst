@@ -17,6 +17,16 @@ class HotelRoomsHandler(BaseHandler):
       return new_room
   
   
+  async def _create_many_hotel_rooms(self, rooms: list[schemas.HoteRoomCreateRequset]):
+    async with self.session.begin():
+      createRooms = []
+      for room in rooms:
+        body_data = room.model_dump()
+        createRooms.append(body_data)
+      createdRooms = await self.room_dal.create_many_rooms(createRooms)
+      return createdRooms
+  
+  
   async def _get_all_rooms(self):
     async with self.session.begin():
       rooms = await self.room_dal.get_all_rooms()

@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import os
@@ -43,6 +43,12 @@ static_root = os.path.join(base_dir, 'static')
 if not os.path.exists(static_root):
   os.makedirs(static_root)
 
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    print(f"Request: {request.method} {request.url} - {request.client}")
+    response = await call_next(request)
+    return response
+  
 
 @app.get("/")
 def root():

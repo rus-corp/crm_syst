@@ -23,6 +23,13 @@
   text-align: center;
 }
 
+.itemMenu img {
+  transition: transform .3s ease;
+}
+
+.itemMenu img:active {
+  transform: scale(0.8);
+}
 
 .hotelCardList {
   width: 100%;

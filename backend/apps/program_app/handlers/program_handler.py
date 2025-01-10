@@ -23,7 +23,20 @@ class ProgramHandler(ProgramMixin, ProgramBaseHandler):
   async def _get_program_clients(self, program_id: int):
     async with self.session.begin():
       program_clients = await self.program_dal.get_program_by_id_with_clients(program_id)
-      return program_clients
+      clients = program_clients.program_clients_detail
+      duration = program_clients.duration()
+      return schemas.ProgramClientsResponse(
+        id=program_clients.id,
+        title=program_clients.title,
+        start_date=program_clients.start_date,
+        end_date=program_clients.end_date,
+        place=program_clients.place,
+        desc=program_clients.desc,
+        slug=program_clients.slug,
+        status=program_clients.status,
+        duration=duration,
+        program_clients_detail=program_clients.program_clients_detail
+      )
   
   
   async def _append_client_to_program(

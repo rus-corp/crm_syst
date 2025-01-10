@@ -18,7 +18,6 @@ export default function CreateHotel() {
   })
 
   const handleSubmit = async () => {
-    console.log(hotelData)
     const response = await createHotel(hotelData)
     if (response.status === 201) {
       navigation('/hotels/create_hotel_rooms', {

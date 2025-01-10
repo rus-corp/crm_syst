@@ -53,7 +53,6 @@ class ProgramUpdateRequest(BaseModel):
   end_date: Optional[date] = None
   place: Optional[str] = None
   desc: Optional[str] = None
-  price: Optional[int] = None
 
 
 

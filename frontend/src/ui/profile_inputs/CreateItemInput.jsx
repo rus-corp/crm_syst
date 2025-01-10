@@ -23,7 +23,14 @@ export default function CreateItemInput({
   return(
     <div className={style.createField}>
       <h5>{fieldTitle}</h5>
-      <input className={style.inputField} type={fieldType} style={styles} name={fieldName} onChange={handleChange} value={value}/>
+      <input 
+      className={style.inputField}
+      type={fieldType}
+      style={styles}
+      name={fieldName}
+      onChange={handleChange}
+      value={value}
+      />
     </div>
   );
 }
