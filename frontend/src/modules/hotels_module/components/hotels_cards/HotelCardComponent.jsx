@@ -6,19 +6,16 @@ import style from '../hotels.module.css'
 export default function HotelCardComponent({ hotelsList }) {
   return(
     <div className={style.hotelCardList}>
-      {hotelsList?.map(hotel => 
-        <div className={style.hotelCardItem} key={hotel.id}>
-          <HotelCardItemComponent key={hotel.id}
+      {hotelsList?.map((hotel) => (
+        <HotelCardItemComponent key={hotel.id}
           hotelId={hotel.id}
-          hotelName={hotel.name}
+          hotelName={hotel.title}
           hotelContacts={hotel.contacts}
           hotelAddress={hotel.address}
-          roomsCount={12}
-          freeRooms={4}
-          unFreeRooms={5}
-          />
-        </div>
-      )}
+          roomsCount={hotel.rooms?.length}
+          roomsVolumeTotal={hotel.hotel_rooms_volume}
+        />
+      ))}
     </div>
   );
 }
@@ -26,28 +23,26 @@ export default function HotelCardComponent({ hotelsList }) {
 
 
 
-function HotelCardItemComponent({ hotelId, hotelName, hotelAddress, hotelContacts, roomsCount, freeRooms, unFreeRooms }) {
+function HotelCardItemComponent({ hotelId, hotelName, hotelAddress, hotelContacts, roomsCount, roomsVolumeTotal }) {
   return (
-    <>
-      <div className={style.hotelCardMain}>
-        <Link className={style.hotelLink} to={`/hotels/${hotelId}`}><h4>{hotelName}</h4></Link>
-        <p>{hotelContacts}</p>
-        <p>{hotelAddress}</p>
-      </div>
+    <div className={style.hotelCardItem}>
+      <Link className={style.hotelLink} to={`/hotels/${hotelId}`}>
+        <div className={style.hotelCardMain}>
+          <h4>{hotelName}</h4>
+          <p>{hotelContacts}</p>
+          <p>{hotelAddress}</p>
+        </div>
+      </Link>
       <div className={style.hotelCardContent}>
         <div className={style.contentData}>
           <h6>{roomsCount}</h6>
           <p>Количество номеров</p>
         </div>
         <div className={style.contentData}>
-          <h6>{freeRooms}</h6>
-          <p>Свободных номеров</p>
-        </div>
-        <div className={style.contentData}>
-          <h6>{unFreeRooms}</h6>
-          <p>Занятых номеров</p>
+          <h6>{roomsVolumeTotal}</h6>
+          <p>Вместимость номеров</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

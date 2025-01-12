@@ -17,7 +17,7 @@ export const createHotel = async (hotelData) => {
 export const getHotels = async () => {
   try {
     const response = await backend.get(
-      '/hotels/'
+      '/hotels/with_rooms/'
     )
     return response
   } catch (error) {
@@ -25,10 +25,23 @@ export const getHotels = async () => {
   }
 }
 
-export const getHotelById = async (hotelId) => {
+export const getHotelByIdWithRooms = async (hotelId) => {
   try {
     const response = await backend.get(
-      `/hotels/${hotelId}`
+      `/hotels/with_rooms/${hotelId}`
+    )
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
+export const updateHotelProfileById = async (hotelId, hotelData) => {
+  try {
+    const response = await backend.patch(
+      `/hotels/${hotelId}`,
+      hotelData
     )
     return response
   } catch (error) {

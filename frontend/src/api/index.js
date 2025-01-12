@@ -9,10 +9,11 @@ import {
 import {
   createHotel,
   getHotels,
-  getHotelById
+  getHotelByIdWithRooms,
+  updateHotelProfileById
 } from "./hotels_api/hotels";
-import { createRoomsList } from "./hotels_api/rooms";
 
+import { createRoomsList } from "./hotels_api/rooms";
 
  import { 
   createClientProgramPayment,
@@ -32,5 +33,6 @@ export { getPrograms, getProgramClients, getProgramHotels,
   getClientList, getClientBySlug, createClient,
   getClientCurrentProgram, getClientDataWithProgram,
   createClientProgramPayment, getClientProgramPayments,
-  createHotel, getHotels, getHotelById, createRoomsList
+  createHotel, getHotels, getHotelByIdWithRooms, createRoomsList,
+  updateHotelProfileById
  }
