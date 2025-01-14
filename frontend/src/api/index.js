@@ -22,7 +22,8 @@ import { createRoomsList } from "./hotels_api/rooms";
 
 import { getProgramClients,
   getProgramHotels,
-  getPrograms }
+  getPrograms,
+  createProgram }
   from "./programs_api/programs_api";
 
 
@@ -34,5 +35,5 @@ export { getPrograms, getProgramClients, getProgramHotels,
   getClientCurrentProgram, getClientDataWithProgram,
   createClientProgramPayment, getClientProgramPayments,
   createHotel, getHotels, getHotelByIdWithRooms, createRoomsList,
-  updateHotelProfileById
+  updateHotelProfileById, createProgram
  }

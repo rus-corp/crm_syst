@@ -1,14 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import style from '../styles/create_program.module.css'
+import { NotificationComponent, CreateItemInput, SaveBtnComponent } from '../../../../ui';
 
-import { CreateItemInput, TextAreaComponent, SaveBtnComponent } from '../../../../ui';
-import { NotificationComponent } from '../../../../ui';
 
-import { createProgram } from '../../../../api';
-
-export default function CreateProgramComponent() {
-  const navigation = useNavigate()
+export default function AppendHotels() {
   const [createProgramData, setCreateProgramData] = React.useState({
     title: '',
     start_date: '',
@@ -17,31 +13,8 @@ export default function CreateProgramComponent() {
     desc: ''
   })
   const [alert, setAlert] = React.useState({severity:'', message:''})
-
-  const createNewProgram = async (programData) => {
-    const response = await createProgram(programData)
-    if (response.status === 201) {
-      setTimeout(() => {
-        setAlert({severity: 'success', message: 'Программа создана'})
-      }, 1500);
-      navigation('/add_hotel')
-    } else {
-      console.log(response)
-    }
-  }
-  const handleChange = (name, value) => {
-    setCreateProgramData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }))
-  }
-
-  const handleSubmit = () => {
-    // createNewProgram(createProgramData)
-    console.log(createProgramData)
-    navigation('add_hotel')
-  }
-
+  const handleChange =() => {}
+  const handleSubmit = () => {}
   return(
     <section className={style.createProgram}>
       <div className={style.createProgramData}>
@@ -91,15 +64,6 @@ export default function CreateProgramComponent() {
             fieldName='place'
             value={createProgramData.place}
             changeFunc={handleChange}
-            />
-          </div>
-          <div className={style.createdField}>
-            <TextAreaComponent
-            fieldTitle='Описание'
-            fieldName='desc'
-            fieldData={createProgramData.desc}
-            handleChange={handleChange}
-            // handleKeyDown={}
             />
           </div>
         </div>

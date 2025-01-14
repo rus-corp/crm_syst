@@ -3,7 +3,16 @@ import React from 'react';
 import style from './create_item.module.css'
 
 
-export default function TextAreaComponent({ fieldName, fieldTitle, fieldData, handleChange, handleKeyDown }) {
+export default function TextAreaComponent({
+  fieldName,
+  fieldTitle,
+  fieldData,
+  handleChange,
+  handleKeyDown
+}) {
+  const handleChangeField = () => {
+    
+  }
   return(
     <div className={style.createField}>
       <h5>{fieldTitle}</h5>

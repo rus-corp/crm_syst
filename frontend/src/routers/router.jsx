@@ -6,8 +6,8 @@ import ProgramPage from "../pages/program_page/ProgramPage";
 import { HotelMainComponent, CreateHotel, CreateRoom } from "../modules";
 import HotelProfileMainComponent from "../modules/hotels_module/components/hotel_profile/HotelProfileMainComponent";
 import { ClientProfile, ClientMainListComponent } from "../modules/client_module";
-
-
+import {CreateProgramComponent} from "../modules/program_module";
+import { ProgramExpenses, AppendHotels } from "../modules/program_module";
 
 
 
@@ -22,7 +22,21 @@ export const router = createBrowserRouter([
   },
   {
     path: '/create_program',
-    element: <CreateProgramPage />
+    element: <CreateProgramPage />,
+    children: [
+      {
+        path: '',
+        element: <CreateProgramComponent />
+      },
+      {
+        path: 'add_hotel',
+        element: <AppendHotels />
+      },
+      {
+        path: 'add_expenses',
+        element: <ProgramExpenses />
+      },
+    ]
   },
   {
     path: '/clients',

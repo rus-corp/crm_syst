@@ -16,7 +16,8 @@ export const getPrograms = async () => {
 export const createProgram = async(programData) =>{
   try {
     const response = await backend.post(
-
+      'programs',
+      programData
     )
     return response
   } catch (error) {
