@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from '../styles/create_program.module.css'
+import { differenceInCalendarDays } from "date-fns";
 
 import { CreateItemInput, TextAreaComponent, SaveBtnComponent } from '../../../../ui';
 import { NotificationComponent } from '../../../../ui';
@@ -24,7 +25,14 @@ export default function CreateProgramComponent() {
       setTimeout(() => {
         setAlert({severity: 'success', message: 'Программа создана'})
       }, 1500);
-      navigation('/add_hotel')
+      navigation(
+        'add_expenses', {
+          state: {
+            programId: 10,
+            programTitle: createProgramData.title
+          }
+        }
+      )
     } else {
       console.log(response)
     }
@@ -39,7 +47,18 @@ export default function CreateProgramComponent() {
   const handleSubmit = () => {
     // createNewProgram(createProgramData)
     console.log(createProgramData)
-    navigation('add_hotel')
+    setAlert({severity: 'success', message: 'Программа создана'})
+    setTimeout(() => {
+      setAlert({severity: '', message: ''})
+    }, 1500);
+    navigation('add_expenses', {
+      state: {
+        programId: 10,
+        programTitle: createProgramData.title,
+        nights: differenceInCalendarDays(createProgramData.end_date, createProgramData.start_date)
+      }
+    })
+    
   }
 
   return(

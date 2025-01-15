@@ -32,9 +32,25 @@
   margin-top: 2rem;
 }
 
-
 .saveBtn {
   position: absolute;
   margin-top: 2rem;
   right: 0;
+}
+
+.expenseHeader {
+  display: flex;
+  align-items: 'center';
+  gap: 5rem;
+}
+
+.programStaticData {
+
+}
+
+.expenseItemHeader {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 2rem;
+  align-items: center;
 }
