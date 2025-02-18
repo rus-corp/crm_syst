@@ -111,12 +111,16 @@ async def create_employee_and_expenses(
 @router.get(
   '/employee_expenses/',
   status_code=status.HTTP_200_OK,
-  response_model=List[schemas.CreateEmployeeWithExpensesResponse]
+  response_model=List[schemas.EmployeeWithExpenseData]
 )
 async def get_all_employee_with_expenses(
-  session: AsyncSession = Depends(get_db)
+  session: AsyncSession = Depends(get_db),
+  limit: bool = False
 ):
   employee_handler = EmployeeHandler(session)
+  if limit:
+    employeer_list = await employee_handler._get_all_employees_with_expenses(empl_limit=8)
+    return employeer_list
   employeer_list = await employee_handler._get_all_employees_with_expenses()
   return employeer_list
 

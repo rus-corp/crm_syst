@@ -1,0 +1,53 @@
+.createBlock {
+  width: 97%;
+}
+
+.blockHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.blockContent {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.staffItem {
+  position: relative;
+  width: 100%;
+  min-height: 8rem;
+  background-color: #fff;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.staffHeader {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.staffMainData {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.staffExpenses {
+  width: 50%;
+  max-width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.staffExpenseItem > h6 {
+  text-align: center;
+}

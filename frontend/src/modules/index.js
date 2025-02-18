@@ -1,4 +1,6 @@
 import CompanyMain from "./company_module/CompanyMain";
+import ExpenseBlock from "./company_module/expenses/ExpenseItem";
+import StaffBlock from "./company_module/staff/StaffItem";
 import CreateHotel from "./hotels_module/components/create_hotel/CreateHotel";
 import CreateRoom from "./hotels_module/components/create_hotel/CreateRoom";
 import HotelMainComponent from "./hotels_module/components/HotelMainComponent";
@@ -7,5 +9,5 @@ import MainProgramComponent from "./program_module/components/MainProgramCompone
 
 export { MainMenu, HotelMainComponent,
   MainProgramComponent, CreateHotel,
-  CreateRoom, CompanyMain
+  CreateRoom, CompanyMain, StaffBlock, ExpenseBlock
  }

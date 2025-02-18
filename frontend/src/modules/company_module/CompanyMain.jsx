@@ -1,33 +1,23 @@
 import React from 'react';
 
+
 import style from './styles/company_main.module.css'
+
+import { ExpenseBlock, StaffBlock } from '../index';
+
 
 
 export default function CompanyMain() {
-  const [staffData, setStaffData] = React.useState(staff)
   const [programData, setProgramData] = React.useState(programs)
+  
   return(
     <section className={style.companyComponent}>
+      <div className={style.companyName}>
+        <h2>Астроверты</h2>
+      </div>
       <div className={style.companyContainer}>
         <div className={style.companyData}>
-          <div className={style.companyName}>
-            <h2>Астроверты</h2>
-          </div>
-          <div className={style.staffBlock}>
-            <div className={style.staffTitle}>
-              <h4>Сотрудники</h4>
-              <a>Показать всех &gt;</a>
-            </div>
-            <div className={style.staffList}>
-              {staffData.map((staffItem) => (
-                <StaffItem key={staffItem.id}
-                staffName={staffItem.first_name}
-                staffLastName={staffItem.last_name}
-                staffPos={staffItem.position}
-                />
-              ))}
-            </div>
-          </div>
+          <StaffBlock />
           <div className={style.programsBlock}>
             <div className={style.programTitle}>
               <h4>Программы</h4>
@@ -42,6 +32,21 @@ export default function CompanyMain() {
             </div>
           </div>
         </div>
+        <div className={style.usersData}>
+          <div className={style.usersBlock}>
+              <div className={style.usersHeader}>
+                <h4>Пользователи</h4>
+                <a>Показать все &gt;</a>
+              </div>
+              <div className={style.usersList}>
+              </div>
+          </div>
+          <div className={style.usersBlock}>
+          <div className={style.usersHeader}>
+            <ExpenseBlock />
+          </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -49,81 +54,24 @@ export default function CompanyMain() {
 
 
 
-function StaffItem({staffName, staffLastName, staffPos}) {
-  return (
-    <div className={style.staffItem}>
-      <div className={style.staffName}>
-        <h6>{staffName} {staffLastName}</h6>
-      </div>
-      <div className={style.staffPos}>
-        <p>{staffPos}</p>
-      </div>
-    </div>
-  );
-}
+
 
 
 function ProgramItemData ({ programTitle }) {
   return (
     <div className={style.programItem}>
       <div className={style.programContent}>
-        <p>{programTitle}</p>
+        <div className={style.programInfo}>
+          <h6>{programTitle}</h6>
+        </div>
+        <div className={style.programClients}>
+          <h6>Клиенты Программы</h6>
+        </div>
       </div>
     </div>
   );
 }
 
-
-const staff = [
-  {
-    "first_name": "Иван",
-    "last_name": "Иванов",
-    "position": "Менеджер проекта",
-    "id": 1
-  },
-  {
-    "first_name": "Марина",
-    "last_name": "Петрова",
-    "position": "Главный бухгалтер",
-    "id": 2
-  },
-  {
-    "first_name": "Алексей",
-    "last_name": "Кузнецов",
-    "position": "Старший разработчик",
-    "id": 3
-  },
-  {
-    "first_name": "Ольга",
-    "last_name": "Смирнова",
-    "position": "HR-менеджер",
-    "id": 4
-  },
-  {
-    "first_name": "Дмитрий",
-    "last_name": "Васильев",
-    "position": "Директор по маркетингу",
-    "id": 5
-  },
-  {
-    "first_name": "Дмитрий",
-    "last_name": "Васильев",
-    "position": "Директор по маркетингу",
-    "id": 6
-  },
-  {
-    "first_name": "Дмитрий",
-    "last_name": "Васильев",
-    "position": "Директор по маркетингу",
-    "id": 7
-  },
-  {
-    "first_name": "Дмитрий",
-    "last_name": "Васильев",
-    "position": "Директор по маркетингу",
-    "id": 8
-  },
-]
 
 
 const programs = [
@@ -169,17 +117,6 @@ const programs = [
     "id": 5,
     "slug": "osen-v-karelii2025-09-20",
     "status": "Draft",
-    "duration": 7
-  },
-  {
-    "title": "Новогоднее путешествие на Алтай",
-    "start_date": "2025-12-30",
-    "end_date": "2026-01-06",
-    "place": "Алтай",
-    "desc": "Встреча Нового года на Алтае с катанием на лыжах и экскурсией по природным достопримечательностям.",
-    "id": 6,
-    "slug": "novogodnee-puteshestvie-na-altai2025-12-30",
-    "status": "Future",
     "duration": 7
   }
 ]

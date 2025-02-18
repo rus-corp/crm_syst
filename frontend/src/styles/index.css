@@ -88,7 +88,7 @@ h6 {
 
 p {
   font-family: inherit;
-  color: #3B3937;
+  color: #91929E;
   font-family: inherit;
 }
 
@@ -167,7 +167,16 @@ label {
   gap: 2rem;
 }
 
-
+.line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 95%;
+  background-color: #E4E6E8;
+  transform: translate(-50%, -50%);
+  
+}
 /* legend {
   display: block;
 }

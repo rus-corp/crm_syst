@@ -85,3 +85,7 @@ class CreateEmployeeWithExpensesRequest(CreateEmployeeRequest):
 
 class CreateEmployeeWithExpensesResponse(EmployeeResponse):
   expenses: Optional[List[ExpenseBaseResponse]] = None
+
+
+class EmployeeWithExpenseData(EmployeeResponse):
+  expenses: Optional[List[ExpenseFullResponse]] = None

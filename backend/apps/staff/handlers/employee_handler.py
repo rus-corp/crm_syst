@@ -46,7 +46,10 @@ class EmployeeHandler(BaseHandler):
   
   
   
-  async def _get_all_employees_with_expenses(self):
+  async def _get_all_employees_with_expenses(self, empl_limit=None):
+    if empl_limit:
+      employees = await self.employee_dal.get_all_employees_with_expenses(limit=empl_limit)
+      return employees
     employees = await self.employee_dal.get_all_employees_with_expenses()
     return list(employees)
   

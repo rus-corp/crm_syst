@@ -28,8 +28,8 @@ class Employee(Base):
   first_name: Mapped[str]
   last_name: Mapped[str]
   position: Mapped[EmployeePosition] = mapped_column(SQLEnum(EmployeePosition), default=EmployeePosition.AM)
-  
-  expenses: Mapped[List['Expenses']] = relationship(back_populates='employee')
+  # comment
+  expenses: Mapped[List['Expenses']] = relationship(back_populates='employee', lazy='joined')
 
 
 
@@ -43,7 +43,7 @@ class Expenses(Base):
   employee_id: Mapped[int] = mapped_column(ForeignKey('employees.id'), nullable=True)
   
   category: Mapped[CostItem] = relationship(back_populates='expenses', lazy='joined')
-  employee: Mapped[Employee] = relationship(back_populates='expenses', lazy='joined')
+  employee: Mapped[Employee] = relationship(back_populates='expenses')
   programs: Mapped[List['Program']] = relationship(
     secondary='program_expenses',
     back_populates='expenses'

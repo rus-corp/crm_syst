@@ -87,7 +87,6 @@ function ClientItem({
     to={`/clients/${clientSlug}`}
     className={style.clientItem}
     onClick={() => dispatch(setClientSlug(clientSlug))}>
-      
       <div className={style.clientFullName}>
         <p>{clientName}</p>
         <h5>{clientLastName}</h5>

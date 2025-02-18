@@ -64,8 +64,13 @@ class EmployeeDAL(BaseDAL):
     return result.scalar()
   
   
-  async def get_all_employees_with_expenses(self):
-    query = (select(Employee)
-             .options(selectinload(Employee.expenses)))
+  async def get_all_employees_with_expenses(self, limit: int = None):
+    if limit:
+      query = (select(Employee)
+               .options(joinedload(Employee.expenses))
+               .limit(limit))
+    else:
+      query = (select(Employee)
+              .options(selectinload(Employee.expenses)))
     result = await self.db_session.execute(query)
-    return result.scalars().all()
+    return result.scalars().unique().all()
