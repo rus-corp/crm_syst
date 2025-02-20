@@ -1,3 +1,4 @@
+import BlockItemPage from "./block_item_page/BlockItemPage";
 import ClientPage from "./client_pages/ClientPage";
 import CompanyPage from "./company_pages/CompanyPage";
 import CreateItemPage from "./create_item_page/CreateItemPage";
@@ -8,4 +9,5 @@ import ProgramPage from "./program_page/ProgramPage";
 
 
 export { CrmPage, HotelPage,
-  ClientPage, CreateProgramPage, CompanyPage, CreateItemPage, ProgramPage }
+  ClientPage, CreateProgramPage, CompanyPage, CreateItemPage, ProgramPage,
+  BlockItemPage }

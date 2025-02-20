@@ -33,7 +33,7 @@ async def create_expenses(
 @router.get(
   '/',
   status_code=status.HTTP_200_OK,
-  response_model=list[schemas.ExpenseFullResponse]
+  # response_model=list[schemas.ExpenseBaseResponse]
 )
 async def get_all_expenses(
   session: AsyncSession = Depends(get_db)

@@ -31,6 +31,14 @@ class ExpenseBaseResponse(ExpensesBase):
   id: int
 
 
+class ExpenseBaseResponse(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  id: int
+  amount: int
+  category_id: int
+  employee_id: Optional[int] = None
+  category: CostItemResponse
+
 class ExpensesUpdateRequest(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   category_id: Optional[int] = None

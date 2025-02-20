@@ -9,12 +9,10 @@ export default function CreateItemPage() {
   const { type } = useParams()
   const renderComponent = () => {
     switch (type) {
-      case 'staff':
+      case 'create_staff':
         return <CreateStaff />
-      case 'expenses':
+      case 'create_expense':
         return <CreateExpense />
-      case 'room':
-        return <CreateRoom />
       default:
         return <CreateStaff />
     }
