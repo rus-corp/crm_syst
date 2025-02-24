@@ -1,6 +1,6 @@
 import { backend } from "../_variables";
 
-export const getStaffs = async (limit = null) => {
+export const getStaffs = async (limit=null) => {
   let url;
   if (limit) {
     url = `/staff/employee/employee_expenses/?limit=${limit}`
@@ -18,15 +18,15 @@ export const getStaffs = async (limit = null) => {
 }
 
 
-export const createStaffItem = async (data) => {
+export const createStaffItem = async (staffData) => {
   try {
     const response = await backend.post(
       '/staff/employee/',
-      data
+      staffData
     )
     return response
   } catch(error) {
-    console.error(error)
+    return error.response
   }
 }
 
@@ -39,6 +39,16 @@ export const getExpensesList = async () => {
     )
     return response
   } catch (error) {
+    console.error(error)
+  }
+}
+
+
+export const getEmployeePositions = async () => {
+  try {
+    const response = await backend.get('/staff/employee/position_list/')
+    return response
+  } catch(error) {
     console.error(error)
   }
 }

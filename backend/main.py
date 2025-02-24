@@ -43,11 +43,12 @@ static_root = os.path.join(base_dir, 'static')
 if not os.path.exists(static_root):
   os.makedirs(static_root)
 
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    print(f"Request: {request.method} {request.url} - {request.client}")
-    response = await call_next(request)
-    return response
+# @app.middleware("http")
+# async def log_requests(request: Request, call_next):
+#     print(f"Request: {request.method} {request.url} - {request.client}")
+#     print(request.body)
+#     response = await call_next(request)
+#     return response
   
 
 @app.get("/")

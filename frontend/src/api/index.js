@@ -27,6 +27,7 @@ import { getProgramClients,
   from "./programs_api/programs_api";
 import {
   createStaffItem,
+  getEmployeePositions,
   getExpensesList,
   getStaffs
 } from "./staff_api/staff_api";
@@ -41,5 +42,5 @@ export { getPrograms, getProgramClients, getProgramHotels,
   createClientProgramPayment, getClientProgramPayments,
   createHotel, getHotels, getHotelByIdWithRooms, createRoomsList,
   updateHotelProfileById, createProgram, createStaffItem, getStaffs,
-  getExpensesList
+  getExpensesList, getEmployeePositions
  }

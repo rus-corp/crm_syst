@@ -53,6 +53,7 @@ class EmployeeBase(BaseModel):
   first_name: str
   last_name: str
   position: EmployeePosition
+  comment: Optional[str] = None
 
 
 class CreateEmployeeRequest(EmployeeBase):

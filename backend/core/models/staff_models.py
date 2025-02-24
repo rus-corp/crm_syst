@@ -28,7 +28,7 @@ class Employee(Base):
   first_name: Mapped[str]
   last_name: Mapped[str]
   position: Mapped[EmployeePosition] = mapped_column(SQLEnum(EmployeePosition), default=EmployeePosition.AM)
-  # comment
+  comment: Mapped[str] = mapped_column(nullable=True)
   expenses: Mapped[List['Expenses']] = relationship(back_populates='employee', lazy='joined')
 
 

@@ -1,11 +1,11 @@
-from typing import List
+from typing import Dict, List
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from .. import schemas
 from ..handlers.employee_handler import EmployeeHandler
-from .utils import employee_position_variants
+from .utils import employee_position_variants, positions_list
 
 router = APIRouter(
   prefix='/employee',
@@ -138,3 +138,13 @@ async def get_employeer_with_expenses(
   employee_handler = EmployeeHandler(session)
   employeer = await employee_handler._get_employee_with_expenses(employeer_id)
   return employeer
+
+
+
+@router.get(
+  '/position_list/',
+  status_code=status.HTTP_200_OK
+)
+async def get_employee_positions():
+  positions =  positions_list()
+  return positions

@@ -22,7 +22,9 @@ export default function ExpenseBlock() {
       </div>
       <div className={style.staffList}>
         {expenses.map((staffItem) => (
-          <ExpenseItem
+          <ExpenseItem key={staffItem.id}
+          categoryTitle={staffItem.category.title}
+          amount={staffItem.amount}
           />
         ))}
       </div>
@@ -32,9 +34,12 @@ export default function ExpenseBlock() {
 
 
 
-function ExpenseItem() {
+function ExpenseItem({ categoryTitle, amount}) {
   return (
-    <p></p>
+    <div className={style.expenseItem}>
+      <span>{categoryTitle}</span>
+      <span>{amount}</span>
+    </div>
   );
 }
 
