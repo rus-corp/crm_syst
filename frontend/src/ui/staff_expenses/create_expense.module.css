@@ -22,3 +22,11 @@
   gap: 2rem;
   margin-top: 1rem;
 }
+
+.createBlockContent {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}

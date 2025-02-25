@@ -87,4 +87,17 @@ async def delete_expense_by_id(
   expenses_handler = ExpenseHandler(session)
   deleted_expense = await expenses_handler._delete_expense_by_id(expense_id)
   return deleted_expense
-  
+
+
+
+
+@router.post(
+  '/category_expense',
+  status_code=status.HTTP_201_CREATED
+)
+async def create_expense_with_category(
+  session: AsyncSession = Depends(get_db)
+):
+  expense_handler = ExpenseHandler(session)
+  created_expense = await expense_handler
+  return created_expense

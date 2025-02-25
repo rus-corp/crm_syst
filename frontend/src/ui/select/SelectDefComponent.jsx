@@ -5,12 +5,11 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 
-export default function StaffSelect({ dataTitle, dataList, changeFunc }) {
+export default function SelectDefComponent({ dataTitle, dataList, changeFunc }) {
   const [selectedData, setSelectedData] = React.useState('')
   const handleChange = (ev) => {
-    console.log(ev.target.value)
     setSelectedData(ev.target.value)
-    changeFunc('position', ev.target.value)
+    changeFunc(ev.target.value)
   }
   return(
     <FormControl sx={{ m: 1, minWidth: '100%',}} size="small">
@@ -19,13 +18,14 @@ export default function StaffSelect({ dataTitle, dataList, changeFunc }) {
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         value={selectedData}
-        label="Должность"
+        label={dataTitle}
         onChange={handleChange}
       >
-        {dataList.map((dataItem, indx) => (
-          <MenuItem key={indx}
-          value={dataItem}>{dataItem}</MenuItem>
+        {dataList.map((dataItem) => (
+          <MenuItem key={dataItem.id}
+          value={dataItem.id}>{dataItem.title}</MenuItem>
         ))}
+        <MenuItem>cretae New</MenuItem>
       </Select>
     </FormControl>
   );

@@ -54,4 +54,39 @@ export const getEmployeePositions = async () => {
 }
 
 
+export const createExpenseItem = async (expenseData) => {
+  try {
+    const response = await backend.post(
+      '/staff/expenses/',
+      expenseData
+    )
+    return response
+  } catch (error) {
+    return error.response
+  }
+}
 
+
+export const createCostItem = async (costItemData) => {
+  try {
+    const response = await backend.post(
+      '/staff/cost_items/',
+      costItemData
+    )
+    return response
+  } catch (error) {
+    return error.response
+  }
+}
+
+
+export const getCostItemsList = async () => {
+  try { 
+    const response = await backend.get(
+      '/staff/cost_items/'
+    )
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}

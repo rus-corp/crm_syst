@@ -87,6 +87,7 @@ export default function CreateStaff() {
             <h5>Должность Сотрудника</h5>
           </div>
           <StaffSelect
+          dataTitle={'Должность'}
           dataList={employeePositionsData}
           changeFunc={handleChange}
           />
