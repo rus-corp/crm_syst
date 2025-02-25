@@ -21,8 +21,11 @@ class ExpenseHandler(BaseHandler):
       return expense_item
   
   
-  async def _get_all_expenses(self):
-    expeneses = await self.expense_dal.get_all_expenses()
+  async def _get_all_expenses(self, expense_limit=None):
+    if expense_limit:
+      expeneses = await self.expense_dal.get_all_expenses(limit=expense_limit)
+    else:
+      expeneses = await self.expense_dal.get_all_expenses()
     return list(expeneses)
   
   

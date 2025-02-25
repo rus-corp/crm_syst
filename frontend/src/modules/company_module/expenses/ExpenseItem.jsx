@@ -8,7 +8,7 @@ import { getExpensesList } from '../../../api';
 export default function ExpenseBlock() {
   const [expenses, setExpenses] = React.useState([])
   const getExpenseData = async () => {
-    const response = await getExpensesList()
+    const response = await getExpensesList(true)
     setExpenses(response.data)
   }
   React.useEffect(() => {

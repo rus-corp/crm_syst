@@ -120,8 +120,8 @@ async def get_all_employee_with_expenses(
   employee_handler = EmployeeHandler(session)
   if limit:
     employeer_list = await employee_handler._get_all_employees_with_expenses(empl_limit=8)
-    return employeer_list
-  employeer_list = await employee_handler._get_all_employees_with_expenses()
+  else:
+    employeer_list = await employee_handler._get_all_employees_with_expenses()
   return employeer_list
 
 

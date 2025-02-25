@@ -18,7 +18,7 @@ router = APIRouter(
 @router.post(
   '/',
   status_code=status.HTTP_201_CREATED,
-  response_model=schemas.ExpenseBaseResponse
+  response_model=schemas.ExpenseResponse
 )
 async def create_expenses(
   body: schemas.ExpenseCreateRequst,
@@ -33,13 +33,17 @@ async def create_expenses(
 @router.get(
   '/',
   status_code=status.HTTP_200_OK,
-  # response_model=list[schemas.ExpenseBaseResponse]
+  response_model=list[schemas.ExpenseBaseResponse]
 )
 async def get_all_expenses(
+  limit: bool = False,
   session: AsyncSession = Depends(get_db)
 ):
   expenses_handler = ExpenseHandler(session)
-  expenses = await expenses_handler._get_all_expenses()
+  if limit:
+    expenses = await expenses_handler._get_all_expenses(expense_limit=6)
+  else:
+    expenses = await expenses_handler._get_all_expenses()
   return expenses
 
 
@@ -61,7 +65,7 @@ async def get_expenses_by_id(
 @router.patch(
   '/{expense_id}',
   status_code=status.HTTP_200_OK,
-  response_model=schemas.ExpenseBaseResponse
+  response_model=schemas.ExpenseResponse
 )
 async def update_expense(
   expense_id: int,
@@ -91,13 +95,13 @@ async def delete_expense_by_id(
 
 
 
-@router.post(
-  '/category_expense',
-  status_code=status.HTTP_201_CREATED
-)
-async def create_expense_with_category(
-  session: AsyncSession = Depends(get_db)
-):
-  expense_handler = ExpenseHandler(session)
-  created_expense = await expense_handler
-  return created_expense
+# @router.post(
+#   '/category_expense',
+#   status_code=status.HTTP_201_CREATED
+# )
+# async def create_expense_with_category(
+#   session: AsyncSession = Depends(get_db)
+# ):
+#   expense_handler = ExpenseHandler(session)
+#   created_expense = await expense_handler
+#   return created_expense

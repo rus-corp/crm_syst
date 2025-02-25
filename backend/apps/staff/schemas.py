@@ -27,7 +27,7 @@ class ExpenseCreateRequst(ExpensesBase):
   pass
 
 
-class ExpenseBaseResponse(ExpensesBase):
+class ExpenseResponse(ExpensesBase):
   id: int
 
 
@@ -38,6 +38,7 @@ class ExpenseBaseResponse(BaseModel):
   category_id: int
   employee_id: Optional[int] = None
   category: CostItemResponse
+
 
 class ExpensesUpdateRequest(BaseModel):
   model_config = ConfigDict(from_attributes=True)

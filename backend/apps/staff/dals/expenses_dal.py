@@ -17,8 +17,13 @@ class ExpensesDAL(BaseDAL):
     return result
   
   
-  async def get_all_expenses(self):
-    query = select(self.model).options(joinedload(self.model.employee))
+  async def get_all_expenses(self, limit: int = None):
+    if limit:
+      query = (select(self.model)
+               .options(joinedload(self.model.employee))
+               .limit(limit))
+    else:
+      query = select(self.model).options(joinedload(self.model.employee))
     result = await self.db_session.execute(query)
     return result.scalars().unique().all()
   

@@ -32,10 +32,16 @@ export const createStaffItem = async (staffData) => {
 
 
 
-export const getExpensesList = async () => {
+export const getExpensesList = async (limit=null) => {
+  let url;
+  if (limit) {
+    url = `/staff/expenses/?limit=${limit}`
+  } else {
+    url = '/staff/expenses/'
+  }
   try {
     const response = await backend.get(
-      '/staff/expenses/'
+      url
     )
     return response
   } catch (error) {
