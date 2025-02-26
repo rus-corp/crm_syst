@@ -1,26 +1,66 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import style from '../styles/create_program.module.css'
-import { NotificationComponent, CreateItemInput, SaveBtnComponent, ProfileInput } from '../../../../ui';
-import { StaffSelect } from '../../../../ui';
+import { NotificationComponent, CreateItemInput, SaveBtnComponent, ProfileInput, SmallButton } from '../../../../ui';
+import ProgramEmployeeItemCreate from './ProgramEmployeeItemCreate';
+
+import { getStaffs } from '../../../../api';
 
 export default function ProgramExpenses() {
   const location = useLocation()
   const { programId, programTitle, nights } = location.state
-  console.log(nights)
   const [alert, setAlert] = React.useState({severity:'', message:''})
-  const [createProgramData, setCreateProgramData] = React.useState({
-      title: '',
-      start_date: '',
-      end_date: '',
-      place: '',
-      desc: ''
-    })
-  
-  const handleChange = (e) => {
+  const [staffExpenseItem, setStaffExpenseItem] = React.useState([{
+    programID: programId,
+    staffID: null,
+    transfer: null,
+    food: null,
+    salary: null,
+    habitation: null
+  }])
 
+  const [staffData, setStaffData] = React.useState([])
+  const handleChangeExpense = (indx, name, value) => {
+    setStaffExpenseItem(
+      (prevData) => 
+        prevData.map((item, ind) => 
+        ind === indx ? {...item, [name]: value} : item)
+    )
   }
-  const handleSubmit = () => {}
+  const handleChangeEmpl = (indx, value) => {
+    setStaffExpenseItem(
+      (prevData) => 
+        prevData.map((item, ind) => 
+        ind === indx ? {...item, staffID: value} : item)
+    )
+  }
+  const handleSubmit = () => {
+    console.log(staffExpenseItem)
+  }
+
+  const addComponent = () => {
+    setStaffExpenseItem((prevData) => ([
+      ...prevData,
+      {
+        programID: programId,
+        staffID: '',
+        transfer: '',
+        food: '',
+        salary: '',
+        habitation: ''
+      }
+    ]))
+  }
+  const getStaffData = async () => {
+    const response = await getStaffs()
+    if (response.status === 200) {
+      setStaffData(response.data)
+    }
+  }
+
+  React.useEffect(() => {
+    getStaffData()
+  }, [])
 
   return(
     <section className={style.createProgram}>
@@ -46,9 +86,11 @@ export default function ProgramExpenses() {
             />
           </div>
         </div>
-
-        <div className={style.sectionCreateData}>
-          <aside className={style.orgExpense}>
+        <aside className={style.sectionCreateData}>
+          <div className={style.dataHeader}>
+            <h4>Затраты на сотрудников</h4>
+          </div>
+          <div className={style.orgExpense}>
             <div className={style.expenseItemHeader}>
               <p>Сотрудник</p>
               <p>Проезд</p>
@@ -57,19 +99,21 @@ export default function ProgramExpenses() {
               <p>Проживание</p>
             </div>
             <div className={style.expenseStaff}>
-              <div className={style.expenseItemHeader}>
-                <StaffSelect />
-                <CreateItemInput />
-                <CreateItemInput />
-                <CreateItemInput />
-                <CreateItemInput />
-              </div>
+              {staffExpenseItem.map((item, indx) => (
+                <ProgramEmployeeItemCreate key={indx}
+                staffData={staffData}
+                indx={indx}
+                handleChangeEmpl={handleChangeEmpl}
+                handleChangeExpense={handleChangeExpense}
+                />
+              ))}
             </div>
-            <button>Add Staff</button>
-          </aside>
-        </div>
-
-
+            <SmallButton
+            btnData={'Добавить сотрудника'}
+            handleClick={addComponent}
+            />
+          </div>
+        </aside>
 
         <div className={style.saveBtn}>
           <SaveBtnComponent

@@ -11,6 +11,7 @@ import NotificationComponent from "./notifications/NotificationComponent";
 import CreateItemInput from "./profile_inputs/CreateItemInput";
 import ProfileInput from "./profile_inputs/ProfileInput";
 import TextAreaComponent from "./profile_inputs/TextAreaComponent";
+import EmployeeSelect from "./select/EmployeeSelect";
 import SelectDefComponent from "./select/SelectDefComponent";
 import StaffSelect from "./select/StaffSelect";
 import Staffselect from "./select/StaffSelect";
@@ -27,4 +28,4 @@ export { ProgramIcon, Icon, MenuItem,
   SmallButton, CreateItemInput, TextAreaComponent,
   SaveBtnComponent, NotificationComponent, StaffSelect,
   companyIcon, CreateStaff,CreateExpense, ExpenseBlockComponent,
-  StaffBlockComponent, SelectDefComponent }
+  StaffBlockComponent, SelectDefComponent, EmployeeSelect }

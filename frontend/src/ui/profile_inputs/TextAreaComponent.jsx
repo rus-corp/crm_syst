@@ -10,8 +10,9 @@ export default function TextAreaComponent({
   handleChange,
   handleKeyDown
 }) {
-  const handleChangeField = () => {
-    
+  const handleChangeField = (ev) => {
+    const { name, value } = ev.target
+    handleChange(name, value)
   }
   return(
     <div className={style.createField}>
@@ -21,7 +22,7 @@ export default function TextAreaComponent({
       className={style.inputField}
       name={fieldName}
       value={fieldData}
-      onChange={handleChange}
+      onChange={handleChangeField}
       onKeyDown={handleKeyDown}
       />
     </div>

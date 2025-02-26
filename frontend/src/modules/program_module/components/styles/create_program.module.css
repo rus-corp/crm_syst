@@ -14,6 +14,9 @@
   display: block;
 }
 
+.sectionHeader {
+  text-align: start;
+}
 .sectionCreateData {
   margin-top: 2rem;
 }
@@ -44,13 +47,15 @@
   gap: 5rem;
 }
 
-.programStaticData {
-
-}
 
 .expenseItemHeader {
   display: grid;
   grid-template-columns: 2fr repeat(4, 1fr);
   gap: 2rem;
   align-items: center;
+  text-align: center;
+}
+
+.dataHeader {
+  margin-bottom: 2rem;
 }
