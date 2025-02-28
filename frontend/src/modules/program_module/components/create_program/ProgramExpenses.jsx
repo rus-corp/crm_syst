@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import style from '../styles/create_program.module.css'
-import { NotificationComponent, CreateItemInput, SaveBtnComponent, ProfileInput, SmallButton } from '../../../../ui';
-import ProgramEmployeeItemCreate from './ProgramEmployeeItemCreate';
+import { NotificationComponent, CreateItemInput, SaveBtnComponent, ProfileInput, SmallButton } from '@/ui';
+import ProgramEmployeeItemCreate from './partials/ProgramEmployeeItemCreate';
 
-import { getStaffs } from '../../../../api';
+import { getStaffs } from '@/api';
+
 
 export default function ProgramExpenses() {
   const location = useLocation()
@@ -112,6 +113,14 @@ export default function ProgramExpenses() {
             btnData={'Добавить сотрудника'}
             handleClick={addComponent}
             />
+          </div>
+        </aside>
+        <aside className={style.staticExpenseBlock}>
+          <div className={style.dataHeader}>
+            <h4>Статические затраты</h4>
+          </div>
+          <div className={style.satticExpenses}>
+            
           </div>
         </aside>
 

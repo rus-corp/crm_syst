@@ -13,6 +13,15 @@ export const createHotel = async (hotelData) => {
   }
 }
 
+export const getHotelsWithoutRooms = async () => {
+  try {
+    const response = await backend.get('/hotels')
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 
 export const getHotels = async () => {
   try {

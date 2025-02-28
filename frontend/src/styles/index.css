@@ -175,8 +175,15 @@ label {
   height: 95%;
   background-color: #E4E6E8;
   transform: translate(-50%, -50%);
-  
 }
+
+.imgOpen {
+  transform: rotate(90deg);
+  transition: .3s;
+}
+
+
+
 /* legend {
   display: block;
 }

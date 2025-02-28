@@ -51,7 +51,7 @@ export default function CreateProgramComponent() {
     setTimeout(() => {
       setAlert({severity: '', message: ''})
     }, 1500);
-    navigation('add_expenses', {
+    navigation('add_hotel', {
       state: {
         programId: 10,
         programTitle: createProgramData.title,

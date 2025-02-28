@@ -1,8 +1,8 @@
 import React from 'react';
 
 import style from './main_menu.module.css'
-import { ProgramIcon, DashBoardIcon, HotelsIcon, clientIcon, partnersIcon, companyIcon } from '../../ui';
-import { MenuItem } from '../../ui';
+import { ProgramIcon, DashBoardIcon, HotelsIcon, clientIcon, partnersIcon, companyIcon, MenuItem } from '@/ui';
+
 
 
 export default function MainMenu() {
