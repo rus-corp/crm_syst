@@ -6,10 +6,19 @@ import openList from '../../../../../assets/app_img/open_btn.png'
 import HotelRoomsList from './HotelRoomsList';
 
 
-export default function ProgramHotelItem({ hotelId, hotelTitle, hotelCity, hotelAddress}) {
+export default function ProgramHotelItem({
+  hotelId,
+  hotelTitle,
+  hotelCity,
+  hotelAddress,
+  handleAppendRoomToProgram
+}) {
   const [activeList, setActiveList] = React.useState(false)
   const handleClick = () => setActiveList(!activeList)
   const [hotelRooms, setHotelRooms] = React.useState([])
+  const handleAppendHotelRooomToProgram = (roomId, state) => {
+    handleAppendRoomToProgram(hotelId, roomId, state)
+  }
   
   return(
     <>
@@ -30,6 +39,7 @@ export default function ProgramHotelItem({ hotelId, hotelTitle, hotelCity, hotel
       {activeList && 
         <HotelRoomsList
         hotelId={hotelId}
+        handleAppendRoomToProgram={handleAppendHotelRooomToProgram}
         />
       }
     </>

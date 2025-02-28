@@ -127,7 +127,7 @@ async def delete_hotel(
   response_model=schemas.ProgramHotelRoomResponse
 )
 async def append_hotel_to_program(
-  body: schemas.AppendHotelAndRoomToProgram,
+  body: List[schemas.AppendHotelAndRoomToProgram],
   session: AsyncSession = Depends(get_db)
 ):
   hotel_handler = HotelHandler(session)

@@ -12,18 +12,30 @@ export default function AppendHotels() {
   const location = useLocation()
   const { programId, programTitle, nights } = location.state
   const [showList, setShowList] = React.useState(false)
-  const [createProgramData, setCreateProgramData] = React.useState({
-    title: '',
-    start_date: '',
-    end_date: '',
-    place: '',
-    desc: ''
-  })
+  const [programRoom, setProgramRoom] = React.useState([])
   const [hotelList, setHotelList] = React.useState([])
   const [alert, setAlert] = React.useState({severity:'', message:''})
   const handleChange =() => {}
-  const handleSubmit = () => {}
+  const handleSubmit = () => {console.log(programRoom)}
   const handleShowList = () => setShowList(!showList)
+  const handleAppendRoomToProgram = (hotel, room, state) => {
+    if (state) {
+      setProgramRoom((prevData) => (
+        [
+          ...prevData,
+          {
+            program_id: programId,
+            hotel_id: hotel,
+            room_id: room
+          }
+        ]
+      ))
+    } else if (!state) {
+      setProgramRoom((prevData) => (
+        prevData.filter((roomItem) => roomItem.room_id !== room)
+      ))
+    }
+  }
 
   const getHotelsList = async () => {
     const response = await getHotelsWithoutRooms()
@@ -76,6 +88,7 @@ export default function AppendHotels() {
                 hotelTitle={hotelItem.title}
                 hotelCity={hotelItem.city}
                 hotelAddress={hotelItem.address}
+                handleAppendRoomToProgram={handleAppendRoomToProgram}
                 />
               ))}
             </div>
