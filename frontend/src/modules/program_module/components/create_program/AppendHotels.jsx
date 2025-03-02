@@ -1,23 +1,49 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import style from '../styles/hotels_expenses.module.css'
 import { NotificationComponent, CreateItemInput, SaveBtnComponent, ProfileInput } from '@/ui';
 import ProgramHotelItem from './partials/ProgramHotelItem';
-import { getHotelsWithoutRooms } from '@/api';
+import { getHotelsWithoutRooms, appendHotelRoomToProgram } from '@/api';
 
 
 
 export default function AppendHotels() {
+  const navigation = useNavigate()
   const location = useLocation()
   const { programId, programTitle, nights } = location.state
-  const [showList, setShowList] = React.useState(false)
   const [programRoom, setProgramRoom] = React.useState([])
   const [hotelList, setHotelList] = React.useState([])
   const [alert, setAlert] = React.useState({severity:'', message:''})
+  
   const handleChange =() => {}
-  const handleSubmit = () => {console.log(programRoom)}
-  const handleShowList = () => setShowList(!showList)
+  
+  const handleSubmit = () => {
+    handleAppendRoomToProgramReq(programRoom)
+  }
+
+  const handleAppendRoomToProgramReq = async (hotelData) => {
+    const response = await appendHotelRoomToProgram(hotelData)
+    console.log(response)
+    if (response.status === 201) {
+      console.log('appended')
+      setAlert({severity: 'success', message: 'Номера в программу добавлены'})
+      setTimeout(() => {
+        setAlert({severity:'', message:''})
+        navigation(
+          '/create_program/add_expenses', {
+            state: {
+              programId: programId,
+              programTitle: programTitle,
+              nights: nights
+            }
+          }
+        )
+      }, 2000);
+    } else if (response.status !== 201) {
+      setAlert({severity: 'error', message: response.data.detail})
+    }
+  }
   const handleAppendRoomToProgram = (hotel, room, state) => {
     if (state) {
       setProgramRoom((prevData) => (
@@ -52,7 +78,7 @@ export default function AppendHotels() {
     <section className={style.createDataProgram}>
       <div className={style.createProgramData}>
         <div className={style.sectionHeader}>
-          <h2>Затраты на программу {programTitle}</h2>
+          <h2>Добавить Проживание для {programTitle}</h2>
           <NotificationComponent
           severity={alert.severity}
           message={alert.message}

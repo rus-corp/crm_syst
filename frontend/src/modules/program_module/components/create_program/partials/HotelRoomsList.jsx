@@ -49,7 +49,6 @@ function HotelRoomItem({ roomId, roomType, roomVolume, roomPrice, handleAppendRo
   return(
     <div className={style.roomItem}>
       <input type="checkbox" checked={isSelected} onChange={() => appendRoomToProgram()}/>
-      <p>{roomId}</p>
       <span>{roomType}</span>
       <span>{roomVolume}</span>
       <span>{roomPrice}</span>

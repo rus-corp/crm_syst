@@ -51,6 +51,7 @@ async def test_update_room(ac: AsyncClient):
   assert updated_room.room_volume == room.room_volume
   assert updated_room.room_price == updated_data['room_price']
 
+
 async def test_update_empl(ac: AsyncClient):
   update_empl_data = {'position': 'Астроном'}
   empl_db = await ac.get('/staff/employee/1')

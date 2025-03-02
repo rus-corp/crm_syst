@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import style from '../styles/create_program.module.css'
 import { differenceInCalendarDays } from "date-fns";
 
-import { CreateItemInput, TextAreaComponent, SaveBtnComponent } from '../../../../ui';
-import { NotificationComponent } from '../../../../ui';
+import { CreateItemInput, TextAreaComponent, SaveBtnComponent, NotificationComponent } from '@/ui';
 
-import { createProgram } from '../../../../api';
+import { createProgram } from '@/api';
 
 export default function CreateProgramComponent() {
   const navigation = useNavigate()
@@ -22,21 +21,24 @@ export default function CreateProgramComponent() {
   const createNewProgram = async (programData) => {
     const response = await createProgram(programData)
     if (response.status === 201) {
+      setAlert({severity: 'success', message: 'Программа создана'})
       setTimeout(() => {
-        setAlert({severity: 'success', message: 'Программа создана'})
-      }, 1500);
-      navigation(
-        'add_expenses', {
-          state: {
-            programId: 10,
-            programTitle: createProgramData.title
+        setAlert({severity: '', message: ''})
+        navigation(
+          'add_hotel', {
+            state: {
+              programId: response.data.id,
+              programTitle: createProgramData.title,
+              nights: differenceInCalendarDays(createProgramData.end_date, createProgramData.start_date)
+            }
           }
-        }
-      )
+        )
+      }, 1500);
     } else {
-      console.log(response)
+      setAlert({severity: 'error', message: response.data.detail})
     }
   }
+
   const handleChange = (name, value) => {
     setCreateProgramData((prevData) => ({
       ...prevData,
@@ -45,20 +47,8 @@ export default function CreateProgramComponent() {
   }
 
   const handleSubmit = () => {
-    // createNewProgram(createProgramData)
+    createNewProgram(createProgramData)
     console.log(createProgramData)
-    setAlert({severity: 'success', message: 'Программа создана'})
-    setTimeout(() => {
-      setAlert({severity: '', message: ''})
-    }, 1500);
-    navigation('add_hotel', {
-      state: {
-        programId: 10,
-        programTitle: createProgramData.title,
-        nights: differenceInCalendarDays(createProgramData.end_date, createProgramData.start_date)
-      }
-    })
-    
   }
 
   return(

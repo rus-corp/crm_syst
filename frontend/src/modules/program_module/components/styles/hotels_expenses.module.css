@@ -25,6 +25,12 @@
   margin-top: 2rem;
 }
 
+.sectionAppendHotels {
+  width: 100%;
+  height: 50vh;
+  overflow: scroll;
+}
+
 .saveBtn {
   position: absolute;
   margin-top: 2rem;

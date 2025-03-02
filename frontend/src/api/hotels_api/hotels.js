@@ -57,3 +57,16 @@ export const updateHotelProfileById = async (hotelId, hotelData) => {
     console.error(error)
   }
 }
+
+
+export const appendHotelRoomToProgram = async (data) => {
+  try {
+    const response = await backend.post(
+      '/hotels/room_to_program/',
+      data
+    )
+    return response
+  } catch (error) {
+    return error.response
+  }
+}

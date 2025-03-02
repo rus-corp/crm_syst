@@ -71,7 +71,7 @@ async def test_create_expenses(ac: AsyncClient):
     exp = await ac.post('/staff/expenses/', json=item) 
     assert exp.status_code == 201
     expData = exp.json()
-    expense_item = schemas.ExpenseBaseResponse(**expData)
+    expense_item = schemas.ExpenseResponse(**expData)
     assert expense_item.amount == item['amount']
     assert expense_item.category_id == item['category_id']
 

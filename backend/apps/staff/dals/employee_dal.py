@@ -25,10 +25,9 @@ class EmployeeDAL(BaseDAL):
   
   
   async def get_all_employees(self):
-    result = await self.base_get_all_items(
-      model=self.model
-    )
-    return result
+    query = select(self.model).order_by(self.model.id)
+    result = await self.db_session.execute(query)
+    return result.scalars().unique().all()
   
   
   async def get_one_employee(self, employee_id: int):

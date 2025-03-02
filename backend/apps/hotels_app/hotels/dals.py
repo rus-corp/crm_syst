@@ -72,7 +72,7 @@ class HotelDAL(BaseDAL):
       room=room
     )
     self.db_session.add(program_hotel_rooms)
-    await self.db_session.commit()
+    await self.db_session.flush()
     return program_hotel_rooms
   
   

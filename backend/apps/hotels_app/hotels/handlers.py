@@ -118,7 +118,7 @@ class HotelHandler(BaseHandler):
         program_dal = ProgramDAL(self.session)
         current_program = await program_dal.get_program_by_id(body_data['program_id'])
         if not current_program or not hotel or not room:
-          raise AppBaseExceptions.item_not_found('Program or Hotel or Room')
+          raise AppBaseExceptions.item_not_found('Программа, Отель либо номер')
         try:
           program_hotel_room = await self.hotel_dal.append_hotel_and_room_to_program(
             program=current_program,

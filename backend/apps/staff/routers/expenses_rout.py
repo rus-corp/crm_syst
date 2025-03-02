@@ -51,7 +51,7 @@ async def get_all_expenses(
 @router.get(
   '/{expense_id}',
   status_code=status.HTTP_200_OK,
-  response_model=schemas.ExpenseFullResponse
+  response_model=schemas.ExpenseBaseResponse
 )
 async def get_expenses_by_id(
   expense_id: int,
