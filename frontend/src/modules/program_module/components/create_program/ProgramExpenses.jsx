@@ -3,7 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import style from '../styles/create_program.module.css'
 import { NotificationComponent, CreateItemInput, SaveBtnComponent, ProfileInput, SmallButton } from '@/ui';
 import ProgramEmployeeItemCreate from './partials/ProgramEmployeeItemCreate';
-
+import ProgramStaticExpense from './partials/ProgramStaticExpense';
+import ProgramPartnerseExpense from './partials/ProgramPartnersExpense';
 import { getStaffs } from '@/api';
 
 
@@ -119,9 +120,8 @@ export default function ProgramExpenses() {
           <div className={style.dataHeader}>
             <h4>Статические затраты</h4>
           </div>
-          <div className={style.satticExpenses}>
-            
-          </div>
+          <ProgramStaticExpense />
+          <ProgramPartnerseExpense />
         </aside>
 
         <div className={style.saveBtn}>

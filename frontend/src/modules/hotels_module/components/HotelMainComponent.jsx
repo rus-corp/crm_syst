@@ -1,11 +1,11 @@
 import React from 'react';
 
 import style from './hotels.module.css'
-import { ComponentHeader } from '../../../ui';
+import { ComponentHeader } from '@/ui';
 import HotelListComponent from './hotels_list/HotelListComponent';
 import HotelCardComponent from './hotels_cards/HotelCardComponent';
 
-import { getHotels } from '../../../api';
+import { getHotels } from '@/api';
 
 
 export default function HotelMainComponent() {
@@ -32,6 +32,8 @@ export default function HotelMainComponent() {
       componentName='Отели'
       componentDataCount={hotelsData.length}
       componentSetData={handleChangeOption}
+      btnName={'Отель'}
+      btnNavi={'create_hotel'}
       />
       {hotelOption ? <HotelListComponent hotelsList={hotelsData}/> : <HotelCardComponent hotelsList={hotelsData}/>}
     </div>

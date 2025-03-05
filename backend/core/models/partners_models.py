@@ -30,5 +30,5 @@ class Partner(Base):
   law_title: Mapped[str]
   price: Mapped[int]
   contract_number: Mapped[str] = mapped_column(nullable=True)
-  
+  # название услуги
   bank_account: Mapped[BankAccount] = relationship(back_populates='partner')
