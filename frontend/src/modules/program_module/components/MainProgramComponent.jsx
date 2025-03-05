@@ -34,6 +34,7 @@ export default function MainProgramComponent() {
         <h2>Программы</h2>
         <CreateNewItemBtn
         createDataName='Программу'
+        navi='/create_program'
         />
       </div>
       <div className={style.programDataContainer}>

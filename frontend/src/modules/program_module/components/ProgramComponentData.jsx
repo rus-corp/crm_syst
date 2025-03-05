@@ -1,18 +1,19 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import style from './styles/programData.module.css'
+import { FaRegEdit } from "react-icons/fa";
 
 
 
 
 export default function ProgramComponentData({ programsList, selectedProgram }) {
   const [activeProgram, setActiveProgram] = React.useState(0)
+  const navigation = useNavigate()
 
   const handleSelectedProgram = (id) => {
     setActiveProgram(id)
     selectedProgram(id)
   }
-
 
   return(
     <section className={style.programDataList}>
@@ -47,12 +48,21 @@ function ActiveProgramItem({ programName, programPlace, startDate, endDate, dura
     const dateList = dateString.split('-')
     return `${dateList[2]}-${dateList[1]}-${dateList[0]}`
   }
+
+  const handleClick = () => {
+    navigation('/')
+  }
   
   return (
     <div className={style.programItemData}>
-      <p>{programPlace} {duration} д.</p>
-      <h5>{programName}</h5>
-      <p>с <strong>{handleFormatDate(startDate)}</strong> до <strong>{handleFormatDate(endDate)}</strong></p>
+      <div className={style.programItemDataContent}>
+        <p>{programPlace} {duration} д.</p>
+        <h5>{programName}</h5>
+        <p>с <strong>{handleFormatDate(startDate)}</strong> до <strong>{handleFormatDate(endDate)}</strong></p>
+      </div>
+      <div className={style.programItemDataIco}>
+        <FaRegEdit onClick={handleClick}/>
+      </div>
     </div>
   );
 }

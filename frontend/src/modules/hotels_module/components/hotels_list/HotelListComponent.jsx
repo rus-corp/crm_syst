@@ -5,6 +5,7 @@ import itemBurger from '@/assets/menu_icons/item_burger.svg'
 
 import style from '../hotels.module.css'
 
+
 export default function HotelListComponent({ hotelsList}) {
   
   return(
@@ -13,7 +14,7 @@ export default function HotelListComponent({ hotelsList}) {
         <div className={style.hotelListItem} key={hotel.id}>
           <HotelComponent key={hotel.id}
           hotelId={hotel.id}
-          hotelName={hotel.name}
+          hotelName={hotel.title}
           hotelContacts={hotel.contacts}
           hotelCity={hotel.city}
           hotelAddress={hotel.address}

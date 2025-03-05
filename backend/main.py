@@ -1,14 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
-from apps.client_app.client.routers import router as client_router
-from apps.program_app.routers import router as program_router
+from apps.client_app.app_router import router as client_router
+from apps.program_app.routers.program_router import router as program_router
 from apps.payments_app.router import router as payment_router
 from apps.hotels_app.hotels.routers import router as hotel_routers
 from apps.hotels_app.hotel_rooms.routers import router as room_routers
 from apps.commands.router import router as command_router
+from apps.staff.main_router import router as staff_router
 
 
 app = FastAPI(
@@ -42,6 +43,13 @@ static_root = os.path.join(base_dir, 'static')
 if not os.path.exists(static_root):
   os.makedirs(static_root)
 
+# @app.middleware("http")
+# async def log_requests(request: Request, call_next):
+#     print(f"Request: {request.method} {request.url} - {request.client}")
+#     print(request.body)
+#     response = await call_next(request)
+#     return response
+  
 
 @app.get("/")
 def root():
@@ -55,3 +63,4 @@ app.include_router(payment_router)
 app.include_router(hotel_routers)
 app.include_router(room_routers)
 app.include_router(command_router)
+app.include_router(staff_router)

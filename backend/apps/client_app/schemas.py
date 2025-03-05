@@ -1,13 +1,29 @@
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from core.models.utils import ClientProgramStatus, ClientPorgramContractStatus
-from apps.program_app.schemas import ClientProgramResponse
+
 from datetime import date
 
 
-from .client_profile.schemas import ProfileResponse
-from .client_doc.schemas import DocumnetResponse
+from .client_profile.schemas import ProfileResponse, ProfileCreateRequestWithUser, ProfileResponse
+from .client_doc.schemas import DocumentResponse, DocumentCreateRequestWithUser
+
+
+
+
+class ClientProgramBase(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  
+  id: int
+  title: str
+  start_date: date
+  end_date: date
+  place: str
+  desc: str
+  price: int
+  slug: str
+  status: str
 
 
 
@@ -41,7 +57,19 @@ class BaseShowClient(BaseModel):
 
 class ShowClientProfileDocument(BaseShowClient):
   profile: ProfileResponse
-  document: DocumnetResponse
+  document: DocumentResponse
+
+
+
+class UpdateClientRequest(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  last_name: Optional[str] = None
+  name: Optional[str] = None
+  second_name: Optional[str] = None
+  phone: Optional[str] = None
+  email: Optional[str] = None
+
+
 
 
 
@@ -51,7 +79,7 @@ class ClientCurrentProgramBaseResponse(BaseModel):
   created_at: datetime
   price: int
   contract_status: ClientPorgramContractStatus
-  program: ClientProgramResponse
+  program: ClientProgramBase
   client: BaseShowClient
 
 
@@ -62,5 +90,21 @@ class ClientCurrentProgramResponse(BaseModel):
   created_at: datetime
   price: int
   contract_status: ClientPorgramContractStatus
-  program: ClientProgramResponse
+  program: ClientProgramBase
   client: ShowClientProfileDocument
+
+
+class CreateClientWithProfileRequest(CreateClient):
+  profile: ProfileCreateRequestWithUser
+
+
+class ClientProfileCreateResponse(BaseShowClient):
+  profile: ProfileResponse
+
+
+class CreateClientWithProfileAndDocRequest(CreateClientWithProfileRequest):
+  doc: DocumentCreateRequestWithUser
+
+
+class ClientProfileDocCreateResponse(ClientProfileCreateResponse):
+  document: DocumentResponse

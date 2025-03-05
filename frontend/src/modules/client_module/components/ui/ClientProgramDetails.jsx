@@ -4,10 +4,13 @@ import style from './styles/clientprogramdetails.module.css'
 
 import { formatedStatus, formatedContract } from '../../../../utils';
 import ClientProgramData from './ClientProgramData';
+import { SmallButton } from '@/ui';
 
 export default function ClientProgramDetails({ clientProgramData }) {
   const clientProgramStatus = formatedStatus(clientProgramData?.status)
   const clientContractStatus = formatedContract(clientProgramData?.contract_status)
+  console.log(clientProgramData?.contract_status)
+  console.log(clientProgramData)
 
   return(
     <div className={style.programData}>
@@ -32,10 +35,18 @@ export default function ClientProgramDetails({ clientProgramData }) {
       dataTitle='Стоимость программы'
       data={clientProgramData.program.price}
       />
-      <ClientProgramData
-      dataTitle='Договор'
-      data={clientContractStatus}
-      />
+      <div className={style.contractData}>
+        <ClientProgramData
+        dataTitle='Договор'
+        data={clientContractStatus}
+        />
+        {clientProgramData?.contract_status === 'Not Sended' ? (
+          <SmallButton
+          btnData='Отправить договор'
+          />
+
+        ): ''}
+      </div>
       <ClientProgramData
       dataTitle='Дата заявки'
       data={clientProgramData.created_at.slice(0, 10)}

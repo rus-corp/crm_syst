@@ -19,3 +19,7 @@
   display: flex;
   gap: 2rem;
 }
+
+.clientProgramPrice {
+  margin-top: 1rem;
+}

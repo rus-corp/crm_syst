@@ -1,12 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 
 
-import { CrmPage, HotelPage, ClientPage } from "../pages";
-import ProgramPage from "../pages/program_page/ProgramPage";
-import { HotelMainComponent } from "../modules";
+import { CrmPage, HotelPage, ClientPage,
+  CreateProgramPage, CompanyPage,
+  CreateItemPage, ProgramPage,
+  BlockItemPage, PartnerPage } from "../pages";
+import { HotelMainComponent, CreateHotel,
+  CreateRoom } from "../modules";
 import HotelProfileMainComponent from "../modules/hotels_module/components/hotel_profile/HotelProfileMainComponent";
 import { ClientProfile, ClientMainListComponent } from "../modules/client_module";
-
+import {CreateProgramComponent} from "../modules/program_module";
+import { ProgramExpenses, AppendHotels } from "../modules/program_module";
 
 
 
@@ -18,6 +22,24 @@ export const router = createBrowserRouter([
   {
     path: '/programs',
     element: <ProgramPage />
+  },
+  {
+    path: '/create_program',
+    element: <CreateProgramPage />,
+    children: [
+      {
+        path: '',
+        element: <CreateProgramComponent />
+      },
+      {
+        path: 'add_hotel',
+        element: <AppendHotels />
+      },
+      {
+        path: 'add_expenses',
+        element: <ProgramExpenses />
+      },
+    ]
   },
   {
     path: '/clients',
@@ -44,9 +66,33 @@ export const router = createBrowserRouter([
       {
         path: ':hotelId',
         element: <HotelProfileMainComponent />
+      },
+      {
+        path: 'create_hotel',
+        element: <CreateHotel />
+      },
+      {
+        path: 'create_hotel_rooms',
+        element: <CreateRoom />
       }
     ]
   },
+  {
+    path: '/partners',
+    element: <PartnerPage />
+  },
+  {
+    path: '/company',
+    element: <CompanyPage />,
+  },
+  {
+    path: '/company/:type',
+    element: <BlockItemPage />
+  },
+  {
+    path: '/create_item/:type',
+    element: <CreateItemPage />
+  }
 ], {
   future: {
     v7_startTransition: true,

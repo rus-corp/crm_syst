@@ -1,23 +1,30 @@
 import React from 'react';
-import { hotels } from '../../../data_test/hotels';
 
 import style from './hotels.module.css'
-import { ComponentHeader } from '../../../ui';
+import { ComponentHeader } from '@/ui';
 import HotelListComponent from './hotels_list/HotelListComponent';
 import HotelCardComponent from './hotels_cards/HotelCardComponent';
+
+import { getHotels } from '@/api';
 
 
 export default function HotelMainComponent() {
   const [hotelsData, setHotelsData] = React.useState([])
   const [hotelOption, setHotelOption] = React.useState(true)
 
+  const getHotelsData = async () => {
+    const response = await getHotels()
+    if (response.status === 200) {
+      setHotelsData(response.data)
+    }
+  }
   function handleChangeOption(data) {
     setHotelOption(data)
   }
 
   React.useEffect(() => {
-    setHotelsData(hotels)
-  }, [hotels])
+    getHotelsData()
+  }, [])
 
   return(
     <div className={style.hotelsComponent}>
@@ -25,6 +32,8 @@ export default function HotelMainComponent() {
       componentName='Отели'
       componentDataCount={hotelsData.length}
       componentSetData={handleChangeOption}
+      btnName={'Отель'}
+      btnNavi={'create_hotel'}
       />
       {hotelOption ? <HotelListComponent hotelsList={hotelsData}/> : <HotelCardComponent hotelsList={hotelsData}/>}
     </div>

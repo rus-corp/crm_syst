@@ -46,8 +46,8 @@ class Client(BaseClient):
   updated_at: Mapped[datetime] = mapped_column(server_default=func.now(), default=func.now(), server_onupdate=func.now())
   created_at: Mapped[datetime] = mapped_column(server_default=func.now())
   
-  document: Mapped['ClientDocument'] = relationship(back_populates='client')
-  profile: Mapped['ClientProfile'] = relationship(back_populates='client')
+  document: Mapped['ClientDocument'] = relationship(back_populates='client', cascade='all, delete')
+  profile: Mapped['ClientProfile'] = relationship(back_populates='client', cascade='all, delete')
   client_family: Mapped[list['ClientFamily']] = relationship(back_populates='client')
   
   client_program_detail: Mapped[list['ProgramClients']] = relationship(back_populates='client')
@@ -69,8 +69,9 @@ class ClientProfile(Base):
   comment: Mapped[str] = mapped_column(nullable=True)
   city: Mapped[str]
   date_of_birth: Mapped[date]
+  community: Mapped[bool] = mapped_column(default=False)
   
-  client_id: Mapped[int] = mapped_column(ForeignKey('client.id'))
+  client_id: Mapped[int] = mapped_column(ForeignKey('client.id', ondelete='CASCADE'))
   client: Mapped[Client] = relationship(back_populates='profile')
   client_family: Mapped['ClientFamily'] = relationship(back_populates='profile')
 
@@ -79,7 +80,7 @@ class ClientProfile(Base):
 
 class ClientDocument(Base):
   __tablename__ = 'client_document'
-  __table_args__ = (UniqueConstraint('client_id'),)
+  __table_args__ = (UniqueConstraint('client_id', 'series', 'number'),)
   
   doc_type: Mapped[ClientDocumentType] = mapped_column(SQLEnum(ClientDocumentType))
   series: Mapped[str] = mapped_column(String(10))
@@ -87,7 +88,7 @@ class ClientDocument(Base):
   date_of_issue: Mapped[date]
   issued_by: Mapped[str] = mapped_column(String(255))
   
-  client_id: Mapped[int] = mapped_column(ForeignKey('client.id'))
+  client_id: Mapped[int] = mapped_column(ForeignKey('client.id', ondelete='CASCADE'))
   client: Mapped[Client] = relationship(back_populates='document')
   client_family: Mapped['ClientFamily'] = relationship(back_populates='document')
   

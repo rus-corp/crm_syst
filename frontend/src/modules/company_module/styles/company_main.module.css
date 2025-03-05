@@ -1,0 +1,136 @@
+.companyComponent {
+  width: 100%;
+  height: 100%;
+}
+
+.companyName {
+  width: 100%;
+}
+
+.companyContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 1.3rem;
+}
+
+.companyData {
+  width: 70%;
+}
+
+.staffTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.staffTitle > a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.staffBlock {
+  margin-top: 2rem;
+  display: block;
+  width: 100%;
+  min-width: 75%;
+  min-height: 40%;
+  background-color: #fff;
+  padding: 1.3rem;
+  border-radius: 24px;
+}
+
+.staffList {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+
+.staffItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #F4F9FD;
+  width: 20%;
+  min-height: 11rem;
+  height: 30%;
+  margin: 1rem .3rem;
+  border-radius: 24px;
+}
+
+.staffName {
+  text-align: center;
+}
+
+.staffPos {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.programsBlock {
+  margin-top: 2rem;
+  display: block;
+  width: 100%;
+  min-height: 40%;
+}
+
+.programTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.3rem;
+}
+
+.programList {
+  margin-top: 1rem;
+}
+
+.programItem {
+  width: 100%;
+  background-color: #fff;
+  margin: 1rem 0;
+  /* min-height: 12rem; */
+  border-radius: 24px;
+}
+
+.programContent {
+  padding: 2rem 1rem;
+  /* display: flex;
+  align-items: center;
+  justify-content: space-between; */
+}
+
+.usersData {
+  margin-top: 2rem;
+  width: 30%;
+}
+
+.usersBlock {
+  padding: 1.3rem;
+  background-color: #fff;
+  border-radius: 24px;
+  width: 100%;
+  min-height: 20rem;
+  margin-bottom: 2rem;
+}
+
+.usersHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.expenseItem {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 2rem;
+}

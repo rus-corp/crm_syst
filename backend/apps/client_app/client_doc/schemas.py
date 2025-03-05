@@ -15,12 +15,21 @@ class DocumentBase(BaseModel):
 
 
 
-class DocumnetResponse(DocumentBase):
+class DocumentResponse(DocumentBase):
   id: int
 
 
 class CreateDocumentRequest(DocumentBase):
   pass
+
+
+class DocumentCreateRequestWithUser(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  number: str
+  series: str
+  issued_by: str
+  doc_type: ClientDocumentType
+  date_of_issue: date
 
 
 class UpdateDocumentRequest(BaseModel):
@@ -30,4 +39,3 @@ class UpdateDocumentRequest(BaseModel):
   issued_by: Optional[str] = None
   doc_type: Optional[ClientDocumentType] = None
   date_of_issue: Optional[date] = None
-  client_id: Optional[int] = None

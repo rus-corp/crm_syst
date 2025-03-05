@@ -12,9 +12,9 @@ export const formatedStatus = (status) => {
 }
 
 export const formatedContract = (contract) => {
-  if (contract === 'SG') {
+  if (contract === 'Signed') {
     return 'Подписан'
-  } else if (contract === 'SD') {
+  } else if (contract === 'Sended') {
     return 'Отправлен'
   } else {
     return 'Не отправлен'

@@ -1,78 +1,42 @@
 from fastapi.responses import JSONResponse
 
 
-from ..utils.slug import create_slug
-from ..base.base_handler import BaseHandler
-from .dals import ProgramDAL
-from . import schemas
+from ...utils.slug import create_slug
+from ...base.base_handler import BaseHandler
+from .. import schemas
 from core.models.program_models import Program
 from core.models.association_models import ProgramClients
-from ..client_app.client.dals import ClientDAL
-from .utils import data_format
+from ...client_app.client.dals import ClientDAL
+from ..utils import data_format, program_response_format
 from apps.hotels_app.hotels.schemas import HotelWithRooms
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
+from apps.base.exceptions import AppBaseExceptions
+from apps.staff.schemas import AppendExpensesToProgram
+from apps.staff.dals.expenses_dal import ExpensesDAL
+from ..mixin import ProgramMixin
+from .program_base_handler import ProgramBaseHandler
 
 
 
-
-class ProgramHandler(BaseHandler):
-  def __init__(self, session):
-    super().__init__(session)
-    self.program_dal = ProgramDAL(self.session)
-  
-  
-  async def _create_program(
-    self,
-    create_program_body: schemas.CreateProgramRequets
-  ) -> schemas.ProgramBaseResponse:
-    async with self.session.begin():
-      body_data = create_program_body.model_dump(exclude_none=True)
-      slug = create_slug(body_data['title'] + str(body_data['start_date']))
-      body_data['slug'] = slug
-      created_program = await self.program_dal.create_program(**body_data)
-      return schemas.ProgramBaseResponse(
-        id=created_program.id,
-        title=created_program.title,
-        start_date=created_program.start_date,
-        end_date=created_program.end_date,
-        place=created_program.place,
-        status=created_program.status,
-        price=created_program.price,
-        desc=created_program.desc,
-        slug=created_program.slug
-      )
-  
-  
-  async def _get_programs_list(self):
-    async with self.session.begin():
-      programs_list = await self.program_dal.get_active_programs()
-      programs = []
-      for program in programs_list: # type Program
-        duration = program.duration()
-        programs.append(
-          schemas.ProgramBaseResponse(
-            id=program.id,
-            title=program.title,
-            start_date=program.start_date,
-            end_date=program.end_date,
-            place=program.place,
-            status=program.status,
-            price=program.price,
-            desc=program.desc,
-            slug=program.slug,
-            duration=duration
-          )
-        )
-      return programs
-
-  
-  
+class ProgramHandler(ProgramMixin, ProgramBaseHandler):
   
   async def _get_program_clients(self, program_id: int):
     async with self.session.begin():
       program_clients = await self.program_dal.get_program_by_id_with_clients(program_id)
-      return program_clients
-  
+      clients = program_clients.program_clients_detail
+      duration = program_clients.duration()
+      return schemas.ProgramClientsResponse(
+        id=program_clients.id,
+        title=program_clients.title,
+        start_date=program_clients.start_date,
+        end_date=program_clients.end_date,
+        place=program_clients.place,
+        desc=program_clients.desc,
+        slug=program_clients.slug,
+        status=program_clients.status,
+        duration=duration,
+        program_clients_detail=program_clients.program_clients_detail
+      )
   
   
   async def _append_client_to_program(
@@ -141,3 +105,31 @@ class ProgramHandler(BaseHandler):
           )
         )
       return response_list
+  
+  
+  async def _get_program_expenses(self, program_slug: str):
+    program = await self.program_dal.get_program_expenses(program_slug)
+    return program
+  
+  
+  async def _append_expensive_to_program(self, body: AppendExpensesToProgram):
+    async with self.session.begin():
+      program, expensive_item = await self.check_program_and_expenses(body)
+      program.expenses.append(expensive_item)
+      return JSONResponse(content=f'Expenses added to Program {program.title}', status_code=201)
+  
+  
+  
+  async def _delete_expensive_from_program(self, body: AppendExpensesToProgram):
+    async with self.session.begin():
+      program, expensive_item = await self.check_program_and_expenses(body)
+      if expensive_item not in program.expenses:
+        raise AppBaseExceptions.relation_not_exsist(
+          main_model='Program',
+          main_item_id=body.program_id,
+          second_model='Expenses',
+          second_item_id=body.expenses_id
+        )
+      program.expenses.remove(expensive_item)
+      return JSONResponse(content='Expenses deleted from Program', status_code=200)
+      

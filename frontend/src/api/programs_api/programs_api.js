@@ -4,7 +4,7 @@ import { backend } from "../_variables";
 export const getPrograms = async () => {
   try {
     const response = await backend.get(
-      `/programs/`
+      '/programs/'
     )
     return response
   } catch (error) {
@@ -16,7 +16,8 @@ export const getPrograms = async () => {
 export const createProgram = async(programData) =>{
   try {
     const response = await backend.post(
-
+      'programs',
+      programData
     )
     return response
   } catch (error) {

@@ -2,7 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel, ConfigDict
 
 from ..hotel_rooms.schemas import RoomForHotelResponse, RoomForAppendToProgramResponse
-from apps.program_app.schemas import ProgramResponseForAppendHoteAndRoom
+from apps.program_app.schemas import ProgramResponseForAppendHotelAndRoom
 
 
 class HotelBase(BaseModel):
@@ -60,7 +60,7 @@ class HotelForAppendToProgramResponse(BaseModel):
 
 
 class ProgramHotelRoomResponse(BaseModel):
-  program: ProgramResponseForAppendHoteAndRoom
+  program: ProgramResponseForAppendHotelAndRoom
   hotel: HotelForAppendToProgramResponse
   room: RoomForAppendToProgramResponse
 

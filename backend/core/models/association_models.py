@@ -12,6 +12,7 @@ from .utils import ClientProgramStatus, ClientPorgramContractStatus
 
 from .hotels_models import Hotels, HotelRooms
 from .payment_models import ClientProgramPayment
+from .staff_models import Expenses
 
 if TYPE_CHECKING:
   from .client_models import Client
@@ -26,7 +27,7 @@ class ProgramClients(Base):
   __table_args__ = (UniqueConstraint('program_id', 'client_id'),)
   
   client_id: Mapped[int] = mapped_column(ForeignKey('client.id'))
-  program_id: Mapped[int] = mapped_column(ForeignKey('program.id'))
+  program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
   price: Mapped[int] = mapped_column(nullable=True)
   status: Mapped[ClientProgramStatus] = mapped_column(SQLEnum(ClientProgramStatus), default=ClientProgramStatus.NC)
   contract_status: Mapped[ClientPorgramContractStatus] = mapped_column(SQLEnum(ClientPorgramContractStatus), default=ClientPorgramContractStatus.NS)
@@ -42,34 +43,40 @@ class ProgramClients(Base):
 
 
 
-
-
-
 class ProgramRooms(Base):
   __tablename__ = 'program_rooms'
   __table_args__ = (UniqueConstraint('program_id', 'hotel_id', 'room_id'),)
   
-  program_id: Mapped[int] = mapped_column(ForeignKey('program.id'))
+  program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
   hotel_id: Mapped[int] = mapped_column(ForeignKey('hotel.id'))
   room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
   
   program: Mapped['Program'] = relationship(back_populates='program_hotel_room')
   hotel: Mapped[Hotels] = relationship(back_populates='program_hotel_room')
   room: Mapped[HotelRooms] = relationship(back_populates='program_hotel_room')
-  
+
 
 
 
 class ProgramClientRoom(Base):
   __tablename__ = 'program_client_room'
-  __table_args__ = (UniqueConstraint('program_client_id', 'room_id'),)
+  __table_args__ = (UniqueConstraint('program_client_id', 'program_room_id'),)
   
   program_client_id: Mapped[int] = mapped_column(ForeignKey('program_clients.id'))
-  room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
-  
-  enty_date:Mapped[date]
+  program_room_id: Mapped[int] = mapped_column(ForeignKey('program_rooms.id'))
+  # room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
+  # price: Mapped[int] = mapped_column(nullable=True)
+  entry_date:Mapped[date]
   departue_date: Mapped[date]
   comment: Mapped[str] = mapped_column(nullable=True)
   
-  room: Mapped[HotelRooms] = relationship(back_populates='program_client_room')
+  # room: Mapped[HotelRooms] = relationship(back_populates='program_client_room')
   program_client: Mapped[ProgramClients] = relationship(back_populates='program_client_room')
+
+
+
+class ProgramExpenses(Base):
+  __tablename__ = 'program_expenses'
+  program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
+  expenses_id: Mapped[int] = mapped_column(ForeignKey('expenses.id'))
+  

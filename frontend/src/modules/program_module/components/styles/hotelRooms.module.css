@@ -1,0 +1,23 @@
+.hotelRoomsList {
+  width: 100%;
+}
+
+.hotelRoomHeader {
+  display: grid;
+  grid-template-columns: 10% 2fr 10% 1fr;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.roomItem {
+  margin-left: 3rem;
+  display: grid;
+  grid-template-columns: 10% 2fr 10% 1fr;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.roomItem > input {
+  cursor: pointer;
+}

@@ -3,7 +3,7 @@ from sqlalchemy.orm import selectinload, joinedload
 
 
 
-from ..base.base_dal import BaseDAL
+from ...base.base_dal import BaseDAL
 from datetime import date
 
 
@@ -14,6 +14,8 @@ from core.models.utils import ProgramStatus
 
 
 class ProgramDAL(BaseDAL):
+  model = Program
+  
   async def create_program(
     self,
     title: str,
@@ -21,7 +23,6 @@ class ProgramDAL(BaseDAL):
     end_date: date,
     place: str,
     desc: str,
-    price: int,
     slug: str,
   ):
     new_program: Program = Program(
@@ -30,7 +31,6 @@ class ProgramDAL(BaseDAL):
       end_date=end_date,
       place=place,
       desc=desc,
-      price=price,
       slug=slug,
     )
     self.db_session.add(new_program)
@@ -39,7 +39,7 @@ class ProgramDAL(BaseDAL):
   
   
   async def get_all_programs(self):
-    return await self.base_get_all_items(Program)
+    return await self.base_get_all_items(model=self.model)
   
   
   async def get_active_programs(self):
@@ -49,8 +49,19 @@ class ProgramDAL(BaseDAL):
   
   
   async def get_program_by_id(self, program_id: int):
-    query = select(Program).where(Program.id == program_id)
-    return await self.db_session.scalar(query)
+    result = await self.base_get_one_item(
+      model=self.model,
+      item_id=program_id
+    )
+    return result
+  
+  
+  async def get_program_by_slug(self, program_slug: str):
+    result = await self.base_get_one_item_by_slug(
+      model=self.model,
+      item_slug=program_slug
+    )
+    return result
   
   
   async def get_program_by_id_with_clients(self, program_id: int):
@@ -75,8 +86,11 @@ class ProgramDAL(BaseDAL):
     return result.scalars().unique().all()
   
   
-  async def update_program_by_id(self, program_id: int, **values):
-    stmt = update(Program).where(Program.id == program_id).values(values).returning(Program)
+  async def update_program_by_slug(self, program_slug: str, values):
+    stmt = (update(Program)
+            .where(Program.slug == program_slug)
+            .values(**values)
+            .returning(Program))
     result = await self.db_session.execute(stmt)
     return result.scalar()
   
@@ -108,8 +122,34 @@ class ProgramDAL(BaseDAL):
   
   
   async def get_program_hotels(self, program_id: int):
-    # query = select(Program).where(Program.id == program_id).options(selectinload(Program.program_hotel_room).joinedload(ProgramRooms.hotel), joinedload(ProgramRooms.room))
-    query = select(ProgramRooms).where(ProgramRooms.program_id == program_id).options(joinedload(ProgramRooms.hotel), joinedload(ProgramRooms.room))
+    query = (select(ProgramRooms)
+             .where(ProgramRooms.program_id == program_id)
+             .options(
+               joinedload(ProgramRooms.hotel),
+               joinedload(ProgramRooms.room)
+             ))
     result = await self.db_session.execute(query)
-    # return result.scalar()
     return result.scalars().unique().all()
+  
+  
+  async def get_program_for_append_expenses(self, program_id: int):
+    query = (select(Program)
+             .where(Program.id == program_id)
+             .options(selectinload(Program.expenses)))
+    return await self.db_session.scalar(query)
+  
+  
+  async def get_program_expenses(self, program_slug: str):
+    query = (select(Program)
+             .where(Program.slug == program_slug)
+             .options(selectinload(Program.expenses)))
+    result = await self.db_session.execute(query)
+    return result.scalar()
+  
+  
+  async def get_program_prices(self, program_slug: str):
+    query = (select(Program)
+             .where(Program.slug == program_slug)
+             .options(selectinload(Program.prices)))
+    result = await self.db_session.execute(query)
+    return result.scalar()

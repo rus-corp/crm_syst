@@ -36,3 +36,22 @@ class ClientFamilyRelation(str, Enum):
   WF = 'Wife'
   CD = 'Child'
   FD = 'Friend'
+
+
+
+class EmployeePosition(str, Enum):
+  PM = 'Руководитель программы'
+  AM = 'Астроном'
+  AV = 'Астроном волонтер'
+  LR = 'Лектор'
+  PH = 'Фотограф'
+  PV = 'Фотограф волонтер'
+  CK = 'Повар'
+  KV = 'Волонтер на кухню'
+
+
+class ProgramPriceCategory(str, Enum):
+  FT = 'Первый раз'
+  WC = 'Были / пара'
+  CM = 'Сообщество'
+  ID = 'Индивидульная'

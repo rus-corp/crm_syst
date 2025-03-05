@@ -1,0 +1,55 @@
+.createDataProgram {
+  width: 100%;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.createProgramData {
+  position: relative;
+  width: 90%;
+  display: block;
+}
+
+.sectionHeader {
+  width: 100%;
+  text-align: start;
+  background-color: #fff;
+  padding: 0 2rem;
+  border-radius: 24px;
+  padding-top: 1rem;
+}
+
+.sectionCreateData {
+  margin-top: 2rem;
+}
+
+.sectionAppendHotels {
+  width: 100%;
+  height: 50vh;
+  overflow: scroll;
+}
+
+.saveBtn {
+  position: absolute;
+  margin-top: 2rem;
+  right: 0;
+}
+
+.expenseHeader {
+  display: flex;
+  align-items: 'center';
+  gap: 5rem;
+  padding: 0 2rem;
+}
+
+.dataHeader {
+  margin-bottom: 2rem;
+}
+
+
+.hotelList {
+  display: block;
+  width: 100%;
+}

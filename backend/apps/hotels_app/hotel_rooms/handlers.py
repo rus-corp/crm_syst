@@ -3,6 +3,7 @@ from . import schemas
 from .dals import HotelRoomsDAL
 
 
+
 class HotelRoomsHandler(BaseHandler):
   def __init__(self, session):
     super().__init__(session)
@@ -14,6 +15,16 @@ class HotelRoomsHandler(BaseHandler):
       room_data = room_body.model_dump()
       new_room = await self.room_dal.create_room(**room_data)
       return new_room
+  
+  
+  async def _create_many_hotel_rooms(self, rooms: list[schemas.HoteRoomCreateRequset]):
+    async with self.session.begin():
+      createRooms = []
+      for room in rooms:
+        body_data = room.model_dump()
+        createRooms.append(body_data)
+      createdRooms = await self.room_dal.create_many_rooms(createRooms)
+      return createdRooms
   
   
   async def _get_all_rooms(self):

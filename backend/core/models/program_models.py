@@ -1,35 +1,44 @@
 from typing import TYPE_CHECKING, List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import ForeignKey
 from datetime import date
 from sqlalchemy import Enum as SQLEnum
 
 
 from ..database import Base
-from .utils import ProgramStatus
+from .utils import ProgramStatus, ProgramPriceCategory
 
 if TYPE_CHECKING:
   from .client_models import Client
   from .hotels_models import Hotels, HotelRooms
   from .association_models import ProgramClients, ProgramRooms, ProgramClientRoom
+  from .staff_models import Expenses
 
 
 
 
 class Program(Base):
-  __tablename__ = 'program'
+  __tablename__ = 'programs'
   
   title: Mapped[str] = mapped_column(index=True)
   start_date: Mapped[date]
   end_date: Mapped[date]
   place: Mapped[str]
   desc: Mapped[str]
-  price: Mapped[int]
   status: Mapped[ProgramStatus] = mapped_column(SQLEnum(ProgramStatus), default=ProgramStatus.AC)
   slug: Mapped[str] = mapped_column(unique=True)
+  # price: Mapped[int]
+  prices: Mapped[List['ProgramPrices']] = relationship(back_populates='program')
   
   program_clients_detail: Mapped[list['ProgramClients']] = relationship(back_populates='program')
   
   program_hotel_room: Mapped[list['ProgramRooms']] = relationship(back_populates='program')
+  expenses: Mapped[List['Expenses']] = relationship(
+    secondary='program_expenses',
+    back_populates='programs'
+  )
+  
+  
   # program: Mapped[List['Hotels']] = relationship(secondary='program_rooms', back_populates='programs')
   # rooms: Mapped[List['HotelRooms']] = relationship(secondary='program_rooms', back_populates='programs')
   
@@ -42,3 +51,12 @@ class Program(Base):
     return (self.end_date - self.start_date).days
 
 
+
+class ProgramPrices(Base):
+  __tablename__ = 'program_prices'
+  
+  name: Mapped[ProgramPriceCategory] = mapped_column(SQLEnum(ProgramPriceCategory), default=ProgramPriceCategory.FT)
+  price: Mapped[int]
+  program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
+  
+  program: Mapped['Program'] = relationship(back_populates='prices')

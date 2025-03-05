@@ -1,0 +1,32 @@
+.createBlock {
+  width: 97%;
+}
+
+.blockHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.blockContent {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.expenseItem {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.createBlockContent {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}

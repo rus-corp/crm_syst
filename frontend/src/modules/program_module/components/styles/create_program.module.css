@@ -1,0 +1,69 @@
+.createProgram {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 24px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.createProgramData {
+  position: relative;
+  width: 80%;
+  display: block;
+}
+
+.sectionHeader {
+  width: 100%;
+  text-align: start;
+  background-color: #fff;
+}
+.sectionCreateData {
+  margin-top: 2rem;
+}
+
+.createdField {
+  margin-top: 2rem;
+}
+
+.programDates {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.saveBtn {
+  position: absolute;
+  margin-top: 2rem;
+  right: 0;
+}
+
+.expenseHeader {
+  display: flex;
+  align-items: 'center';
+  gap: 5rem;
+}
+
+
+.expenseItemHeader {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 2rem;
+  align-items: center;
+  text-align: center;
+}
+
+.dataHeader {
+  margin-bottom: 2rem;
+}
+
+.staticExpenseBlock {
+  margin-top: 3rem;
+}
+
+.hotelList {
+  display: block;
+  width: 100%;
+}

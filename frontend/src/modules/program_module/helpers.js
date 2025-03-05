@@ -19,7 +19,7 @@ export const handleClientCount = (clientList) => {
 export const handleContractCount = (clientList) => {
   let count = 0
   for (let client of clientList) {
-    if (client.contract_status == 'SG') {
+    if (client.contract_status == 'Signed') {
       count ++
     }
   }

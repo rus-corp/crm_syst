@@ -55,8 +55,8 @@ export default function ClientListComponent({ programId }) {
             clientLastName={clientItem.client.last_name}
             clientName={clientItem.client.name}
             clientPhone={clientItem.client.phone}
-            createdDate={clientItem.client.created_at.slice(0, 10)}
-            contractStatus={clientItem.client.contract_status}
+            createdDate={clientItem.created_at.slice(0, 10)}
+            contractStatus={clientItem.contract_status}
             clientPrice={clientItem.price}
             clientStatus={clientItem.status}
             clientSlug={clientItem.client.slug}
@@ -87,7 +87,6 @@ function ClientItem({
     to={`/clients/${clientSlug}`}
     className={style.clientItem}
     onClick={() => dispatch(setClientSlug(clientSlug))}>
-      
       <div className={style.clientFullName}>
         <p>{clientName}</p>
         <h5>{clientLastName}</h5>

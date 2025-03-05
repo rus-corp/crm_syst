@@ -3,7 +3,7 @@ from pydantic import BaseModel, ConfigDict
 
 
 
-class HoteRoomBase(BaseModel):
+class HotelRoomBase(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   
   room_type: str
@@ -12,7 +12,11 @@ class HoteRoomBase(BaseModel):
   hotel_id: int
 
 
-class HoteRoomCreateRequset(HoteRoomBase):
+class HotelRoomBaseResponse(HotelRoomBase):
+  id: int
+
+
+class HoteRoomCreateRequset(HotelRoomBase):
   pass
 
 

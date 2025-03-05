@@ -1,4 +1,4 @@
-from apps.program_app.schemas import ProgramResponseForAppendHoteAndRoom
+from apps.program_app.schemas import ProgramResponseForAppendHotelAndRoom
 from apps.hotels_app.hotels.schemas import HotelForAppendToProgramResponse
 from apps.hotels_app.hotel_rooms.schemas import RoomForAppendToProgramResponse
 from core.models.hotels_models import HotelRooms
@@ -7,11 +7,10 @@ from core.models.hotels_models import HotelRooms
 
 
 def format_program_data(data):
-  return ProgramResponseForAppendHoteAndRoom(
+  return ProgramResponseForAppendHotelAndRoom(
     id=data.id,
     title=data.title,
-    place=data.place,
-    price=data.price
+    place=data.place
   )
 
 

@@ -2,5 +2,5 @@ from pydantic import BaseModel
 
 
 
-class BaseErrorResponseModel(BaseModel):
+class BaseMessageResponseModel(BaseModel):
   message: str

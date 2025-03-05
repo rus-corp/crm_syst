@@ -2,7 +2,7 @@ from ...base.base_handler import BaseHandler
 from ...base.exceptions import AppBaseExceptions
 from fastapi.exceptions import HTTPException
 
-from ...program_app.dals import ProgramDAL
+from ...program_app.dals.program_dal import ProgramDAL
 from ..hotel_rooms.dals import HotelRoomsDAL
 from .dals import HotelDAL
 from . import schemas
@@ -83,12 +83,6 @@ class HotelHandler(BaseHandler):
       return hotel
   
   
-  # async def _get_all_hotels_with_rooms(self):
-  #   async with self.session.begin():
-  #     hotels = await self.hotel_dal.get_all_hotels_with_rooms()
-  #     return list(hotels)
-  
-  
   async def _update_hotel(self, hotel_id: int, hotel_body: schemas.HotelUpdateRequest):
     async with self.session.begin():
       hotel_data = hotel_body.model_dump(exclude_none=True)
@@ -107,35 +101,55 @@ class HotelHandler(BaseHandler):
   
   async def _append_hotel_and_rooms_to_program(
     self,
+    body: list[schemas.AppendHotelAndRoomToProgram]
+  ):
+    async with self.session.begin():
+      created_data = []
+      for item in body:
+        body_data = item.model_dump()
+        rooms_dal = HotelRoomsDAL(self.session)
+        room: HotelRooms = await rooms_dal.get_room_by_id(body_data['room_id'])
+        if room.hotel_id != body_data['hotel_id']:
+          raise AppBaseExceptions.relation_not_exsist(
+            main_model='Hotel', main_item_id=body_data['hotel_id'],
+            second_model='Rooms', second_item_id=body_data['room_id']
+          )
+        hotel = await self.hotel_dal.get_hotel_by_id(body_data['hotel_id'])
+        program_dal = ProgramDAL(self.session)
+        current_program = await program_dal.get_program_by_id(body_data['program_id'])
+        if not current_program or not hotel or not room:
+          raise AppBaseExceptions.item_not_found('Программа, Отель либо номер')
+        try:
+          program_hotel_room = await self.hotel_dal.append_hotel_and_room_to_program(
+            program=current_program,
+            hotel=hotel,
+            room=room
+          )
+          program_response = format_program_data(program_hotel_room.program)
+          hotel_response = format_hotel_data(program_hotel_room.hotel)
+          room_response = format_room_data(program_hotel_room.room)
+          created_data.append(schemas.ProgramHotelRoomResponse(
+            program=program_response,
+            hotel=hotel_response,
+            room=room_response
+          ))
+        except:
+          await self.session.rollback()
+      return created_data
+  
+  
+  async def _delete_hotel_room_from_program(
+    self,
     body: schemas.AppendHotelAndRoomToProgram
   ):
     async with self.session.begin():
       body_data = body.model_dump()
-      rooms_dal = HotelRoomsDAL(self.session)
-      room: HotelRooms = await rooms_dal.get_room_by_id(body_data['room_id'])
-      if room.hotel_id != body_data['hotel_id']:
-        raise AppBaseExceptions.relation_not_exsist(
-          main_model='Hotel', main_item_id=body_data['hotel_id'],
-          second_model='Rooms', second_item_id=body_data['room_id']
+      deleted_room = await self.hotel_dal.delete_hotel_room_from_program(**body_data)
+      if deleted_room is None:
+        return AppBaseExceptions.relation_not_exsist(
+          main_model='Program',
+          main_item_id=body.program_id,
+          second_model='Hotel Room',
+          second_item_id=body.room_id
         )
-      hotel = await self.hotel_dal.get_hotel_by_id(body_data['hotel_id'])
-      program_dal = ProgramDAL(self.session)
-      current_program = await program_dal.get_program_by_id(body_data['program_id'])
-      if not current_program or not hotel or not room:
-        raise AppBaseExceptions.item_not_found('Program or Hotel or Room')
-      try:
-        program_hotel_room = await self.hotel_dal.append_hotel_and_room_to_program(
-          program=current_program,
-          hotel=hotel,
-          room=room
-        )
-        program_response = format_program_data(program_hotel_room.program)
-        hotel_response = format_hotel_data(program_hotel_room.hotel)
-        room_response = format_room_data(program_hotel_room.room)
-        return schemas.ProgramHotelRoomResponse(
-          program=program_response,
-          hotel=hotel_response,
-          room=room_response
-        )
-      except:
-        await self.session.rollback()
+      return deleted_room

@@ -7,7 +7,13 @@ import SwitchComponent from '../switch/SwitchComponent';
 
 
 
-export default function ComponentHeader({ componentName, componentDataCount, componentSetData }) {
+export default function ComponentHeader({
+  componentName,
+  componentDataCount,
+  componentSetData,
+  btnName,
+  btnNavi
+}) {
   return(
     <div className={style.componentHeader}>
       <h3>{componentName} ({componentDataCount})</h3>
@@ -15,8 +21,10 @@ export default function ComponentHeader({ componentName, componentDataCount, com
       leftData="Список"
       rightData="Карточки"
       componentSetData={componentSetData} />
-      <CreateNewItemBtn createDataName='Отель'/>
-
+      <CreateNewItemBtn
+      createDataName={btnName}
+      navi={btnNavi}
+      />
     </div>
 
   );

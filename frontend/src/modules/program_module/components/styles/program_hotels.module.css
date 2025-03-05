@@ -1,0 +1,17 @@
+.hotelData {
+  display: grid;
+  grid-template-columns: 1fr repeat(2, 2fr) 1fr;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  border-radius: 24px;
+  min-height: 4rem;
+  cursor: pointer;
+}
+
+.itemImg {
+  width: 3rem;
+}
+
+.hotelTitle {}

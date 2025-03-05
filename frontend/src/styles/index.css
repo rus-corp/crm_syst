@@ -88,7 +88,7 @@ h6 {
 
 p {
   font-family: inherit;
-  color: #3B3937;
+  color: #91929E;
   font-family: inherit;
 }
 
@@ -119,11 +119,9 @@ button, input[type="submit"] {
   box-shadow: none;
   background-color: transparent;
   cursor: pointer;
-  transition: background-color .5s ease;
   padding: 0.2rem;
-  /* border: solid black 1px; */
   border-radius: 14px;
-  transition: .4s;
+  transition: transform .4s;
   transform: all .4s ease;
   color: #fff;
 }
@@ -135,9 +133,10 @@ button {
 button:hover {
   background-color: #3A81EB;
   border: none;
-  /* padding: 0.7rem 3rem; */
-  /* padding: .2rem; */
+}
 
+button:active {
+  transform: scale(0.9);
 }
 
 button::-moz-focus-inner {
@@ -167,6 +166,22 @@ label {
   width: 97%;
   gap: 2rem;
 }
+
+.line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 95%;
+  background-color: #E4E6E8;
+  transform: translate(-50%, -50%);
+}
+
+.imgOpen {
+  transform: rotate(90deg);
+  transition: .3s;
+}
+
 
 
 /* legend {
