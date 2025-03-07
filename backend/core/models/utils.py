@@ -55,3 +55,9 @@ class ProgramPriceCategory(str, Enum):
   WC = 'Были / пара'
   CM = 'Сообщество'
   ID = 'Индивидульная'
+
+
+class PartnerCategory(str,  Enum):
+  EX = 'Экскурсии'
+  TF = 'Трансфер'
+  OT = 'Остальное'

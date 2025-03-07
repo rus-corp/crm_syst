@@ -1,13 +1,15 @@
 import React from 'react';
 
 import style from '../styles/partners_main.module.css'
-import { ComponentHeader } from '../../../ui';
+import { ComponentHeaderThreSwitch } from '../../../ui';
 
 export default function PartnerMain() {
   return(
     <div className={style.partnerBlock}>
-      <ComponentHeader
+      <ComponentHeaderThreSwitch
       componentName={'Партнеры'}
+      btnName={'Партнера'}
+      btnNavi={'create_partner'}
       />
     </div>
   );

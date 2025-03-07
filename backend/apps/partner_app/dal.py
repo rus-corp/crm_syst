@@ -1,5 +1,5 @@
 from apps.base.base_dal import BaseDAL
-from sqlalchemy import select
+from sqlalchemy import select, delete
 from sqlalchemy.orm import joinedload
 
 
@@ -16,7 +16,6 @@ class PartnerDAL(BaseDAL):
     result = await self.base_create_item(
       model=self.model,
       values=values,
-      commit=True
     )
     return result
   
@@ -52,15 +51,23 @@ class PartnerDAL(BaseDAL):
   
   
   async def get_partners_with_bank(self):
-    query = select(Partner).options(joinedload(Partner.bank_account)).order_by(Partner.id)
+    query = select(self.model).options(joinedload(self.model.bank_account)).order_by(Partner.id)
     result = await self.db_session.execute(query)
     return result.scalars().all()
   
   
   async def ger_partner_by_id_with_account(self, partner_id: int):
-    query = select(Partner).where(Partner.id == partner_id).options(joinedload(Partner.bank_account))
+    query = select(self.model).where(self.model.id == partner_id).options(joinedload(self.model.bank_account))
     result = await self.db_session.execute(query)
     return result.scalar()
+  
+  
+  async def delete_partner(self, partner_id: int):
+    result = await self.base_delete_item(
+      model=self.model,
+      item_id=partner_id
+    )
+    return result
 
 
 
@@ -85,6 +92,16 @@ class BankAccountDAL(BaseDAL):
     return result
   
   
-  async def update_bank_account(self, account_id: int, values: dict):...
+  async def update_bank_account(self, account_id: int, values: dict):
+    result = await self.base_update_item(
+      model=self.model,
+      item_id=account_id,
+      values=values
+    )
+    return result
   
-  async def delete_bank_account(self, account_id: int):...
+  
+  # async def delete_bank_account(self, account_id: int):
+  #   result = await self.base_delete_item(
+  #     model=self.model
+  #   )

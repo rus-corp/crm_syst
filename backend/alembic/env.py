@@ -18,6 +18,7 @@ from core.models.hotels_models import (
     Hotels,
     HotelRooms
 )
+from core.models.partners_models import Partner, BankAccount
 from core.models.staff_models import Expenses, Employee, CostItem
 from core.models.payment_models import ClientProgramPayment
 from core.models.program_models import Program, ProgramPrices

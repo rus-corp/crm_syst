@@ -26,6 +26,5 @@ export default function ComponentHeader({
       navi={btnNavi}
       />
     </div>
-
   );
 }

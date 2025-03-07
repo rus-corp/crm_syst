@@ -1,5 +1,6 @@
 from typing import Optional, List, TypedDict
 from pydantic import BaseModel, ConfigDict
+from core.models.utils import PartnerCategory
 
 
 
@@ -9,6 +10,8 @@ class PartnerBase(BaseModel):
   law_title: str
   price: int
   contract_number: Optional[str] = None
+  service_name: str
+  category: PartnerCategory
 
 
 
@@ -26,6 +29,8 @@ class PartnerUpdateRequest(BaseModel):
   law_title: Optional[str] = None
   price: Optional[int] = None
   contract_number: Optional[str] = None
+  service_name: Optional[str] = None
+  category: Optional[PartnerCategory] = None
 
 
 
@@ -36,13 +41,17 @@ class BankAccountBase(BaseModel):
   account_number: str
   cor_account: str
 
+class BankAccountPartnerCreateRequest(BankAccountBase):
+  pass
+
 
 class BankAccountShowBase(BankAccountBase):
   id: int
+  partner_id: int
 
 
 class CreatePartnerAndBank(PartnerBase):
-  bank_account: BankAccountBase
+  bank_account: BankAccountPartnerCreateRequest
 
 
 class PartnerBankCreateResponse(PartnerBaseShow):

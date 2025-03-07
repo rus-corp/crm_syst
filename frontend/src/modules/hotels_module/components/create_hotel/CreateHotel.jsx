@@ -2,8 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import style from './create_hotel.module.css'
-import { CreateItemInput, SaveBtnComponent, TextAreaComponent } from '../../../../ui';
-import { createHotel } from '../../../../api';
+import { CreateItemInput, SaveBtnComponent, TextAreaComponent } from '@/ui';
+import { createHotel } from '@/api';
 
 export default function CreateHotel() {
   const navigation = useNavigate()

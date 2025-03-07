@@ -7,6 +7,7 @@ from sqlalchemy import ForeignKey
 
 from ..database import Base
 
+from .utils import PartnerCategory
 
 
 
@@ -30,5 +31,6 @@ class Partner(Base):
   law_title: Mapped[str]
   price: Mapped[int]
   contract_number: Mapped[str] = mapped_column(nullable=True)
-  # название услуги
-  bank_account: Mapped[BankAccount] = relationship(back_populates='partner')
+  service_name: Mapped[str]
+  category: Mapped[PartnerCategory] = mapped_column(SQLEnum(PartnerCategory), default=PartnerCategory.OT)
+  bank_account: Mapped[BankAccount] = relationship(back_populates='partner', cascade='all, delete-orphan')
