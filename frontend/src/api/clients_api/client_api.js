@@ -4,7 +4,7 @@ import { backend } from "../_variables";
 export const getClientList = async() => {
   try {
     const response = await backend.get(
-      '/clients/'
+      '/clients/base/'
     )
     return response
   } catch (error) {
@@ -16,7 +16,7 @@ export const getClientList = async() => {
 export const getClientDataWithProgram = async (clientSlug) => {
   try {
     const response = await backend.get(
-      `/clients/program_profile_doc/${clientSlug}`
+      `/clients/base/program_profile_doc/${clientSlug}`
     )
     return response
   } catch (error) {
