@@ -11,6 +11,16 @@ from .utils import PartnerCategory
 
 
 
+class PartnerService(Base):
+  __tablename__ = 'partner_services'
+  service_name: Mapped[str]
+  price: Mapped[int]
+  
+  partner_id: Mapped[int] = mapped_column(ForeignKey('partners.id'))
+  partner: Mapped['Partner'] = relationship(back_populates='partner_services')
+
+
+
 class BankAccount(Base):
   __tablename__ = 'bank_accounts'
   bank_name: Mapped[str]
@@ -29,8 +39,8 @@ class Partner(Base):
   
   title: Mapped[str]
   law_title: Mapped[str]
-  price: Mapped[int]
   contract_number: Mapped[str] = mapped_column(nullable=True)
-  service_name: Mapped[str]
+  
   category: Mapped[PartnerCategory] = mapped_column(SQLEnum(PartnerCategory), default=PartnerCategory.OT)
   bank_account: Mapped[BankAccount] = relationship(back_populates='partner', cascade='all, delete-orphan')
+  partner_services: Mapped[List[PartnerService]] = relationship(back_populates='partner', cascade='all, delete-orphan')

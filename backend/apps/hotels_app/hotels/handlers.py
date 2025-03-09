@@ -35,13 +35,10 @@ class HotelHandler(BaseHandler):
           des=created_hotel.desc
         )
       except Exception as e:
-        print(e)
         mes = e.args[0]
         err_mes = mes.split('Key')[1]
-        print(mes)
         spl_mes = err_mes.split('=')[1]
         clean_message = re.sub(r"[\(\)]", "", spl_mes)
-        print(spl_mes)
         await self.session.rollback()
         raise AppBaseExceptions.item_create_error(
           item_data='Hotel',
