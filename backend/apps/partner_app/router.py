@@ -4,6 +4,7 @@ from .handler import PartnerHandler, BankAccountHandler
 
 
 from core.database import get_db
+from core.models.utils import PartnerCategory
 from . import schemas
 
 router = APIRouter(
@@ -33,10 +34,11 @@ async def create_partner(
   response_model=list[schemas.PartnerBaseShow]
 )
 async def get_all_partners(
+  category: PartnerCategory = None,
   session: AsyncSession = Depends(get_db)
 ):
   partner_handler = PartnerHandler(session)
-  partners_list = await partner_handler._get_all_partners()
+  partners_list = await partner_handler._get_all_partners(category)
   return partners_list
 
 

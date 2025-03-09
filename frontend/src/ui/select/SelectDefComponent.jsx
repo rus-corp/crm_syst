@@ -28,7 +28,7 @@ export default function SelectDefComponent({ dataTitle, dataList, changeFunc }) 
         label={dataTitle}
         onChange={handleChange}
       >
-        {dataList.map((dataItem) => (
+        {dataList?.map((dataItem) => (
           <MenuItem key={dataItem.id}
           value={dataItem.id}>{dataItem.title}</MenuItem>
         ))}

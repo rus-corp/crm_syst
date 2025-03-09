@@ -17,6 +17,14 @@ import {
 
 import { createRoomsList } from "./hotels_api/rooms";
 
+import {
+  createPartner,
+  deletePartnerById,
+  getPartnerById,
+  getPartnersFilterList,
+  updatePartnerById
+} from "./partners/partners_api";
+
  import { 
   createClientProgramPayment,
   getClientProgramPayments
@@ -27,6 +35,7 @@ import { getProgramClients,
   getPrograms,
   createProgram }
   from "./programs_api/programs_api";
+
 import {
   createCostItem,
   createExpenseItem,
@@ -49,5 +58,6 @@ export { getPrograms, getProgramClients, getProgramHotels,
   updateHotelProfileById, createProgram, createStaffItem, getStaffs,
   getExpensesList, getEmployeePositions, createExpenseItem,
   createCostItem, getCostItemsList, getHotelsWithoutRooms,
-  appendHotelRoomToProgram,
+  appendHotelRoomToProgram, getPartnersFilterList, getPartnerById,
+  createPartner, updatePartnerById, deletePartnerById
  }

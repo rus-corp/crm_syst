@@ -1,0 +1,28 @@
+.createPartner {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.sectionCreateData {
+  margin-top: 2rem;
+}
+
+.createPartnerData {
+  position: relative;
+  width: 80%;
+  display: block;
+}
+
+.createField {
+  margin-bottom: 2rem;
+}
+
+.saveBtn {
+  position: absolute;
+  margin-top: 2rem;
+  right: 0;
+}

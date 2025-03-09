@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from .handlers import HotelHandler
 from . import schemas
 from core.database import get_db
-
+from apps.base.base_schemas import BaseMessageResponseModel
 
 
 router = APIRouter(
@@ -17,7 +17,10 @@ router = APIRouter(
 @router.post(
   '/',
   status_code=status.HTTP_201_CREATED,
-  response_model=schemas.HotelBaseResponse
+  response_model=schemas.HotelBaseResponse,
+  responses={
+    403: {'model': BaseMessageResponseModel},
+  }
 )
 async def create_hotel(
   body: schemas.CreateHotelRequest,

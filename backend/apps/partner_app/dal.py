@@ -25,6 +25,12 @@ class PartnerDAL(BaseDAL):
     return result
   
   
+  async def get_filter_partner_list(self, category: str):
+    query = select(self.model).where(self.model.category == category).order_by(self.model.id)
+    result = await self.db_session.execute(query)
+    return result.scalars().all()
+  
+  
   async def get_one_partner(self, partner_id: int):
     result = await self.base_get_one_item(
       model=self.model,

@@ -9,10 +9,11 @@ export default function ComponentHeaderThreSwitch({
   componentName,
   componentDataCount,
   btnName,
-  btnNavi
+  btnNavi,
+  handleChangeItem
 }) {
   const handleChoiceItem = (data) => {
-    console.log(data)
+    handleChangeItem(data)
   }
   return(
     <div className={style.componentHeader}>

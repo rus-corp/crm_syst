@@ -29,7 +29,6 @@ class HotelDAL(BaseDAL):
     await self.db_session.commit()
     return new_hotel
   
-  
   async def get_all_hotels(self) -> list[Hotels]:
     return await self.base_get_all_items(Hotels)
   

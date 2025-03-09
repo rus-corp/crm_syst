@@ -23,11 +23,11 @@ class AppBaseExceptions:
     )
   
   @staticmethod
-  def item_create_error(item_data: str):
+  def item_create_error(item_data: str, exception_message: str = None):
     """403"""
     raise HTTPException(
       status_code=status.HTTP_403_FORBIDDEN,
-      detail=f'Does not create {item_data}'
+      detail=f'Does not create {item_data} message: {exception_message}'
     )
   
   

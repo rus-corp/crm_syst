@@ -1,3 +1,4 @@
+import re
 from ...base.base_handler import BaseHandler
 from ...base.exceptions import AppBaseExceptions
 from fastapi.exceptions import HTTPException
@@ -22,16 +23,30 @@ class HotelHandler(BaseHandler):
   async def _create_hotel(self, hotel_body: schemas.CreateHotelRequest):
     async with self.session.begin():
       hotel_data = hotel_body.model_dump(exclude_none=True)
-      created_hotel = await self.hotel_dal.create_hotel(**hotel_data)
-      return schemas.HotelBaseResponse(
-        id=created_hotel.id,
-        title=created_hotel.title,
-        address=created_hotel.address,
-        contacts=created_hotel.contacts,
-        city=created_hotel.city,
-        email=created_hotel.email,
-        des=created_hotel.desc
-      )
+      try:
+        created_hotel = await self.hotel_dal.create_hotel(**hotel_data)
+        return schemas.HotelBaseResponse(
+          id=created_hotel.id,
+          title=created_hotel.title,
+          address=created_hotel.address,
+          contacts=created_hotel.contacts,
+          city=created_hotel.city,
+          email=created_hotel.email,
+          des=created_hotel.desc
+        )
+      except Exception as e:
+        print(e)
+        mes = e.args[0]
+        err_mes = mes.split('Key')[1]
+        print(mes)
+        spl_mes = err_mes.split('=')[1]
+        clean_message = re.sub(r"[\(\)]", "", spl_mes)
+        print(spl_mes)
+        await self.session.rollback()
+        raise AppBaseExceptions.item_create_error(
+          item_data='Hotel',
+          exception_message=clean_message
+        )
   
   
   async def _get_all_hotels(self, flag: bool = False):
