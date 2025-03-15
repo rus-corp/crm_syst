@@ -1,9 +1,9 @@
 from apps.base.base_dal import BaseDAL
-from sqlalchemy import select, delete
+from sqlalchemy import select, delete, insert
 from sqlalchemy.orm import joinedload
 
 
-from core.models.partners_models import Partner, BankAccount
+from core.models.partners_models import Partner, BankAccount, PartnerService
 from . import schemas
 
 
@@ -57,13 +57,20 @@ class PartnerDAL(BaseDAL):
   
   
   async def get_partners_with_bank(self):
-    query = select(self.model).options(joinedload(self.model.bank_account)).order_by(Partner.id)
+    query = (select(self.model)
+             .options(joinedload(self.model.bank_account))
+             .order_by(self.model.id))
     result = await self.db_session.execute(query)
     return result.scalars().all()
   
   
   async def ger_partner_by_id_with_account(self, partner_id: int):
-    query = select(self.model).where(self.model.id == partner_id).options(joinedload(self.model.bank_account))
+    query = (select(self.model)
+             .where(self.model.id == partner_id)
+             .options(
+               joinedload(self.model.bank_account),
+               joinedload(self.model.partner_services)
+             ))
     result = await self.db_session.execute(query)
     return result.scalar()
   
@@ -107,7 +114,49 @@ class BankAccountDAL(BaseDAL):
     return result
   
   
-  # async def delete_bank_account(self, account_id: int):
-  #   result = await self.base_delete_item(
-  #     model=self.model
-  #   )
+  async def delete_bank_account(self, account_id: int):
+    result = await self.base_delete_item(
+      model=self.model,
+      item_id=account_id
+    )
+    return result
+
+
+
+class PartnerServicesDAL(BaseDAL):
+  model = PartnerService
+  
+  async def create_service(self, values):
+    result = await self.base_create_item(
+      model=self.model,
+      values=values
+    )
+    return result
+  
+  
+  async def create_many_services(self, services: list[dict]):
+    stmt = insert(self.model).values(services).returning(self.model)
+    result = await self.db_session.execute(stmt)
+    await self.db_session.commit()
+    return result.scalars().all()
+  
+  
+  async def get_all_services(self):
+    result = await self.base_get_all_items(self.model)
+    return result
+  
+  
+  async def update_service_by_id(self, service_id: int, values):
+    result = await self.base_update_item(
+      model=self.model,
+      item_id=service_id,
+      values=values
+    )
+  
+  
+  async def delete_service(self, service_id: int):
+    result = await self.base_delete_item(
+      model=self.model,
+      item_id=service_id
+    )
+    return result

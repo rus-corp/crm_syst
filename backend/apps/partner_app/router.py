@@ -92,32 +92,32 @@ async def update_partner_item(
 
 
 @router.post(
-  '/partner_with_bank/',
+  '/partner_with_service/',
   status_code=status.HTTP_201_CREATED,
-  response_model=schemas.PartnerBankCreateResponse
+  response_model=schemas.CreatePartnerAndServiceRequest
 )
-async def create_partner_and_bank(
-  body: schemas.CreatePartnerAndBank,
+async def create_partner_and_service(
+  body: schemas.CreatePartnerAndServiceRequest,
   session: AsyncSession = Depends(get_db)
 ):
   partner_handler = PartnerHandler(session)
-  created_partner = await partner_handler._create_partner_with_bank(body)
+  created_partner = await partner_handler._create_partner_with_service(body)
   return created_partner
 
 
 
-@router.get(
-  '/partner_with_bank/{partner_id}',
-  status_code=status.HTTP_200_OK,
-  response_model=schemas.PartnerBankCreateResponse
-)
-async def get_partner_with_bank(
-  partner_id: int,
-  session: AsyncSession = Depends(get_db)
-):
-  partner_handler = PartnerHandler(session)
-  partner = await partner_handler._get_partner_by_id(
-    partner_id=partner_id,
-    flag=True
-  )
-  return partner
+# @router.get(
+#   '/partner_with_bank/{partner_id}',
+#   status_code=status.HTTP_200_OK,
+#   response_model=schemas.PartnerBankCreateResponse
+# )
+# async def get_partner_with_bank(
+#   partner_id: int,
+#   session: AsyncSession = Depends(get_db)
+# ):
+#   partner_handler = PartnerHandler(session)
+#   partner = await partner_handler._get_partner_by_id(
+#     partner_id=partner_id,
+#     flag=True
+#   )
+#   return partner

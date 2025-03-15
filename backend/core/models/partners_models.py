@@ -40,7 +40,7 @@ class Partner(Base):
   title: Mapped[str]
   law_title: Mapped[str]
   contract_number: Mapped[str] = mapped_column(nullable=True)
-  
   category: Mapped[PartnerCategory] = mapped_column(SQLEnum(PartnerCategory), default=PartnerCategory.OT)
+  
   bank_account: Mapped[BankAccount] = relationship(back_populates='partner', cascade='all, delete-orphan')
   partner_services: Mapped[List[PartnerService]] = relationship(back_populates='partner', cascade='all, delete-orphan')

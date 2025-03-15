@@ -41,8 +41,9 @@ class BankAccountBase(BaseModel):
   account_number: str
   cor_account: str
 
+
 class BankAccountPartnerCreateRequest(BankAccountBase):
-  pass
+  partner_id: int
 
 
 class BankAccountShowBase(BankAccountBase):
@@ -50,12 +51,47 @@ class BankAccountShowBase(BankAccountBase):
   partner_id: int
 
 
-class CreatePartnerAndBank(PartnerBase):
-  bank_account: BankAccountPartnerCreateRequest
+class BankAccountShowUpdateRequest(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  
+  bank_name: Optional[str] = None
+  bic: Optional[str] = None
+  account_number: Optional[str] = None
+  cor_account: Optional[str] = None
 
 
-class PartnerBankCreateResponse(PartnerBaseShow):
-  bank_account: BankAccountShowBase
+class PartnerServiceBase(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  service_name: str
+  price: int
+
+
+class PartnerServiceBaseResponse(PartnerServiceBase):
+  id: int
+  partner_id: int
+
+
+class PartnerServiceCreateRequest(PartnerServiceBase):
+  partner_id: int
+
+
+class PartnerServiceUpdateRequest(PartnerServiceBase):
+  service_name: Optional[str] = None
+  price: Optional[int] = None
+
+
+
+class CreatePartnerAndServiceRequest(PartnerBase):
+  partner_services: List[PartnerServiceBase] = []
+
+
+class CreatePartnerAndServiceResponse(PartnerBase):
+  partner_services: List[PartnerServiceBaseResponse] = []
+
+
+class PartnerBankServiceResponse(PartnerBaseShow):
+  bank_account: Optional[BankAccountShowBase] = None
+  service: Optional[List[PartnerServiceBaseResponse]] = []
 
 
 
