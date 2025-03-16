@@ -8,9 +8,7 @@ class PartnerBase(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   title: str
   law_title: str
-  price: int
   contract_number: Optional[str] = None
-  service_name: str
   category: PartnerCategory
 
 
@@ -27,9 +25,7 @@ class PartnerUpdateRequest(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   title: Optional[str] = None
   law_title: Optional[str] = None
-  price: Optional[int] = None
   contract_number: Optional[str] = None
-  service_name: Optional[str] = None
   category: Optional[PartnerCategory] = None
 
 
@@ -51,7 +47,7 @@ class BankAccountShowBase(BankAccountBase):
   partner_id: int
 
 
-class BankAccountShowUpdateRequest(BaseModel):
+class BankAccountUpdateRequest(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   
   bank_name: Optional[str] = None
@@ -85,7 +81,7 @@ class CreatePartnerAndServiceRequest(PartnerBase):
   partner_services: List[PartnerServiceBase] = []
 
 
-class CreatePartnerAndServiceResponse(PartnerBase):
+class CreatePartnerAndServiceResponse(PartnerBaseShow):
   partner_services: List[PartnerServiceBaseResponse] = []
 
 

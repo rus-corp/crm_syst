@@ -785,74 +785,290 @@ test_partners_data = [
   {
     "title": "ООО 'Анта'",
     "law_title": "Общество с ограниченной ответственностью 'Анта'",
-    "price": 3000,
     "contract_number": "12-342",
-    "service_name": "Трансфер в Мурманске",
     "category": "Трансфер"
   },
   {
     "title": "ИП 'Вектор'",
     "law_title": "Индивидуальный предприниматель Иванов Петр Сергеевич",
-    "price": 4500,
     "contract_number": "45-678",
-    "service_name": "Перевозка из аэропорта Сочи",
     "category": "Трансфер"
   },
   {
     "title": "ООО 'Быстрый маршрут'",
     "law_title": "Общество с ограниченной ответственностью 'Быстрый маршрут'",
-    "price": 5000,
     "contract_number": "98-765",
-    "service_name": "Трансфер до Красной Поляны",
     "category": "Трансфер"
   },
   {
     "title": "ООО 'КомфортТранс'",
     "law_title": "Общество с ограниченной ответственностью 'КомфортТранс'",
-    "price": 7000,
     "contract_number": "33-221",
-    "service_name": "VIP-трансфер по Санкт-Петербургу",
     "category": "Трансфер"
   },
   {
     "title": "ИП 'ГлобалКар'",
     "law_title": "Индивидуальный предприниматель Смирнов Алексей Викторович",
-    "price": 6000,
     "contract_number": "77-889",
-    "service_name": "Трансфер из Домодедово",
     "category": "Трансфер"
   }
 ]
 
 
-test_partner_with_bank_data = [
+test_partner_service_data = [
   {
-    "title": "ООО 'Путешествуй легко'",
-    "law_title": "Общество с ограниченной ответственностью 'Путешествуй легко'",
-    "price": 8500,
-    "contract_number": "EX-2024-010",
-    "service_name": "Экскурсия по Золотому кольцу",
-    "category": "Экскурсии",
-    "bank_account": {
-      "bank_name": "ПАО 'Сбербанк'",
-      "bic": "044525225",
-      "account_number": "40702810900000001234",
-      "cor_account": "30101810400000000225"
-    }
+    "service_name": "Химчистка ковров",
+    "price": 2500,
+    "partner_id": 1
   },
   {
-    "title": "ИП 'Гид-Москва'",
-    "law_title": "Индивидуальный предприниматель Смирнов Олег Петрович",
-    "price": 6500,
-    "contract_number": "EX-2024-011",
-    "service_name": "Пешеходная экскурсия по Кремлю",
-    "category": "Экскурсии",
-    "bank_account": {
-      "bank_name": "АО 'Альфа-Банк'",
-      "bic": "044525593",
-      "account_number": "40802810500000009876",
-      "cor_account": "30101810200000000593"
-    }
+    "service_name": "Ремонт смартфонов",
+    "price": 5000,
+    "partner_id": 2
+  },
+  {
+    "service_name": "Доставка продуктов",
+    "price": 300,
+    "partner_id": 3
+  },
+  {
+    "service_name": "Замена масла в автомобиле",
+    "price": 2000,
+    "partner_id": 4
+  },
+  {
+    "service_name": "Услуги электрика",
+    "price": 3500,
+    "partner_id": 5
+  },
+  {
+    "service_name": "Ремонт бытовой техники",
+    "price": 4500,
+    "partner_id": 1
+  },
+  {
+    "service_name": "Пошив одежды на заказ",
+    "price": 7000,
+    "partner_id": 2
+  },
+  {
+    "service_name": "Курьерская доставка",
+    "price": 500,
+    "partner_id": 3
+  },
+  {
+    "service_name": "Услуги грузчиков",
+    "price": 1500,
+    "partner_id": 4
+  },
+  {
+    "service_name": "Компьютерная помощь",
+    "price": 4000,
+    "partner_id": 5
   }
 ]
+
+
+test_partner_and_services_data = [
+  {
+    "title": "ООО 'Быстрый маршрут'",
+    "law_title": "Общество с ограниченной ответственностью 'Быстрый маршрут'",
+    "contract_number": "98-765",
+    "category": "Трансфер",
+    "partner_services": [
+      {
+        "service_name": "Аренда автомобиля с водителем",
+        "price": 7000
+      },
+      {
+        "service_name": "Экскурсионное сопровождение",
+        "price": 3500
+      }
+    ]
+  },
+  {
+    "title": "ИП 'Чистый Дом'",
+    "law_title": "Индивидуальный предприниматель 'Чистый Дом'",
+    "contract_number": "45-321",
+    "category": "Трансфер",
+    "partner_services": [
+      {
+        "service_name": "Уборка квартиры",
+        "price": 3000
+      },
+      {
+        "service_name": "Чистка мягкой мебели",
+        "price": 4000
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Быстрый ремонт'",
+    "law_title": "Общество с ограниченной ответственностью 'Быстрый ремонт'",
+    "contract_number": "12-876",
+    "category": "Экскурсии",
+    "partner_services": [
+      {
+        "service_name": "Замена дисплея",
+        "price": 6000
+      },
+      {
+        "service_name": "Ремонт ноутбуков",
+        "price": 8000
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Доставка24'",
+    "law_title": "Общество с ограниченной ответственностью 'Доставка24'",
+    "contract_number": "77-999",
+    "category": "Экскурсии",
+    "partner_services": [
+      {
+        "service_name": "Экспресс-доставка",
+        "price": 500
+      },
+      {
+        "service_name": "Доставка готовых блюд",
+        "price": 400
+      }
+    ]
+  },
+  {
+    "title": "ИП 'Мой Авто'",
+    "law_title": "Индивидуальный предприниматель 'Мой Авто'",
+    "contract_number": "34-567",
+    "category": "Экскурсии",
+    "partner_services": [
+      {
+        "service_name": "Шиномонтаж",
+        "price": 2500
+      },
+      {
+        "service_name": "Диагностика двигателя",
+        "price": 3500
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Мастер-Сервис'",
+    "law_title": "Общество с ограниченной ответственностью 'Мастер-Сервис'",
+    "contract_number": "89-432",
+    "category": "Остальное",
+    "partner_services": [
+      {
+        "service_name": "Ремонт электропроводки",
+        "price": 4000
+      },
+      {
+        "service_name": "Установка розеток",
+        "price": 2000
+      }
+    ]
+  },
+  {
+    "title": "ИП 'Чиним всё'",
+    "law_title": "Индивидуальный предприниматель 'Чиним всё'",
+    "contract_number": "56-123",
+    "category": "Остальное",
+    "partner_services": [
+      {
+        "service_name": "Ремонт стиральных машин",
+        "price": 5000
+      },
+      {
+        "service_name": "Ремонт холодильников",
+        "price": 6000
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Мода и Стиль'",
+    "law_title": "Общество с ограниченной ответственностью 'Мода и Стиль'",
+    "contract_number": "23-876",
+    "category": "Остальное",
+    "partner_services": [
+      {
+        "service_name": "Ремонт одежды",
+        "price": 3000
+      },
+      {
+        "service_name": "Индивидуальный пошив костюмов",
+        "price": 12000
+      }
+    ]
+  },
+  {
+    "title": "ИП 'Грузовичок'",
+    "law_title": "Индивидуальный предприниматель 'Грузовичок'",
+    "contract_number": "65-543",
+    "category": "Остальное",
+    "partner_services": [
+      {
+        "service_name": "Переезд под ключ",
+        "price": 10000
+      },
+      {
+        "service_name": "Вывоз строительного мусора",
+        "price": 5000
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Компьютерная помощь'",
+    "law_title": "Общество с ограниченной ответственностью 'Компьютерная помощь'",
+    "contract_number": "99-111",
+    "category": "Экскурсии",
+    "partner_services": [
+      {
+        "service_name": "Настройка операционной системы",
+        "price": 2500
+      },
+      {
+        "service_name": "Удаление вирусов",
+        "price": 3000
+      }
+    ]
+  }
+]
+
+
+test_partner_bank_data = [
+  {
+    "bank_name": "ПАО Сбербанк",
+    "bic": "044525225",
+    "account_number": "40702810100000001234",
+    "cor_account": "30101810400000000225",
+    "partner_id": 1
+  },
+  {
+    "bank_name": "АО Альфа-Банк",
+    "bic": "044525593",
+    "account_number": "40702810300000005678",
+    "cor_account": "30101810200000000593",
+    "partner_id": 2
+  },
+  {
+    "bank_name": "ВТБ (ПАО)",
+    "bic": "044525187",
+    "account_number": "40702810400000009876",
+    "cor_account": "30101810300000000187",
+    "partner_id": 3
+  },
+  {
+    "bank_name": "Газпромбанк (АО)",
+    "bic": "044525823",
+    "account_number": "40702810500000004321",
+    "cor_account": "30101810500000000823",
+    "partner_id": 4
+  },
+  {
+    "bank_name": "ПАО Росбанк",
+    "bic": "044525256",
+    "account_number": "40702810600000006543",
+    "cor_account": "30101810600000000256",
+    "partner_id": 5
+  }
+]
+
 

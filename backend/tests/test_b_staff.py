@@ -3,7 +3,13 @@ from fastapi.exceptions import HTTPException
 import pytest
 
 
-from .test_data import test_staff, test_cost_items, test_expenses, test_partners_data, test_bank_data, test_partner_with_bank_data
+from .test_data import (
+  test_staff, test_cost_items,
+  test_expenses, test_partners_data,
+  test_partner_bank_data,
+  test_partner_service_data,
+  test_partner_and_services_data
+)
 from apps.staff import schemas
 from apps.partner_app import schemas as partner_schemas
 
@@ -113,7 +119,6 @@ async def test_create_partner(ac: AsyncClient):
     assert partner.id == indx + 1
     assert partner.title == item['title']
     assert partner.law_title == item['law_title']
-    assert partner.price == item['price']
   partnersList = await ac.get('/partners/')
   assert partnersList.status_code == 200
   partnersListData = partnersList.json()
@@ -126,48 +131,52 @@ async def test_get_one_partner(ac: AsyncClient):
   partnerDataJson = partnerData.json()
   partner = partner_schemas.PartnerBaseShow(**partnerDataJson)
   assert partner.title == test_partners_data[0]['title']
-  assert partner.price == test_partners_data[0]['price']
-
-
-async def test_update_partner(ac: AsyncClient):
-  new_data = {"price": 99}
-  partnerBefore = await ac.get('/partners/1')
-  assert partnerBefore.status_code == 200
-  partnerBeforeJson = partnerBefore.json()
-  partner_before = partner_schemas.PartnerBaseShow(**partnerBeforeJson)
-  updatePartner = await ac.patch('/partners/1', json=new_data)
-  assert updatePartner.status_code == 200
-  updatePartnerJson = updatePartner.json()
-  updated_partner = partner_schemas.PartnerBaseShow(**updatePartnerJson)
-  assert updated_partner.title == partner_before.title
-  assert updated_partner.id == partner_before.id
-  assert updated_partner.price != partner_before.price
 
 
 
-async def test_create_partner_with_bank(ac: AsyncClient):
-  for indx, item in enumerate(test_partner_with_bank_data):
-    partnerBankData = await ac.post('/partners/partner_with_bank/', json=item)
+async def test_create_partner_service(ac: AsyncClient):
+  for indx, item in enumerate(test_partner_service_data):
+    partner_service = await ac.post('/partners/partner_service/', json=item)
+    assert partner_service.status_code == 201
+    partnerServiceJson = partner_service.json()
+    partnerSericeCreatedData = partner_schemas.PartnerServiceBaseResponse(**partnerServiceJson)
+    assert partnerSericeCreatedData.service_name == test_partner_service_data[indx]['service_name']
+
+
+
+async def test_create_partner_with_service(ac: AsyncClient):
+  for indx, item in enumerate(test_partner_and_services_data):
+    partnerBankData = await ac.post('/partners/partner_with_service/', json=item)
     assert partnerBankData.status_code == 201
     partnerBankDataJson = partnerBankData.json()
-    partner_bank = partner_schemas.PartnerBankCreateResponse(**partnerBankDataJson)
+    partner_bank = partner_schemas.CreatePartnerAndServiceResponse(**partnerBankDataJson)
     assert partner_bank.title == item['title']
-    assert partner_bank.bank_account.account_number == item['bank_account']['account_number']
+    # assert partner_bank.bank_account.account_number == item['bank_account']['account_number']
+    assert len(partner_bank.partner_services) == len(test_partner_and_services_data[indx]['partner_services'])
 
 
 
-async def test_get_partner_with_bank(ac: AsyncClient):
-  partnerBankData = await ac.get('/partners/partner_with_bank/6',)
-  assert partnerBankData.status_code == 200
-  partnerBankDataJson = partnerBankData.json()
-  partner_bank = partner_schemas.PartnerBankCreateResponse(**partnerBankDataJson)
-  assert partner_bank.title == test_partner_with_bank_data[0]['title']
-  assert partner_bank.bank_account.account_number == test_partner_with_bank_data[0]['bank_account']['account_number']
+async def test_create_partner_bank(ac: AsyncClient):
+  for indx, item in enumerate(test_partner_bank_data):
+    partnerBank = await ac.post('/partners/partner_bank/', json=item)
+    assert partnerBank.status_code == 201
+    partnerBankJson = partnerBank.json()
+    bank_data = partner_schemas.BankAccountShowBase(**partnerBankJson)
+    assert bank_data.account_number == test_partner_bank_data[indx]['account_number']
+    assert bank_data.bank_name == test_partner_bank_data[indx]['bank_name']
 
 
 
-async def test_delete_partner(ac: AsyncClient):...
 
 
 
-async def test_create_bank_accounts(ac: AsyncClient):...
+
+# async def test_get_partner_services_and_bank(ac: AsyncClient):...
+
+# async def test_get_partner_with_service_and_bank(ac: AsyncClient):
+#   partnerBankData = await ac.get('/partners/partner_with_bank/6',)
+#   assert partnerBankData.status_code == 200
+#   partnerBankDataJson = partnerBankData.json()
+#   partner_bank = partner_schemas.PartnerBankCreateResponse(**partnerBankDataJson)
+#   assert partner_bank.title == test_partner_with_bank_data[0]['title']
+#   assert partner_bank.bank_account.account_number == test_partner_with_bank_data[0]['bank_account']['account_number']

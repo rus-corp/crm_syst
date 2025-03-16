@@ -146,12 +146,21 @@ class PartnerServicesDAL(BaseDAL):
     return result
   
   
-  async def update_service_by_id(self, service_id: int, values):
+  async def get_service_item(self, service_id: int):
+    result = await self.base_get_one_item(
+      model=self.model,
+      item_id=service_id
+    )
+    return result
+  
+  
+  async def update_service_by_id(self, service_id: int, values: dict):
     result = await self.base_update_item(
       model=self.model,
       item_id=service_id,
       values=values
     )
+    return result
   
   
   async def delete_service(self, service_id: int):

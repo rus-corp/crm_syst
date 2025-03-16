@@ -33,7 +33,7 @@ class BankAccountHandler(BaseHandler):
     return account
   
   
-  async def _update_banck_account(self, account_id: int, values: schemas.BankAccountShowUpdateRequest):
+  async def _update_bank_account(self, account_id: int, values: schemas.BankAccountUpdateRequest):
     async with self.session.begin():
       body_data = values.model_dump(exclude_none=True)
       updated_account = await self.bank_dal.update_bank_account(
@@ -50,38 +50,45 @@ class BankAccountHandler(BaseHandler):
 
 
 
+
 class PartnerServiceHandler(BaseHandler):
   def __init__(self, session):
     super().__init__(session)
-    self.partner_dal = PartnerServicesDAL(self.session)
+    self.partner_service_dal = PartnerServicesDAL(self.session)
   
   
   async def _create_partner_service(self, values: schemas.PartnerServiceCreateRequest):
     async with self.session.begin():
       body_data = values.model_dump()
-      created_service = await self.partner_dal.create_service(body_data)
+      created_service = await self.partner_service_dal.create_service(body_data)
       return created_service
   
   
   async def _get_all_services(self):
-    services_list = await self.partner_dal.get_all_services()
+    services_list = await self.partner_service_dal.get_all_services()
     return list(services_list)
   
   
-  async def _update_partner_service(self, service_id, body: schemas.PartnerServiceUpdateRequest):
+  async def _get_service_item(self, service_id: int):
+    service_item = await self.partner_service_dal.get_service_item(service_id)
+    return service_item
+  
+  
+  async def _update_partner_service(self, service_id: int, body: schemas.PartnerServiceUpdateRequest):
     async with self.session.begin():
       body_data = body.model_dump(exclude_none=True)
-      updated_service = await self.partner_dal.update_service_by_id(
-        serice_id=service_id,
+      updated_service = await self.partner_service_dal.update_service_by_id(
+        service_id=service_id,
         values=body_data
       )
       return updated_service
   
   
-  async def _update_partner_service(self, service_id: int):
+  async def _delete_partner_service(self, service_id: int):
     async with self.session.begin():
-      deleted_service = await self.partner_dal.delete_service(service_id)
+      deleted_service = await self.partner_service_dal.delete_service(service_id)
       return deleted_service
+
 
 
 
@@ -150,7 +157,7 @@ class PartnerHandler(BaseHandler):
       for service in partner_services:
         service['partner_id'] = new_partner.id
       partner_service_dal = PartnerServicesDAL(self.session)
-      created_partner_services = partner_service_dal.create_many_services(partner_services)
+      created_partner_services = await partner_service_dal.create_many_services(partner_services)
       return schemas.CreatePartnerAndServiceResponse(
         id=new_partner.id,
         title=new_partner.title,
