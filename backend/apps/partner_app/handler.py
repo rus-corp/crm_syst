@@ -105,15 +105,11 @@ class PartnerHandler(BaseHandler):
       return partner
   
   
-  async def _get_all_partners(self, category: str, flag: bool = False):
-    """if flag -> partner with bank"""
-    if flag:
-      partners = await self.partner_dal.get_partners_with_bank()
+  async def _get_all_partners(self, category: str):
+    if category:
+      partners = await self.partner_dal.get_filter_partner_list(category)
     else:
-      if category:
-        partners = await self.partner_dal.get_filter_partner_list(category)
-      else:
-        partners = await self.partner_dal.get_all_partners()
+      partners = await self.partner_dal.get_all_partners()
     return list(partners)
   
   

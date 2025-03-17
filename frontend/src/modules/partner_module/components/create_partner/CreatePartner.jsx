@@ -5,10 +5,12 @@ import {
   CreateItemInput,
   SaveBtnComponent,
   SelectDefComponent,
-  NotificationComponent
+  NotificationComponent,
+  SmallButton
 } from '../../../../ui';
 
 import { createPartner } from '../../../../api';
+import CreatePartnerService from './CreatePartnerService';
 
 
 const categories = [
@@ -20,13 +22,16 @@ const categories = [
 
 export default function CreatePartner() {
   const navigation = useNavigate()
+  const [partnerServices, setPartnerServices] = React.useState([{
+    service_name: '',
+    price: 0
+  }])
   const [partnerData, setPartnerData] = React.useState({
     title: "",
     law_title: "",
-    price: '',
     contract_number: "",
-    service_name: "",
-    category: "Экскурсии"
+    category: "Экскурсии",
+    partner_services: null
   });
   const [alert, setAlert] = React.useState({severity: '', message: ''})
   const handleChangeCategory = (value) => {
@@ -35,8 +40,38 @@ export default function CreatePartner() {
       category: categories.find((item) => item.id === value).title
     }))
   }
+
   const handleSubmit = () => {
+    setPartnerData((prevData) => ({
+      ...prevData,
+      partner_services: partnerServices
+    }))
+    console.log(partnerData)
     handlecreatePartner(partnerData)
+  }
+
+  const handleChangeServiceData = (indx, name, value) =>{
+    setPartnerServices(
+      (prevData) => 
+        prevData.map((item, ind) => 
+        indx === ind ? {...item, [name]: value} : item)
+    )
+  }
+  const handleChangePartnerData = (name, value) => {
+    setPartnerData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }))
+  }
+
+  const handleAddComponent = () => {
+    setPartnerServices((prevData) => [
+      ...prevData,
+      {
+        service_name: '',
+        price: 0
+      }
+    ])
   }
 
   const handlecreatePartner = async (createdData) => {
@@ -52,12 +87,12 @@ export default function CreatePartner() {
     }
   }
 
-  const handleChangePartnerField = (name, value) => {
-    setPartnerData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }))
-  }
+  // const handleChangePartnerField = (name, value) => {
+  //   setPartnerData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value
+  //   }))
+  // }
   return (
     <section className={style.createPartner}>
       <div className={style.createPartnerData}>
@@ -69,12 +104,19 @@ export default function CreatePartner() {
           />
         </div>
         <div className={style.sectionCreateData}>
+        <div className={style.createField}>
+            <SelectDefComponent
+            dataTitle='Категория'
+            dataList={categories}
+            changeFunc={handleChangeCategory}
+            />
+          </div>
           <div className={style.createField}>
             <CreateItemInput
             fieldTitle={"Название партнера"}
             fieldName={'title'}
             value={partnerData.title}
-            changeFunc={handleChangePartnerField}
+            changeFunc={handleChangePartnerData}
             />
           </div>
           <div className={style.createField}>
@@ -82,23 +124,7 @@ export default function CreatePartner() {
             fieldTitle={"Юридическое название"}
             fieldName={'law_title'}
             value={partnerData.law_title}
-            changeFunc={handleChangePartnerField}
-            />
-          </div>
-          <div className={style.createField}>
-            <CreateItemInput
-            fieldTitle={"Прайс"}
-            fieldName={'price'}
-            value={partnerData.price}
-            changeFunc={handleChangePartnerField}
-            />
-          </div>
-          <div className={style.createField}>
-            <CreateItemInput
-            fieldTitle={"Услуга"}
-            fieldName={'service_name'}
-            value={partnerData.service_name}
-            changeFunc={handleChangePartnerField}
+            changeFunc={handleChangePartnerData}
             />
           </div>
           <div className={style.createField}>
@@ -106,14 +132,20 @@ export default function CreatePartner() {
             fieldTitle={"Номер договора"}
             fieldName={'contract_number'}
             value={partnerData.contract_number}
-            changeFunc={handleChangePartnerField}
+            changeFunc={handleChangePartnerData}
             />
           </div>
-          <div className={style.createField}>
-            <SelectDefComponent
-            dataTitle='Категория'
-            dataList={categories}
-            changeFunc={handleChangeCategory}
+          <div className={style.partnerServicesBlock}>
+            {partnerServices.map((serviceItem, indx) => (
+              <CreatePartnerService key={indx}
+              itemIndx={indx}
+              serviceData={serviceItem}
+              handleChange={handleChangeServiceData}
+              />
+            ))}
+            <SmallButton
+            btnData={'добавить услугу'}
+            handleClick={handleAddComponent}
             />
           </div>
           <div className={style.saveBtn}>

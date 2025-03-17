@@ -10,7 +10,6 @@ export default function PartnerExcursionComponent() {
   const getPartnerList = async () => {
     const response = await getPartnersFilterList('Экскурсии');
     if (response.status === 200) {
-      console.log(response.data);
       setPartnerList(response.data);
     }
   }
@@ -18,14 +17,14 @@ export default function PartnerExcursionComponent() {
   React.useEffect(() => {
     getPartnerList();
   }, [])
+  console.log(partnerList)
   return(
     <div className={style.partnerDataList}>
       {partnerList.map((partner) => (
         <PartnerItem key={partner.id}
         partnerName={partner.title}
         partnerLawName={partner.law_title}
-        partnerPrice={partner.price}
-        partnerServiceName={partner.service_name}
+        partnerServices={partner.partner_services}
         />
       ))}
     </div>

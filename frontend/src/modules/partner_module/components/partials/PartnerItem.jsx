@@ -6,9 +6,7 @@ import style from '../../styles/partner_partials.module.css'
 export default function PartnerItem({
   partnerName,
   partnerLawName,
-  partnerPrice,
-  partnerContract,
-  partnerServiceName
+  partnerServices
 }) {
   return(
     <div className={style.partnerItem}>
@@ -22,14 +20,24 @@ export default function PartnerItem({
           <span>{partnerLawName}</span>
         </div>
       </div>
-      <div className={style.partnerContent}>
-        <p>Название услуги</p>
-        <span>{partnerServiceName}</span>
-      </div>
-      <div className={style.partnerContent}>
-        <p>Стоимость услуг</p>
-        <span>{partnerPrice}</span>
+      <div className={style.partnerServicesList}>
+        {partnerServices?.map((serviceItem) => (
+          <PartnerServiceItem key={serviceItem.id}
+          serviceName={serviceItem.service_name}
+          servicePrice={serviceItem.price}
+          />
+        ))}
       </div>
     </div>
+  );
+}
+
+
+function PartnerServiceItem({ serviceName, servicePrice }) {
+  return (
+    <>
+      <p>{serviceName}</p>
+      <p>{servicePrice}</p>
+    </>
   );
 }

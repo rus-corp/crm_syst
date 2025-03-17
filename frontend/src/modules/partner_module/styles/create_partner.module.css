@@ -26,3 +26,19 @@
   margin-top: 2rem;
   right: 0;
 }
+
+.partnerServicesBlock {
+  width: 100%;
+}
+
+.serviceItem {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.fieldItem {
+  margin-bottom: 1.4rem;
+}

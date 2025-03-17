@@ -13,7 +13,7 @@ export const getPartnersFilterList = async (categoryData) => {
 
 export const createPartner = async (partnerData) => {
   try {
-    const response = await backend.post('/partners', partnerData);
+    const response = await backend.post('/partners/partner_with_service/', partnerData);
     return response
   } catch (error) {
     return error.response
