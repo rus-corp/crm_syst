@@ -63,17 +63,18 @@ class ClientDAL(BaseDAL):
   
   
   async def get_client_current_program_with_profile_and_doc(self, client_slug: str):
-    query = (
-        select(ProgramClients)
-        .options(
-            joinedload(ProgramClients.client).joinedload(Client.profile),
-            joinedload(ProgramClients.client).joinedload(Client.document),
-            joinedload(ProgramClients.program)
-        )
-        .join(Client, ProgramClients.client_id == Client.id)
-        .where(Client.slug == client_slug)
-        .where(ProgramClients.program.has(Program.status == ProgramStatus.AC))
-    )
+    # query = (
+    #     select(ProgramClients)
+    #     .options(
+    #         joinedload(ProgramClients.client).joinedload(Client.profile),
+    #         joinedload(ProgramClients.client).joinedload(Client.document),
+    #         joinedload(ProgramClients.program)
+    #     )
+    #     .join(Client, ProgramClients.client_id == Client.id)
+    #     .where(Client.slug == client_slug)
+    #     .where(ProgramClients.program.has(Program.status == ProgramStatus.AC))
+    # )
+    query = select(Client).where(Client.slug == client_slug).options(selectinload(Client.client_program_detail).selectinload(ProgramClients.program), joinedload(Client.profile), joinedload(Client.document))
     result = await self.db_session.execute(query)
     return result.scalar()
   

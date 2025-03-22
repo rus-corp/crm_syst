@@ -52,6 +52,8 @@ class ClientHandler(ClientMixin, BaseHandler):
       client = await self.client_dal.get_get_client_profile_and_doc_with_family(client_slug)
     else:
       client = await self.client_dal.get_client_profile_and_doc(client_slug)
+      # client_profile = 
+      # client_doc = 
       if client is None:
         return AppBaseExceptions.item_not_found(item_data='Client')
     return client

@@ -59,7 +59,7 @@ async def update_client_profile(
   session: AsyncSession = Depends(get_db)
 ):
   profile_handler  = ClientProfileHandler(session)
-  client_profile = await profile_handler._update_client_profile(
+  client_profile = await profile_handler._update_or_create_client_profile(
     client_id=client_id,
     values=body
   )

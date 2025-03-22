@@ -28,4 +28,7 @@ export const formatedClientStatus = (status) => {
   } else if (status === 'Regular') {
     return 'Постоянный'
   }
+  else {
+    return ''
+  }
 }

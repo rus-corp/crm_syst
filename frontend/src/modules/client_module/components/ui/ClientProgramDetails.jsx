@@ -15,7 +15,7 @@ export default function ClientProgramDetails({ clientProgramData }) {
   return(
     <div className={style.programData}>
       <div className={style.programName}>
-        <h4>{clientProgramData.program.title}</h4>
+        {/* <h4>{clientProgramData.program.title}</h4> */}
       </div>
       <div className={`${style.programDataItem} ${style.programDates}`}>
         <div className={style.programDate}>

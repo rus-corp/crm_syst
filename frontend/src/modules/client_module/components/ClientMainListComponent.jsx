@@ -16,7 +16,6 @@ export default function ClientMainListComponent() {
   const getClients = async () => {
     const response = await getClientList();
     if (response.status === 200) {
-      console.log(response.data);
       setClientList(response.data);
     }
   }

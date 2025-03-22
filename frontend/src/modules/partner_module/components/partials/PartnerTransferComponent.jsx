@@ -10,7 +10,6 @@ export default function PartnerTransferComponent() {
   const getPartnerList = async () => {
     const response = await getPartnersFilterList('Трансфер');
     if (response.status === 200) {
-      console.log(response.data);
       setPartnerList(response.data);
     }
   }
@@ -23,6 +22,7 @@ export default function PartnerTransferComponent() {
     <div className={style.partnerDataList}>
       {partnerList.map((partner) => (
         <PartnerItem key={partner.id}
+        partnerId={partner.id}
         partnerName={partner.title}
         partnerLawName={partner.law_title}
         partnerPrice={partner.price}

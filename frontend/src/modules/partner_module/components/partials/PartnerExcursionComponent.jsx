@@ -17,11 +17,12 @@ export default function PartnerExcursionComponent() {
   React.useEffect(() => {
     getPartnerList();
   }, [])
-  console.log(partnerList)
+
   return(
     <div className={style.partnerDataList}>
       {partnerList.map((partner) => (
         <PartnerItem key={partner.id}
+        partnerId={partner.id}
         partnerName={partner.title}
         partnerLawName={partner.law_title}
         partnerServices={partner.partner_services}

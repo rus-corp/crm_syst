@@ -11,14 +11,28 @@ import { getClientDataWithProgram } from '../../../../api';
 
 export default function ClientProfile() {
   const slug = useSelector((state) => state.client.slug)
-  console.log(slug)
-  const [clientData, setClientData] = React.useState()
+  const [clientData, setClientData] = React.useState(
+    {
+      "id": '',
+      "last_name": "",
+      "name": "",
+      "second_name": "",
+      "phone": "",
+      "email": "",
+      "created_at": "",
+      "updated_at": "",
+      "slug": "",
+      "profile": null,
+      "document": null,
+      "client_program_detail": []
+    }
+  )
   
   const getClientData = async(clientSlug) => {
     const response = await getClientDataWithProgram(clientSlug)
     if (response.status == 200) {
       setClientData(response.data)
-      console.log(response)
+      console.log(response.data)
     }
   }
 
@@ -32,8 +46,23 @@ export default function ClientProfile() {
     <section className={style.clientProfileSection}>
       <h2>Профиль клиента</h2>
       <div className={style.clientData}>
-        <ClientProfileData clientProfile={clientData?.client}/>
-        <ClientProgram programData={clientData} />
+        <ClientProfileData
+        clientId={clientData.id}
+        clientFirstName={clientData.name}
+        clientLastName={clientData.last_name}
+        clientSecondName={clientData.second_name}
+        createdAt={clientData.created_at}
+        phoneNumber={clientData.phone}
+        clientCity={clientData.profile?.city}
+        clientEmail={clientData.email}
+        clientDateOfBirth={clientData.profile?.date_of_birth}
+        shortSize={clientData.profile?.shirt_size}
+        nutrition={clientData.profile?.nutrition_features}
+        comment={clientData.profile?.comment}
+        community={clientData.profile?.community}
+        clientStatusData={clientData.profile?.status}
+        />
+        <ClientProgram />
       </div>
     </section>
   );

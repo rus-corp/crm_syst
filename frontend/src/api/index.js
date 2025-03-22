@@ -3,7 +3,9 @@ import {
   getClientBySlug,
   getClientCurrentProgram,
   getClientDataWithProgram,
-  getClientList
+  getClientList,
+  updateClientMainData,
+  updateClientProfileData
  } from "./clients_api/client_api";
 
 import {
@@ -59,5 +61,6 @@ export { getPrograms, getProgramClients, getProgramHotels,
   getExpensesList, getEmployeePositions, createExpenseItem,
   createCostItem, getCostItemsList, getHotelsWithoutRooms,
   appendHotelRoomToProgram, getPartnersFilterList, getPartnerById,
-  createPartner, updatePartnerById, deletePartnerById
+  createPartner, updatePartnerById, deletePartnerById,
+  updateClientMainData, updateClientProfileData
  }

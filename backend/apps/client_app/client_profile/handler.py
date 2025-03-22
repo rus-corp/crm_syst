@@ -34,10 +34,20 @@ class ClientProfileHandler(ClientMixin, BaseHandler):
     return client_profile
   
   
-  async def _update_client_profile(self, client_id: int, values: schemas.ProfileUpdateRequest):
+  async def _update_or_create_client_profile(
+    self,
+    client_id: int,
+    values: schemas.ProfileUpdateRequest
+  ):
     async with self.session.begin():
+      body_data = values.model_dump(exclude_none=True)
+      client_profile = await self.profile_dal.get_client_profile(client_id)
+      if client_profile is None:
+        body_data['client_id'] = client_id
+        new_profile = await self.profile_dal.create_profile(body_data)
+        return new_profile
       updated_profile = await self.profile_dal.update_client_profile(
         client_id=client_id,
-        values=values
+        values=body_data
       )
       return updated_profile

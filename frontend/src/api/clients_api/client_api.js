@@ -59,3 +59,28 @@ export const getClientCurrentProgram = async (clientSlug) => {
     console.error(error)
   }
 }
+
+
+export const updateClientMainData = async(clientId, data) => {
+  try {
+    const response = await backend.patch(
+      `/clients/base/${clientId}`,
+      data
+    )
+    return response
+  } catch (error) {
+    return {'status': error.response.status}
+  }
+}
+
+export const updateClientProfileData = async (clientId, data) => {
+  try {
+    const response = await backend.patch(
+      `/clients/profile/${clientId}`,
+      data
+    )
+    return response
+  } catch (error) {
+    return {'status': error.response.status}
+  }
+}
