@@ -61,3 +61,15 @@ class PartnerCategory(str,  Enum):
   EX = 'Экскурсии'
   TF = 'Трансфер'
   OT = 'Остальное'
+
+
+
+class StaticCategory(str, Enum):
+  TRANSFER = 'transfer'
+  FOOD = 'food'
+  SALARY = 'salary'
+  HABITATION = 'habitation'
+  ORGANIZATION = 'organization'
+  MARKETING = 'marketing'
+  MARGIN = 'margin'
+  MERCH = 'merch'

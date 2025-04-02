@@ -34,10 +34,10 @@ export default function CurrentClientProgram({ clientProgramData }) {
           <ClientProgramDetails
           clientProgramData={clientProgramData ? clientProgramData : clientProgramInterface}
           />
-          <ClientProfileDetailes
+          {/* <ClientProfileDetailes
           payments={clientPayments}
           programPrice={clientProgramData?.price}
-          />
+          /> */}
         </div>
       </div>
     </section>

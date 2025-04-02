@@ -3,7 +3,7 @@ from pydantic import BaseModel, ConfigDict
 from datetime import date
 
 from apps.base.association_schemas import ProgramClientAssociationClientData
-from apps.staff.schemas import ExpenseFullResponse
+# from apps.staff.schemas import ExpenseFullResponse
 
 
 
@@ -91,5 +91,5 @@ class ProgramClientsResponse(ProgramBaseResponse):
 
 
 
-class ProgramExpensesResponse(ProgramBaseWithoutDurationResponse):
-  expenses: Optional[List[ExpenseFullResponse]] = []
+# class ProgramExpensesResponse(ProgramBaseWithoutDurationResponse):
+#   expenses: Optional[List[ExpenseFullResponse]] = []

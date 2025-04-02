@@ -73,40 +73,6 @@ async def test_update_empl(ac: AsyncClient):
   assert bad_req != 200
 
 
-async def test_update_cost(ac: AsyncClient):
-  update_data = {'title': 'BTA'}
-  cost_db = await ac.get('/staff/cost_items/1')
-  assert cost_db.status_code == 200
-  costData = cost_db.json()
-  cost_item = emp_schemas.CostItemResponse(**costData)
-  updatedCost = await ac.patch('/staff/cost_items/1', json=update_data)
-  assert updatedCost.status_code == 200
-  updatedCostData = updatedCost.json()
-  updated_cost = emp_schemas.CostItemResponse(**updatedCostData)
-  assert updated_cost.id == cost_item.id
-  assert updated_cost.title.lower() != cost_item.title
-
-
-
-
-async def test_update_one_expense(ac: AsyncClient):
-  updated_data = {'employee_id': 3}
-  expeDb = await ac.get('/staff/expenses/1')
-  assert expeDb.status_code == 200
-  expData = expeDb.json()
-  exp_before = emp_schemas.ExpenseFullResponse(**expData)
-  update_req = await ac.patch('/staff/expenses/1', json=updated_data)
-  assert update_req.status_code == 200
-  updated_res = await ac.get('/staff/expenses/1')
-  assert updated_res.status_code == 200
-  updatedData = updated_res.json()
-  expense_after = emp_schemas.ExpenseFullResponse(**updatedData)
-  assert expense_after.id == exp_before.id
-  assert expense_after.amount == exp_before.amount
-  assert expense_after.category_id == exp_before.category_id
-  assert expense_after.employee_id != exp_before.employee_id
-
-
 
 async def test_update_partner(ac: AsyncClient):
   new_data = {"category": 'Экскурсии'}

@@ -27,7 +27,6 @@ class Program(Base):
   desc: Mapped[str]
   status: Mapped[ProgramStatus] = mapped_column(SQLEnum(ProgramStatus), default=ProgramStatus.AC)
   slug: Mapped[str] = mapped_column(unique=True)
-  # price: Mapped[int]
   prices: Mapped[List['ProgramPrices']] = relationship(back_populates='program')
   
   program_clients_detail: Mapped[list['ProgramClients']] = relationship(back_populates='program')

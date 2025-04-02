@@ -9,14 +9,6 @@ from apps.hotels_app.hotels import schemas as hote_schemas
 
 
 
-async def test_append_exp_to_prog(ac: AsyncClient):
-  for item in test_program_expenses:
-    programExpense = await ac.post('/programs/program_expenses', json=item)
-    assert programExpense.status_code == 201
-    programExpenseDAta = programExpense.json()
-    programTitle = programExpenseDAta.split('Program')
-    assert programTitle[1].strip() == program_test_data[item['program_id'] - 1]['title']
-
 
 async def test_append_hotel_and_room_to_program(ac: AsyncClient):
   prRoom = await ac.post('/hotels/room_to_program/', json=test_program_rooms)

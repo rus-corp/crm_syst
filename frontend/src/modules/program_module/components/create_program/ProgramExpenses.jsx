@@ -6,50 +6,70 @@ import ProgramEmployeeItemCreate from './partials/ProgramEmployeeItemCreate';
 import ProgramStaticExpense from './partials/ProgramStaticExpense';
 import ProgramPartnerseExpense from './partials/ProgramPartnersExpense';
 import { getStaffs } from '@/api';
+import { createProgramExpenses } from '../../../../api';
+import { NotificationComponent } from '../../../../ui';
+
+
+const staticCategories = ['Затраты на организацию', 'Реклама', 'Маржа', 'Мерчь']
+
+
+
 
 
 export default function ProgramExpenses() {
   const location = useLocation()
+  const navigation = useNavigate()
   const { programId, programTitle, nights } = location.state
   const [alert, setAlert] = React.useState({severity:'', message:''})
   const [staffExpenseItem, setStaffExpenseItem] = React.useState([{
-    programID: programId,
-    staffID: null,
-    transfer: null,
-    food: null,
-    salary: null,
-    habitation: null
+    'program_id': programId,
+    'employee_id': null,
+    'expenses': []
   }])
+  const [staticExpense, setStaticExpense] = React.useState(
+    staticCategories.map((category) => ({category, 'amount': 0, program_id: programId}))
+  )
 
   const [staffData, setStaffData] = React.useState([])
+  const appendProgramExpenses = async (expenseData) => {
+    const response = await createProgramExpenses(expenseData)
+    if (response.status === 201) {
+      setAlert({'severity': 'success', message: 'Затраты добавлены'})
+      setTimeout(() => {
+        setAlert({severity:'', message:''})
+        navigation('/')
+      }, 1500);
+    }
+  }
   const handleChangeExpense = (indx, name, value) => {
     setStaffExpenseItem(
       (prevData) => 
         prevData.map((item, ind) => 
-        ind === indx ? {...item, [name]: value} : item)
+        ind === indx ? {
+          ...item,
+          expenses : [...item.expenses, {'category': name, 'amount': value}]
+        } : item)
     )
   }
   const handleChangeEmpl = (indx, value) => {
     setStaffExpenseItem(
       (prevData) => 
         prevData.map((item, ind) => 
-        ind === indx ? {...item, staffID: value} : item)
+        ind === indx ? {...item, employee_id: value} : item)
     )
   }
   const handleSubmit = () => {
     console.log(staffExpenseItem)
+    console.log(staticExpense)
   }
 
   const addComponent = () => {
     setStaffExpenseItem((prevData) => ([
       ...prevData,
       {
-        programID: programId,
-        staffID: '',
-        transfer: '',
-        food: '',
-        salary: '',
-        habitation: ''
+        program_id: programId,
+        employee_id: '',
+        expenses: []
       }
     ]))
   }
@@ -58,6 +78,12 @@ export default function ProgramExpenses() {
     if (response.status === 200) {
       setStaffData(response.data)
     }
+  }
+
+  const handleChangeStaticExpense = (indx, name, value) => {
+    const newData = [...staticExpense]
+    newData[indx].amount = value
+    setStaticExpense(newData)
   }
 
   React.useEffect(() => {
@@ -120,8 +146,14 @@ export default function ProgramExpenses() {
           <div className={style.dataHeader}>
             <h4>Статические затраты</h4>
           </div>
-          <ProgramStaticExpense />
-          <ProgramPartnerseExpense />
+          {staticExpense.map((categoryItem, indx) => (
+            <ProgramStaticExpense key={indx}
+            indx={indx}
+            expenseTitle={categoryItem.category}
+            expenseValue={categoryItem.amount}
+            handleChange={handleChangeStaticExpense}
+            />
+          ))}
         </aside>
 
         <div className={style.saveBtn}>

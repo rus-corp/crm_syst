@@ -41,6 +41,7 @@ import { getProgramClients,
 import {
   createCostItem,
   createExpenseItem,
+  createProgramExpenses,
   createStaffItem,
   getCostItemsList,
   getEmployeePositions,
@@ -62,5 +63,5 @@ export { getPrograms, getProgramClients, getProgramHotels,
   createCostItem, getCostItemsList, getHotelsWithoutRooms,
   appendHotelRoomToProgram, getPartnersFilterList, getPartnerById,
   createPartner, updatePartnerById, deletePartnerById,
-  updateClientMainData, updateClientProfileData
+  updateClientMainData, updateClientProfileData, createProgramExpenses
  }

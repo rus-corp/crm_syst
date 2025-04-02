@@ -678,74 +678,66 @@ test_client_prof_doc = [
 
 test_expenses = [
     {
-        "category_id": 2,
         "amount": 150000,
-        "employee_id": 1
+        "employee_id": 1,
+        "category": 'Трансфер'
     },
     {
-        "category_id": 1,
         "amount": 20000,
-        "employee_id": 1
+        "employee_id": 1,
+        "category": 'Реклама'
     },
     {
-        "category_id": 5,
         "amount": 120000,
+        "category": 'Трансфер',
         "employee_id": 2
     },
     {
-        "category_id": 4,
         "amount": 100000,
+        "category": 'Зарплата',
         "employee_id": 3
     },
     {
-        "category_id": 3,
         "amount": 15000,
+        "category": 'Организация',
         "employee_id": 3
     },
     {
-        "category_id": 2,
         "amount": 110000,
+        "category": 'Питание'
     },
     {
-        "category_id": 1,
         "amount": 8000,
+        "category": 'Зарплата',
         "employee_id": 4
     },
     {
-        "category_id": 5,
         "amount": 105000,
+        "category": 'Проживание',
         "employee_id": 5
     },
     {
-        "category_id": 4,
         "amount": 25000,
+        "category": 'Организация',
         "employee_id": 5
     },
     {
-        "category_id": 3,
         "amount": 95000,
+        "category": 'Реклама',
         "employee_id": 6
     },
     {
-        "category_id": 2,
         "amount": 115000,
+        "category": 'Маржа'
     },
     {
-        "category_id": 1,
         "amount": 10000,
+        "category": 'Мерчь',
         "employee_id": 7
     }
 ]
 
 
-
-test_cost_items = [
-    {'title': 'Зарплата'},
-    {'title': 'Реклама'},
-    {'title': 'Аренда камина'},
-    {'title': 'Мерч'},
-    {'title': 'Трансфер'},
-]
 
 
 test_program_expenses = [
@@ -1071,4 +1063,65 @@ test_partner_bank_data = [
   }
 ]
 
+test_static_expense = [
+  {"category": "margin", "amount": 13000, "program_id": 1},
+  {"category": "marketing", "amount": 12000, "program_id": 1},
+  {"category": "organization", "amount": 11000, "program_id": 1},
+  {"category": "merch", "amount": 1000, "program_id": 1}
+]
 
+test_empl_exp = [
+    {
+        "program_id": 3,
+        "employee_id": 1,
+        "expenses": [
+            {
+                "category": "transfer",
+                "amount": "1"
+            },
+            {
+                "category": "food",
+                "amount": "2"
+            },
+            {
+                "category": "salary",
+                "amount": "3"
+            },
+            {
+                "category": "habitation",
+                "amount": "4"
+            }
+        ]
+    },
+    {
+        "program_id": 3,
+        "employee_id": 2,
+        "expenses": [
+            {
+                "category": "transfer",
+                "amount": "4"
+            },
+            {
+                "category": "food",
+                "amount": "5"
+            },
+            {
+                "category": "salary",
+                "amount": "6"
+            },
+            {
+                "category": "habitation",
+                "amount": "7"
+            }
+        ]
+    }
+]
+
+
+
+
+
+test_static_and_employee_expense_data = {
+  "static_expense": test_static_expense,
+  "employee_expense": test_empl_exp
+}

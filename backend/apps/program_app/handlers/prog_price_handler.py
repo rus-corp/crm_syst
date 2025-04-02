@@ -1,7 +1,7 @@
 from apps.base.base_handler import BaseHandler
 from ..dals.prog_price_dal import ProgramPriceDAL
 from ..dals.program_dal import ProgramDAL
-from apps.staff.schemas import ExpenseFullResponse
+# from apps.staff.schemas import ExpenseFullResponse
 
 
 from .. import schemas
@@ -17,9 +17,9 @@ class ProgramPriceHandler(BaseHandler):
     async with self.session.begin():
       program_expenses = await self.program_dal.get_program_expenses(program_slug)
       program_total_exp = 0
-      for expense in program_expenses.expenses:
-        expenseItem = ExpenseFullResponse(**expense)
-        program_total_exp += expenseItem.amount
+      # for expense in program_expenses.expenses:
+      #   expenseItem = ExpenseFullResponse(**expense)
+      #   program_total_exp += expenseItem.amount
   
   
   

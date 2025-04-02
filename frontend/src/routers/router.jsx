@@ -41,6 +41,10 @@ export const router = createBrowserRouter([
         path: 'add_expenses',
         element: <ProgramExpenses />
       },
+      // {
+      //   path: 'add_partners',
+      //   element: <PartnerPage />
+      // },
     ]
   },
   {

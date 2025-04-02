@@ -28,7 +28,12 @@ export default function CreateHotel() {
       setAlert({severity: 'success', message: 'Отель успешно добавлен'})
       setTimeout(() => {
         setAlert({severity: '', message: ''})
-        navigation('/hotels/create_hotel_rooms')
+        navigation('/hotels/create_hotel_rooms', {
+          state: {
+            hotelId: response.data.id,
+            hotelTitle: response.data.title
+          }
+        })
       }, 1500);
     } else if(response.status === 403) {
       setAlert({severity: 'error', message: response.message})

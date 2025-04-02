@@ -11,13 +11,17 @@ import ModalComponent from '../modal/ModalComponent';
 export default function SelectDefComponent({ dataTitle, dataList, changeFunc }) {
   const [open, setOpen] = React.useState(false)
   const [selectedData, setSelectedData] = React.useState('')
+  
+  
   const handleChange = (ev) => {
     setSelectedData(ev.target.value)
     changeFunc(ev.target.value)
   }
+
   const handleClose = () => {
     setOpen(false)
   }
+  
   return(
     <FormControl sx={{ m: 1, minWidth: '100%',}} size="small">
       <InputLabel id="demo-simple-select-label">{dataTitle}</InputLabel>

@@ -36,11 +36,15 @@ async def create_employee(
   response_model=List[schemas.EmployeeResponse]
 )
 async def get_all_employee(
+  limit: bool = None,
   session: AsyncSession = Depends(get_db)
 ):
   employee_handler = EmployeeHandler(session)
-  employeers_list = await employee_handler._get_all_employees()
-  return employeers_list
+  if limit:
+    employeer_list = await employee_handler._get_all_employees_with_expenses(empl_limit=8)
+  else:
+    employeer_list = await employee_handler._get_all_employees()
+  return employeer_list
 
 
 
@@ -89,55 +93,55 @@ async def delete_employee_by_id(
   employee_handler = EmployeeHandler(session)
   deleted_employeer = await employee_handler._delete_employee(employee_id)
   return deleted_employeer
-  
 
 
 
-@router.post(
-  '/employee_expenses/',
-  status_code=status.HTTP_201_CREATED,
-  response_model=schemas.CreateEmployeeWithExpensesResponse
-)
-async def create_employee_and_expenses(
-  body: schemas.CreateEmployeeWithExpensesRequest,
-  session: AsyncSession = Depends(get_db)
-):
-  employee_handler = EmployeeHandler(session)
-  created_data = await employee_handler._create_employee_and_expenses(body)
-  return created_data
+
+# @router.post(
+#   '/employee_expenses/',
+#   status_code=status.HTTP_201_CREATED,
+#   response_model=schemas.CreateEmployeeWithExpensesResponse
+# )
+# async def create_employee_and_expenses(
+#   body: schemas.CreateEmployeeWithExpensesRequest,
+#   session: AsyncSession = Depends(get_db)
+# ):
+#   employee_handler = EmployeeHandler(session)
+#   created_data = await employee_handler._create_employee_and_expenses(body)
+#   return created_data
 
 
 
-@router.get(
-  '/employee_expenses/',
-  status_code=status.HTTP_200_OK,
-  response_model=List[schemas.EmployeeWithExpenseData]
-)
-async def get_all_employee_with_expenses(
-  session: AsyncSession = Depends(get_db),
-  limit: bool = False
-):
-  employee_handler = EmployeeHandler(session)
-  if limit:
-    employeer_list = await employee_handler._get_all_employees_with_expenses(empl_limit=8)
-  else:
-    employeer_list = await employee_handler._get_all_employees_with_expenses()
-  return employeer_list
+# @router.get(
+#   '/employee_expenses/',
+#   status_code=status.HTTP_200_OK,
+#   response_model=List[schemas.EmployeeWithExpenseData]
+# )
+# async def get_all_employee_with_expenses(
+#   session: AsyncSession = Depends(get_db),
+#   limit: bool = False
+# ):
+#   employee_handler = EmployeeHandler(session)
+#   if limit:
+#     employeer_list = await employee_handler._get_all_employees_with_expenses(empl_limit=8)
+#   else:
+#     employeer_list = await employee_handler._get_all_employees_with_expenses()
+#   return employeer_list
 
 
 
-@router.get(
-  '/employee_expenses/{employeer_id}',
-  status_code=status.HTTP_200_OK,
-  response_model=schemas.CreateEmployeeWithExpensesResponse
-)
-async def get_employeer_with_expenses(
-  employeer_id: int,
-  session: AsyncSession = Depends(get_db)
-):
-  employee_handler = EmployeeHandler(session)
-  employeer = await employee_handler._get_employee_with_expenses(employeer_id)
-  return employeer
+# @router.get(
+#   '/employee_expenses/{employeer_id}',
+#   status_code=status.HTTP_200_OK,
+#   response_model=schemas.CreateEmployeeWithExpensesResponse
+# )
+# async def get_employeer_with_expenses(
+#   employeer_id: int,
+#   session: AsyncSession = Depends(get_db)
+# ):
+#   employee_handler = EmployeeHandler(session)
+#   employeer = await employee_handler._get_employee_with_expenses(employeer_id)
+#   return employeer
 
 
 
