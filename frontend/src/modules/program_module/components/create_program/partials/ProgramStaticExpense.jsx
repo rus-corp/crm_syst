@@ -5,6 +5,14 @@ import style from '../../styles/program_static_exp.module.css'
 import { CreateItemInput } from '../../../../../ui';
 
 
+const staticCategoriesMap = {
+  'organization': 'Затраты на организацию',
+  'marketing': 'Реклама',
+  'margin': 'Маржа',
+  'merch': 'Мерчь'
+}
+
+
 export default function ProgramStaticExpense({
   indx,
   expenseTitle,
@@ -18,38 +26,13 @@ export default function ProgramStaticExpense({
     <div className={style.saticExpenses}>
       <div className={style.fixedCosts}>
         <div className={style.costItem}>
-          <span>{expenseTitle}</span>
+          <span>{staticCategoriesMap[expenseTitle]}</span>
           <CreateItemInput
-          fieldName={'organiztion'}
           value={expenseValue}
           changeFunc={handleChangeExpense}
           fieldType={'number'}
           />
         </div>
-        {/* <div className={style.costItem}>
-          <span>Реклама</span>
-          <CreateItemInput
-          fieldName={'marketing'}
-          // value={marketingExpense}
-          changeFunc={handleChangeExpense}
-          fieldType={'number'}
-          />
-        </div>
-        <div className={style.costItem}>
-          <span>Маржа</span>
-          <CreateItemInput
-          fieldName={'margin'}
-          // value={marginExpense}
-          changeFunc={handleChangeExpense}
-          fieldType={'number'}
-          />
-        </div>
-        <div className={style.costItem}>
-          <span>Мерчь</span>
-          <CreateItemInput
-          changeFunc={handleChangeExpense}
-          />
-        </div> */}
       </div>
     </div>
   );

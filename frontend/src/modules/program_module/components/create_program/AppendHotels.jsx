@@ -98,10 +98,6 @@ export default function AppendHotels() {
             />
           </div>
         </div>
-
-
-
-
         <aside className={style.sectionCreateData}>
           <div className={style.dataHeader}>
             <h4>Добавить проживание</h4>
@@ -120,11 +116,6 @@ export default function AppendHotels() {
             </div>
           </div>
         </aside>
-
-
-
-
-
         <div className={style.saveBtn}>
           <SaveBtnComponent
           saveTitle='Программу'

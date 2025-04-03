@@ -23,6 +23,7 @@ import {
   createPartner,
   deletePartnerById,
   getPartnerById,
+  getPartnerByIdWithServiceAndBank,
   getPartnersFilterList,
   updatePartnerById
 } from "./partners/partners_api";
@@ -63,5 +64,6 @@ export { getPrograms, getProgramClients, getProgramHotels,
   createCostItem, getCostItemsList, getHotelsWithoutRooms,
   appendHotelRoomToProgram, getPartnersFilterList, getPartnerById,
   createPartner, updatePartnerById, deletePartnerById,
-  updateClientMainData, updateClientProfileData, createProgramExpenses
+  updateClientMainData, updateClientProfileData, createProgramExpenses,
+  getPartnerByIdWithServiceAndBank
  }

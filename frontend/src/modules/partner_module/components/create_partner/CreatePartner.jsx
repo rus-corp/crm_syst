@@ -42,12 +42,12 @@ export default function CreatePartner() {
   }
 
   const handleSubmit = () => {
-    setPartnerData((prevData) => ({
-      ...prevData,
+    const payload = {
+      ...partnerData,
       partner_services: partnerServices
-    }))
-    console.log(partnerData)
-    handlecreatePartner(partnerData)
+    }
+    console.log(payload)
+    handlecreatePartner(payload)
   }
 
   const handleChangeServiceData = (indx, name, value) =>{
@@ -86,13 +86,6 @@ export default function CreatePartner() {
       setAlert({severity: 'error', message: 'Ошибка при добавлении партнера'})
     }
   }
-
-  // const handleChangePartnerField = (name, value) => {
-  //   setPartnerData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value
-  //   }))
-  // }
   return (
     <section className={style.createPartner}>
       <div className={style.createPartnerData}>

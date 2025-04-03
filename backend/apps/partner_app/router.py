@@ -107,9 +107,23 @@ async def create_partner_and_service(
 
 
 @router.get(
+  '/partners_with_services/',
+  status_code=status.HTTP_200_OK,
+  response_model=list[schemas.CreatePartnerAndServiceResponse]
+)
+async def get_partners_with_service(
+  session: AsyncSession = Depends(get_db)
+):
+  partner_handler = PartnerHandler(session)
+  partner_list = await partner_handler._get_partners_with_services()
+  return partner_list
+
+
+
+@router.get(
   '/partner_with_service_and_bank/{partner_id}',
   status_code=status.HTTP_200_OK,
-  response_model=schemas.PartnerBankServiceResponse
+  # response_model=schemas.PartnerBankServiceResponse
 )
 async def get_partner_with_bank(
   partner_id: int,

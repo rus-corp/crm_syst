@@ -162,3 +162,8 @@ class PartnerHandler(BaseHandler):
         category=new_partner.category,
         partner_services=created_partner_services
       )
+  
+  
+  async def _get_partners_with_services(self):
+    partner_list = await self.partner_dal.get_partners_with_services()
+    return list(partner_list)

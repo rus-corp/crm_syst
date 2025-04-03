@@ -2,8 +2,14 @@ import { backend } from "../_variables";
 
 
 export const getPartnersFilterList = async (categoryData) => {
+  let url;
+  if (categoryData) {
+    url = `/partners/?category=${categoryData}`
+  }else {
+    url = '/partners/'
+  }
   try {
-    const response = await backend.get(`/partners/?category=${categoryData}`);
+    const response = await backend.get(url);
     return response
   } catch (error) {
     console.error(error);
@@ -45,5 +51,17 @@ export const deletePartnerById = async (partnerId) => {
     return response
   } catch (error) {
     return error.response
+  }
+}
+
+
+export const getPartnerByIdWithServiceAndBank = async (partnerId) => {
+  try {
+    const response = await backend.get(
+      `/partners/partner_with_service_and_bank/${partnerId}`
+    )
+    return response
+  } catch (error) {
+    console.error(error)
   }
 }

@@ -1,6 +1,6 @@
 from apps.base.base_dal import BaseDAL
 from sqlalchemy import select, delete, insert
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 
 
 from core.models.partners_models import Partner, BankAccount, PartnerService
@@ -65,6 +65,12 @@ class PartnerDAL(BaseDAL):
              .order_by(self.model.id))
     result = await self.db_session.execute(query)
     return result.scalars().all()
+  
+  
+  async def get_partners_with_services(self):
+    query = select(self.model).options(joinedload(self.model.partner_services))
+    result = await self.db_session.execute(query)
+    return result.scalars().unique().all()
   
   
   async def ger_partner_by_id_with_account(self, partner_id: int):

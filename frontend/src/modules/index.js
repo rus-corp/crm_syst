@@ -10,7 +10,7 @@ import MainMenu from "./page_menu_section/MainMenu";
 import CreatePartner from "./partner_module/components/create_partner/CreatePartner";
 import PartnerMain from "./partner_module/components/PartnerMain";
 import PartnerProfileComponent from "./partner_module/components/PartnerProfileComponent";
-import { AppendHotels, CreateProgramComponent, ProgramExpenses } from "./program_module";
+import { AppendHotels, CreateProgramComponent, ProgramExpenses, ProgramServices } from "./program_module";
 import MainProgramComponent from "./program_module/components/MainProgramComponent";
 
 export { MainMenu, HotelMainComponent,
@@ -19,5 +19,5 @@ export { MainMenu, HotelMainComponent,
   PartnerMain, CreatePartner, PartnerProfileComponent,
   HotelProfileMainComponent, ClientProfile,
   ClientMainListComponent, CreateProgramComponent,
-  ProgramExpenses, AppendHotels
+  ProgramExpenses, AppendHotels, ProgramServices
  }
