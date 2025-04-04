@@ -11,7 +11,7 @@ from .utils import ProgramStatus, ProgramPriceCategory
 if TYPE_CHECKING:
   from .client_models import Client
   from .hotels_models import Hotels, HotelRooms
-  from .association_models import ProgramClients, ProgramRooms, ProgramClientRoom
+  from .association_models import ProgramClients, ProgramRooms, ProgramClientRoom, ProgramPartners
   from .staff_models import Expenses
 
 
@@ -36,6 +36,8 @@ class Program(Base):
     secondary='program_expenses',
     back_populates='programs'
   )
+  program_partner: Mapped[list['ProgramPartners']] = relationship(back_populates='program')
+  
   
   
   # program: Mapped[List['Hotels']] = relationship(secondary='program_rooms', back_populates='programs')

@@ -1125,3 +1125,19 @@ test_static_and_employee_expense_data = {
   "static_expense": test_static_expense,
   "employee_expense": test_empl_exp
 }
+
+
+test_partner_prog = [
+  {
+    'program_id': 1,
+    'partner_id': 1,
+    'service_id': 1,
+  },
+  {
+    'program_id': 1,
+    'partner_id': 2,
+    'service_id': 2,
+  }
+]
+
+

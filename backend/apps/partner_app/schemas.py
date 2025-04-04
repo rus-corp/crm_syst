@@ -87,8 +87,14 @@ class CreatePartnerAndServiceResponse(PartnerBaseShow):
 
 class PartnerBankServiceResponse(PartnerBaseShow):
   bank_account: Optional[BankAccountShowBase] = None
-  service: Optional[List[PartnerServiceBaseResponse]] = []
+  partner_services: Optional[List[PartnerServiceBaseResponse]] = []
 
+
+class AppendPartnerToProgramRequest(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  partner_id: int
+  program_id: int
+  service_id: int
 
 
 # =========================== TypedDict ===================

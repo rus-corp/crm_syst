@@ -81,7 +81,7 @@ async def update_partner_item(
   '/{partner_id}',
   status_code=status.HTTP_204_NO_CONTENT
 )
-async def update_partner_item(
+async def delete_partner_item(
   partner_id: int,
   session: AsyncSession = Depends(get_db)
 ):
@@ -123,7 +123,7 @@ async def get_partners_with_service(
 @router.get(
   '/partner_with_service_and_bank/{partner_id}',
   status_code=status.HTTP_200_OK,
-  # response_model=schemas.PartnerBankServiceResponse
+  response_model=schemas.PartnerBankServiceResponse
 )
 async def get_partner_with_bank(
   partner_id: int,
@@ -263,3 +263,16 @@ async def delete_bank_account_by_id(
   )
   return deleted_account
 
+
+
+@router.post(
+  '/append_partner_to_program/',
+  status_code=status.HTTP_201_CREATED
+)
+async def append_partner_to_program(
+  body: list[schemas.AppendPartnerToProgramRequest],
+  session: AsyncSession = Depends(get_db)
+):
+  partner_handler = PartnerHandler(session)
+  created_partner = await partner_handler._append_partner_to_program(body)
+  return created_partner

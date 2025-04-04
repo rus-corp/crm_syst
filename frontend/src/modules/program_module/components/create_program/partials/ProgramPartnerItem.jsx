@@ -10,14 +10,16 @@ export default function ProgramPartnerItem({ partnerId, partnerTitle, partnerCat
   const handleClick = () => setActiveList(!activeList)
   return(
     <>
-      <div className={style.hotelData} onClick={handleClick}>
+      <div className={style.serviceData} onClick={handleClick}>
         <div className={style.itemImg}>
           <img className={`${activeList ? 'imgOpen' : ''}`} src={openList} alt="openList" />
         </div>
         <div className={style.hotelTitle}>
+          <p>Партнер</p>
           <h5>{partnerTitle}</h5>
         </div>
         <div className={style.hotelAddress}>
+          <p>Категория</p>
           <span>{partnerCategory}</span>
         </div>
       </div>

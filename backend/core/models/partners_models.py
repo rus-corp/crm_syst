@@ -8,6 +8,7 @@ from sqlalchemy import ForeignKey
 from ..database import Base
 
 from .utils import PartnerCategory
+from .association_models import ProgramPartners
 
 
 
@@ -18,6 +19,7 @@ class PartnerService(Base):
   
   partner_id: Mapped[int] = mapped_column(ForeignKey('partners.id'))
   partner: Mapped['Partner'] = relationship(back_populates='partner_services')
+  program_partner: Mapped[list[ProgramPartners]] = relationship(back_populates='service')
 
 
 
@@ -44,3 +46,5 @@ class Partner(Base):
   
   bank_account: Mapped[BankAccount] = relationship(back_populates='partner', cascade='all, delete-orphan')
   partner_services: Mapped[List[PartnerService]] = relationship(back_populates='partner', cascade='all, delete-orphan')
+  
+  program_partner: Mapped[list['ProgramPartners']] = relationship(back_populates='partner')

@@ -9,7 +9,8 @@ from .test_data import (
   test_static_and_employee_expense_data,
   test_partner_bank_data,
   test_partner_service_data,
-  test_partner_and_services_data
+  test_partner_and_services_data,
+  test_partner_prog,
 )
 from apps.staff import schemas
 from apps.partner_app import schemas as partner_schemas
@@ -110,7 +111,10 @@ async def test_create_partner_bank(ac: AsyncClient):
 
 
 
-
+async def test_append_partner_service_to_program(ac: AsyncClient):
+  req = await ac.post('/partners/append_partner_to_program/', json=test_partner_prog)
+  assert req.status_code == 201
+  
 
 
 

@@ -17,7 +17,7 @@ from .staff_models import Expenses
 if TYPE_CHECKING:
   from .client_models import Client
   from .program_models import Program
-  from .partners_models import Partner
+  from .partners_models import Partner, PartnerService
 
 
 
@@ -82,7 +82,12 @@ class ProgramExpenses(Base):
   expenses_id: Mapped[int] = mapped_column(ForeignKey('expenses.id'))
 
 
-# class ProgramPartner(Base):
-#   __tablename__ = 'program_partners'
-#   program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
-#   partner_id: Mapped[int] = mapped_column(ForeignKey('partners.id'))
+class ProgramPartners(Base):
+  __tablename__ = 'program_partners'
+  program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
+  partner_id: Mapped[int] = mapped_column(ForeignKey('partners.id'))
+  service_id: Mapped[int] = mapped_column(ForeignKey('partner_services.id'))
+  
+  partner: Mapped['Partner'] = relationship(back_populates='program_partner')
+  service: Mapped['PartnerService'] = relationship(back_populates='program_partner')
+  program: Mapped['Program'] = relationship(back_populates='program_partner')

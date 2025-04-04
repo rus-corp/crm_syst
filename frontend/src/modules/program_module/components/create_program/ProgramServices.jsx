@@ -12,7 +12,12 @@ export default function ProgramServices() {
   const navigation = useNavigate()
   const { programId, programTitle, nights } = location.state
   const [partnerList, setPartnerList] = React.useState([])
+  const [programPartner, setProgramPartner] = React.useState([])
   const [alert, setAlert] = React.useState({'severity': '', 'message': ''})
+
+  const handleAppendPartnerToProagram = (partnerId) => {
+
+  }
   const getPartnersList = async() => {
     const response = await getPartnersFilterList()
     if (response.status === 200) {

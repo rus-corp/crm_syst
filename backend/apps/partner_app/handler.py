@@ -167,3 +167,27 @@ class PartnerHandler(BaseHandler):
   async def _get_partners_with_services(self):
     partner_list = await self.partner_dal.get_partners_with_services()
     return list(partner_list)
+  
+  
+  async def _append_partner_to_program(
+    self,
+    body:list[schemas.AppendPartnerToProgramRequest]
+  ):
+    async with self.session.begin():
+      service_dal = PartnerServicesDAL(self.session)
+      # program_dal = PartnerDAL(self.session)
+      created_data = []
+      for item in body:
+        body_data = item.model_dump()
+        service_item = await service_dal.get_service_item(body_data['service_id'])
+        if not service_item:
+          raise exceptions.AppBaseExceptions.item_not_found(
+            item_data='Service'
+          )
+        program_partner = await self.partner_dal.append_partner_service_to_program(
+          partner_id=body_data['partner_id'],
+          program_id=body_data['program_id'],
+          service_id=body_data['service_id']
+        )
+        created_data.append(program_partner)
+      return created_data

@@ -26,7 +26,8 @@ from core.models.association_models import (
     ProgramClients,
     ProgramRooms,
     ProgramClientRoom,
-    ProgramExpenses
+    ProgramExpenses,
+    ProgramPartners
 )
 
 # this is the Alembic Config object, which provides

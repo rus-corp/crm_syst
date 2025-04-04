@@ -4,7 +4,7 @@ from sqlalchemy.orm import joinedload, selectinload
 
 
 from core.models.partners_models import Partner, BankAccount, PartnerService
-from . import schemas
+from core.models.association_models import ProgramPartners
 
 
 
@@ -90,6 +90,37 @@ class PartnerDAL(BaseDAL):
       item_id=partner_id
     )
     return result
+  
+  
+  async def append_partner_service_to_program(
+    self,
+    program_id: int,
+    partner_id: int,
+    service_id: int
+  ):
+    stmt = ProgramPartners(
+      program_id=program_id,
+      partner_id=partner_id,
+      service_id=service_id
+    )
+    self.db_session.add(stmt)
+    await self.db_session.flush()
+    return stmt
+  
+  
+  async def delete_partner_service_from_program(
+    self,
+    program_id: int,
+    partner_id: int,
+    service_id: int
+  ):
+    stmt = delete(ProgramPartners).where(
+      ProgramPartners.program_id == program_id,
+      ProgramPartners.partner_id == partner_id,
+      ProgramPartners.service_id == service_id
+    ).returning(ProgramPartners.id)
+    result = await self.db_session.execute(stmt)
+    return result.scalar()
 
 
 
