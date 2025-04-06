@@ -107,8 +107,8 @@ class ProgramHandler(ProgramMixin, ProgramBaseHandler):
       return response_list
   
   
-  async def _get_program_expenses(self, program_slug: str):
-    program = await self.program_dal.get_program_expenses(program_slug)
+  async def _get_program_expenses(self, program_id: int):
+    program = await self.program_dal.get_program_expenses(program_id)
     return program
   
   

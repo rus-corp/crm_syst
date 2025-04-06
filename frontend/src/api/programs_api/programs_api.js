@@ -61,3 +61,13 @@ export const getProgramHotels = async(programId) => {
 }
 
 
+export const getProgramExpenses = async (programId) => {
+  try {
+    const response = await backend.get(
+      `/programs/program_expenses/${programId}`
+    )
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}

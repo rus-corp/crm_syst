@@ -1,0 +1,38 @@
+.createProgram {
+  width: 100%;
+}
+
+.programData {
+  width: 80%;
+}
+
+.programDataHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.staffExpense {
+  width: 100%;
+}
+
+
+.expenseHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.expenseHeader > img {
+  width: 4rem;
+}
+
+.expenseItem {
+  width: 40%;
+  margin-left: 4rem;
+  display: flex;
+  /* display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr); */
+}

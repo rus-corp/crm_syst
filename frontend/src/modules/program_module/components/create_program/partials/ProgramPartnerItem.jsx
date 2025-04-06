@@ -4,7 +4,12 @@ import style from '../../styles/program_hotels.module.css'
 import openList from '../../../../../assets/app_img/open_btn.png'
 import ProgramPartnerServices from './ProgramPartnerServices';
 
-export default function ProgramPartnerItem({ partnerId, partnerTitle, partnerCategory }) {
+export default function ProgramPartnerItem({
+  partnerId,
+  partnerTitle,
+  partnerCategory,
+  handleAppendServiceToProgram
+}) {
   const [activeList, setActiveList] = React.useState(false)
   
   const handleClick = () => setActiveList(!activeList)
@@ -26,6 +31,7 @@ export default function ProgramPartnerItem({ partnerId, partnerTitle, partnerCat
       {activeList && 
         <ProgramPartnerServices
         partnerId={partnerId}
+        handleAppendServiceToProgram={handleAppendServiceToProgram}
         />
       }
     </>

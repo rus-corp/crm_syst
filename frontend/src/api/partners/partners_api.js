@@ -65,3 +65,16 @@ export const getPartnerByIdWithServiceAndBank = async (partnerId) => {
     console.error(error)
   }
 }
+
+
+export const appendPartnerRoProgramReq = async (partnerData) => {
+  try {
+    const response = await backend.post(
+      '/partners/append_partner_to_program/',
+      partnerData
+    )
+    return response
+  } catch (error) {
+    return error.response
+  }
+}

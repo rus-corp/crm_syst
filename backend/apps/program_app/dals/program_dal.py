@@ -8,6 +8,7 @@ from datetime import date
 
 
 from core.models.program_models import Program
+from core.models.staff_models import Expenses
 from core.models.association_models import ProgramClients, ProgramRooms
 from core.models.utils import ProgramStatus
 
@@ -139,10 +140,10 @@ class ProgramDAL(BaseDAL):
     return await self.db_session.scalar(query)
   
   
-  async def get_program_expenses(self, program_slug: str):
+  async def get_program_expenses(self, program_id: int):
     query = (select(Program)
-             .where(Program.slug == program_slug)
-             .options(selectinload(Program.expenses)))
+             .where(Program.id == program_id)
+             .options(selectinload(Program.expenses).joinedload(Expenses.employee)))
     result = await self.db_session.execute(query)
     return result.scalar()
   

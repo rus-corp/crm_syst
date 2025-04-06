@@ -180,18 +180,18 @@ async def append_program_expenses(
 
 
 
-# @router.get(
-#   '/program_expenses/{program_slug}',
-#   status_code=status.HTTP_200_OK,
-#   response_model=schemas.ProgramExpensesResponse
-# )
-# async def get_program_expenses(
-#   program_slug: str,
-#   session: AsyncSession = Depends(get_db)
-# ):
-#   program_handler = ProgramHandler(session)
-#   program_expenses = await program_handler._get_program_expenses(program_slug)
-#   return program_expenses
+@router.get(
+  '/program_expenses/{program_id}',
+  status_code=status.HTTP_200_OK,
+  # response_model=schemas.ProgramExpensesResponse
+)
+async def get_program_expenses(
+  program_id: int,
+  session: AsyncSession = Depends(get_db)
+):
+  program_handler = ProgramHandler(session)
+  program_expenses = await program_handler._get_program_expenses(program_id)
+  return program_expenses
 
 
 

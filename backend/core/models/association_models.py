@@ -65,13 +65,10 @@ class ProgramClientRoom(Base):
   
   program_client_id: Mapped[int] = mapped_column(ForeignKey('program_clients.id'))
   program_room_id: Mapped[int] = mapped_column(ForeignKey('program_rooms.id'))
-  # room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
-  # price: Mapped[int] = mapped_column(nullable=True)
   entry_date:Mapped[date]
   departue_date: Mapped[date]
   comment: Mapped[str] = mapped_column(nullable=True)
   
-  # room: Mapped[HotelRooms] = relationship(back_populates='program_client_room')
   program_client: Mapped[ProgramClients] = relationship(back_populates='program_client_room')
 
 

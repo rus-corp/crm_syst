@@ -20,6 +20,7 @@ import {
 import { createRoomsList } from "./hotels_api/rooms";
 
 import {
+  appendPartnerRoProgramReq,
   createPartner,
   deletePartnerById,
   getPartnerById,
@@ -36,7 +37,8 @@ import {
 import { getProgramClients,
   getProgramHotels,
   getPrograms,
-  createProgram }
+  createProgram, 
+  getProgramExpenses}
   from "./programs_api/programs_api";
 
 import {
@@ -65,5 +67,6 @@ export { getPrograms, getProgramClients, getProgramHotels,
   appendHotelRoomToProgram, getPartnersFilterList, getPartnerById,
   createPartner, updatePartnerById, deletePartnerById,
   updateClientMainData, updateClientProfileData, createProgramExpenses,
-  getPartnerByIdWithServiceAndBank
+  getPartnerByIdWithServiceAndBank, appendPartnerRoProgramReq,
+  getProgramExpenses
  }

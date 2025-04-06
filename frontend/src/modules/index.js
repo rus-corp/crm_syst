@@ -11,6 +11,7 @@ import CreatePartner from "./partner_module/components/create_partner/CreatePart
 import PartnerMain from "./partner_module/components/PartnerMain";
 import PartnerProfileComponent from "./partner_module/components/PartnerProfileComponent";
 import { AppendHotels, CreateProgramComponent, ProgramExpenses, ProgramServices } from "./program_module";
+import TotalProgramComponent from "./program_module/components/create_program/TotalProgramComponent";
 import MainProgramComponent from "./program_module/components/MainProgramComponent";
 
 export { MainMenu, HotelMainComponent,
@@ -19,5 +20,5 @@ export { MainMenu, HotelMainComponent,
   PartnerMain, CreatePartner, PartnerProfileComponent,
   HotelProfileMainComponent, ClientProfile,
   ClientMainListComponent, CreateProgramComponent,
-  ProgramExpenses, AppendHotels, ProgramServices
+  ProgramExpenses, AppendHotels, ProgramServices, TotalProgramComponent
  }

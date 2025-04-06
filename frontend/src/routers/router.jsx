@@ -10,7 +10,7 @@ import { CrmPage, HotelPage, ClientPage,
   CreateRoom, CreatePartner, 
   PartnerMain, PartnerProfileComponent, HotelProfileMainComponent,
   ClientProfile, ClientMainListComponent, CreateProgramComponent, 
-  ProgramExpenses, AppendHotels, ProgramServices}
+  ProgramExpenses, AppendHotels, ProgramServices, TotalProgramComponent,}
   from "../modules";
 
 
@@ -44,6 +44,10 @@ export const router = createBrowserRouter([
         path: 'add_partners',
         element: <ProgramServices />
       },
+      {
+        path: 'total_program',
+        element: <TotalProgramComponent />
+      }
     ]
   },
   {

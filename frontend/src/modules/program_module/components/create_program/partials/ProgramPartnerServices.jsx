@@ -4,14 +4,17 @@ import style from '../../styles/hotelRooms.module.css'
 import { getPartnerByIdWithServiceAndBank } from '../../../../../api';
 
 
-export default function ProgramPartnerServices({ partnerId }) {
+export default function ProgramPartnerServices({ partnerId, handleAppendServiceToProgram }) {
   const [partnerServices, setPartnerServices] = React.useState([])
   const getPartnerServices = async (partnerData) => {
     const response = await getPartnerByIdWithServiceAndBank(partnerData)
     if (response.status === 200) {
-      console.log(response.data)
       setPartnerServices(response.data.partner_services)
     }
+  }
+
+  const handleAppendService = (serviceId, state) => {
+    handleAppendServiceToProgram(partnerId, serviceId, state)
   }
 
   React.useEffect(() => {
@@ -27,8 +30,10 @@ export default function ProgramPartnerServices({ partnerId }) {
       </div>
       {partnerServices.map((serviceItem) => (
         <ServiceItem key={serviceItem.id}
+        serviceId={serviceItem.id}
         serviceName={serviceItem.service_name}
         servicePrice={serviceItem.price}
+        handleAppendService={handleAppendService}
         />
       ))}
     </div>
@@ -36,12 +41,12 @@ export default function ProgramPartnerServices({ partnerId }) {
 }
 
 
-function ServiceItem({ serviceName, servicePrice, handleAppendService }) {
+function ServiceItem({ serviceId, serviceName, servicePrice, handleAppendService }) {
   const [isSelected, setIsSelected] = React.useState(false)
   const appendServiceToProgram = () => {
     const newState = !isSelected
     setIsSelected(newState)
-    // handleAppendService(newState)
+    handleAppendService(serviceId, newState)
   }
   return (
     <div className={style.roomItem}>

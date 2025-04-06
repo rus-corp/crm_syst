@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import style from '../styles/create_program.module.css'
 import { SaveBtnComponent, SmallButton, NotificationComponent, ProfileInput } from '../../../../ui';
 import ProgramPartnerItem from './partials/ProgramPartnerItem';
-import { getPartnersFilterList } from '../../../../api';
+import { getPartnersFilterList, appendPartnerRoProgramReq } from '../../../../api';
 
 
 export default function ProgramServices() {
@@ -14,9 +14,21 @@ export default function ProgramServices() {
   const [partnerList, setPartnerList] = React.useState([])
   const [programPartner, setProgramPartner] = React.useState([])
   const [alert, setAlert] = React.useState({'severity': '', 'message': ''})
-
-  const handleAppendPartnerToProagram = (partnerId) => {
-
+  const handleCreateProgramPartner = async (partnerData) => {
+    const response = await appendPartnerRoProgramReq(partnerData)
+    if (response.status === 201) {
+      setAlert({severity: 'success', message: 'Партнер добавлен в программу'})
+      setTimeout(() => {
+        setAlert({severity:'', message:''})
+        navigation('/create_program/total_program', {
+          state: {
+            programId: programId,
+            programTitle: programTitle,
+            nights: nights
+          }
+        })
+      }, 2000);
+    }
   }
   const getPartnersList = async() => {
     const response = await getPartnersFilterList()
@@ -25,11 +37,35 @@ export default function ProgramServices() {
       setPartnerList(response.data)
     }
   }
-  const addComponent = () => {}
-  const handleSubmit = () => {}
+
+  const appendServiceToProgram = (partnerId, serviceId, state) => {
+    console.log(partnerId, serviceId, state)
+    if (state) {
+      setProgramPartner((prevData) => (
+        [
+          ...prevData,
+          {
+            program_id: programId,
+            partner_id: partnerId,
+            service_id: serviceId
+          }
+        ]
+      ))
+    } else if (!state) {
+      setProgramPartner((prevData) => (
+        prevData.filter((item) => item.service_id !== serviceId)
+      ))
+    }
+  }
+  const handleSubmit = () => {
+    console.log('programPartner', programPartner)
+    handleCreateProgramPartner(programPartner)
+  }
+
   React.useEffect(() => {
     getPartnersList()
   }, [])
+
   return(
     <section className={style.createProgram}>
           <div className={style.createProgramData}>
@@ -65,12 +101,12 @@ export default function ProgramServices() {
                     partnerId={partnerItem.id}
                     partnerTitle={partnerItem.title}
                     partnerCategory={partnerItem.category}
+                    handleAppendServiceToProgram={appendServiceToProgram}
                     />
                   ))}
                 </div>
               </div>
             </aside>
-    
             <div className={style.saveBtn}>
               <SaveBtnComponent
               saveTitle='Программу'
