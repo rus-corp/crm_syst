@@ -7,7 +7,6 @@ import { groupedStaffExpenses } from './utils';
 
 
 export default function TotalStaffExpense({ staffExpenses }) {
-  console.log(staffExpenses)
   const [activeList, setActiveList] = React.useState(false)
   const totalExpense = staffExpenses?.reduce((acc, expense) => {
     return acc + expense.amount
@@ -24,7 +23,6 @@ export default function TotalStaffExpense({ staffExpenses }) {
   //   setActiveList(!activeList)
   //   console.log(staffData)
   // }
-  console.log(Object.values(gropedData))
   return(
     <section className={style.staticExpenses}>
       <div className={style.expenseHeader}>
@@ -34,12 +32,14 @@ export default function TotalStaffExpense({ staffExpenses }) {
       </div>
       <div className={style.staticExpenseList}>
         {Object.values(gropedData).map((expenseItem) => (
-          <StaffExpenseItem key={expenseItem.staffId}
-          staffName={expenseItem.staffName}
-          staffLastName={expenseItem.staffLastName}
-          satffPosition={expenseItem.staffPosition}
-          expenses={expenseItem.expenses}
-          />
+          activeList && (
+            <StaffExpenseItem key={expenseItem.staffId}
+            staffName={expenseItem.staffName}
+            staffLastName={expenseItem.staffLastName}
+            satffPosition={expenseItem.staffPosition}
+            expenses={expenseItem.expenses}
+            />
+          )
         ))}
       </div>
     </section>
@@ -51,30 +51,26 @@ function StaffExpenseItem ({ staffName, staffLastName, satffPosition, expenses }
   return (
     <div className={style.expenseItem}>
       <div className={style.staffData}>
-        <div className={style.staffName}>
-          <p>Name</p>
-          <h5>{staffName}</h5>
+        <div className={style.staffDataContent}>
+          <p>Имя</p>
+          <p>Фамилия</p>
+          <p>Должность</p>
         </div>
-        <div className={style.staffLastName}>
-          <p>Last Name</p>
-          <h5>{staffLastName}</h5>
-        </div>
-        <div className={style.staffPosition}>
-          <p>Position</p>
-          <h5>{satffPosition}</h5>
+        <div className={style.staffDataContent}>
+          <span>{staffName}</span>
+          <span>{staffLastName}</span>
+          <span>{satffPosition}</span>
         </div>
       </div>
-      <div className={style.staffItemExpenses}>
+      <div className={style.staffExpenseList}>
+        {expenses.map((expenseItem) => (
+          <ExpenseItem key={expenseItem.id}
+          itemCategory={expenseItem.category}
+          expensePrice={expenseItem.price}
+          />
+        ))}
 
       </div>
-      <p></p>
-      <p>{satffPosition}</p>
-      {expenses.map((expenseItem) => (
-        <ExpenseItem key={expenseItem.id}
-        itemCategory={expenseItem.category}
-        expensePrice={expenseItem.price}
-        />
-      ))}
     </div>
   );
 }

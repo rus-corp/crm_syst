@@ -2,10 +2,11 @@ import {
   createClient,
   getClientBySlug,
   getClientCurrentProgram,
-  getClientDataWithProgram,
+  getClientProfileAndDoc,
   getClientList,
   updateClientMainData,
-  updateClientProfileData
+  updateClientProfileData,
+  appendClientToProgram,
  } from "./clients_api/client_api";
 
 import {
@@ -35,10 +36,13 @@ import {
  } from "./payments_api/api";
 
 import { getProgramClients,
-  getProgramHotels,
+  getProgramHotelRooms,
   getPrograms,
   createProgram, 
-  getProgramExpenses}
+  getProgramExpenses,
+  getProgramPartners,
+  createProgramPrices,
+  getProgramPrices}
   from "./programs_api/programs_api";
 
 import {
@@ -56,9 +60,9 @@ import {
 
 
 
-export { getPrograms, getProgramClients, getProgramHotels,
+export { getPrograms, getProgramClients, getProgramHotelRooms,
   getClientList, getClientBySlug, createClient,
-  getClientCurrentProgram, getClientDataWithProgram,
+  getClientCurrentProgram, getClientProfileAndDoc,
   createClientProgramPayment, getClientProgramPayments,
   createHotel, getHotels, getHotelByIdWithRooms, createRoomsList,
   updateHotelProfileById, createProgram, createStaffItem, getStaffs,
@@ -68,5 +72,6 @@ export { getPrograms, getProgramClients, getProgramHotels,
   createPartner, updatePartnerById, deletePartnerById,
   updateClientMainData, updateClientProfileData, createProgramExpenses,
   getPartnerByIdWithServiceAndBank, appendPartnerRoProgramReq,
-  getProgramExpenses
+  getProgramExpenses, getProgramPartners, createProgramPrices,
+  getProgramPrices, appendClientToProgram
  }

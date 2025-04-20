@@ -5,7 +5,6 @@ import openList from '@/assets/app_img/open_btn.png'
 import { ProfileInput } from '../../../../../ui';
 
 export default function TotalStaticExpense({ staticExpenses }) {
-  console.log(staticExpenses)
   const totalExpense = staticExpenses?.reduce((acc, expense) => {
     return acc + expense.amount
   }
@@ -38,7 +37,7 @@ export default function TotalStaticExpense({ staticExpenses }) {
 function StaticExpenseItem ({ itemCategory, expensePrice }) {
   return (
     <div className={style.expenseItem}>
-      <p>{staticCategoriesMap[itemCategory]}</p>
+      <span>{staticCategoriesMap[itemCategory]}</span>
       <p>{expensePrice}</p>
     </div>
   );

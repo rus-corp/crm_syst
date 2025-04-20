@@ -39,7 +39,6 @@ async def test_get_all_employees(ac: AsyncClient):
 
 
 async def test_create_expense_and_employee_data(ac: AsyncClient):
-  print(test_static_and_employee_expense_data)
   req_data = await ac.post('/staff/expenses/create_static_and_employee_expense/', json=test_static_and_employee_expense_data)
   assert req_data.status_code == 201
 

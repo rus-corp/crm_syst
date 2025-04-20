@@ -1,13 +1,18 @@
+from sqlalchemy.ext.asyncio import AsyncSession
 from apps.base.base_handler import BaseHandler
 from .. import schemas
 from apps.utils.slug import create_slug
 from ..utils import program_response_format
 from apps.base.exceptions import AppBaseExceptions
-
+from ..dals.program_dal import ProgramDAL
 
 
 class ProgramBaseHandler(BaseHandler):
-
+  def __init__(self, session: AsyncSession):
+    self.session = session
+    self.program_dal = ProgramDAL(self.session)
+  
+  
   async def _create_program(
     self,
     create_program_body: schemas.CreateProgramRequets
@@ -50,3 +55,23 @@ class ProgramBaseHandler(BaseHandler):
       if updated_program is None:
         return AppBaseExceptions.item_not_found('Program')
       return program_response_format(updated_program, duration=True)
+  
+  
+  async def _get_program_prices(self, program_id: int):
+    program_prices = await self.program_dal.get_program_prices(program_id)
+    # program_price_res = schemas.ProgramPricesBaseResponse(
+    #   id=program_prices.prices.id,
+    # )
+    return schemas.ProgramPricesResponse(
+      id=program_prices.id,
+      title=program_prices.title,
+      start_date=program_prices.start_date,
+      end_date=program_prices.end_date,
+      place=program_prices.place,
+      desc=program_prices.desc,
+      slug=program_prices.slug,
+      status=program_prices.status,
+      client_count=program_prices.client_count,
+      duration=program_prices.duration(),
+      prices=program_prices.prices,
+    )

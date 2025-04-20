@@ -7,7 +7,7 @@ from sqlalchemy import ForeignKey
 
 from ..database import Base
 
-from .utils import PartnerCategory
+from .utils import PartnerCategory, ExpenseType
 from .association_models import ProgramPartners
 
 
@@ -16,6 +16,7 @@ class PartnerService(Base):
   __tablename__ = 'partner_services'
   service_name: Mapped[str]
   price: Mapped[int]
+  service_type: Mapped[ExpenseType] = mapped_column(SQLEnum(ExpenseType), default=ExpenseType.GR, nullable=True)
   
   partner_id: Mapped[int] = mapped_column(ForeignKey('partners.id'))
   partner: Mapped['Partner'] = relationship(back_populates='partner_services')

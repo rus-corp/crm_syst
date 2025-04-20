@@ -9,8 +9,9 @@ from apps.base.association_schemas import ProgramClientAssociationClientData
 
 class ProgramPricesBase(BaseModel):
   model_config = ConfigDict(from_attributes=True)
-  name: str
-  price: int
+  base_price: int
+  loayal_price: int
+  comunity_price: int
   program_id: int
 
 
@@ -38,6 +39,7 @@ class ProgramBase(BaseModel):
   end_date: date
   place: str
   desc: str
+  client_count: int
 
 
 
@@ -90,6 +92,8 @@ class ProgramClientsResponse(ProgramBaseResponse):
   program_clients_detail: Optional[List[ProgramClientAssociationClientData]] = []
 
 
+class ProgramPricesResponse(ProgramBaseResponse):
+  prices: Optional[ProgramPricesBaseResponse] = []
 
 # class ProgramExpensesResponse(ProgramBaseWithoutDurationResponse):
 #   expenses: Optional[List[ExpenseFullResponse]] = []

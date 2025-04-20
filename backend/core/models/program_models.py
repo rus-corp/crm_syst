@@ -27,8 +27,9 @@ class Program(Base):
   desc: Mapped[str]
   status: Mapped[ProgramStatus] = mapped_column(SQLEnum(ProgramStatus), default=ProgramStatus.AC)
   slug: Mapped[str] = mapped_column(unique=True)
-  prices: Mapped[List['ProgramPrices']] = relationship(back_populates='program')
+  client_count: Mapped[int] = mapped_column(default=10)
   
+  prices: Mapped['ProgramPrices'] = relationship(back_populates='program')
   program_clients_detail: Mapped[list['ProgramClients']] = relationship(back_populates='program')
   
   program_hotel_room: Mapped[list['ProgramRooms']] = relationship(back_populates='program')
@@ -56,8 +57,11 @@ class Program(Base):
 class ProgramPrices(Base):
   __tablename__ = 'program_prices'
   
-  name: Mapped[ProgramPriceCategory] = mapped_column(SQLEnum(ProgramPriceCategory), default=ProgramPriceCategory.FT)
-  price: Mapped[int]
+  # name: Mapped[ProgramPriceCategory] = mapped_column(SQLEnum(ProgramPriceCategory), default=ProgramPriceCategory.FT)
+  # price: Mapped[int]
+  base_price: Mapped[int]
+  loayal_price: Mapped[int]
+  comunity_price: Mapped[int]
   program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
   
   program: Mapped['Program'] = relationship(back_populates='prices')

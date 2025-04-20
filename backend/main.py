@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 
 from apps.client_app.app_router import router as client_router
-from apps.program_app.routers.program_router import router as program_router
+# from apps.program_app.routers.program_router import router as program_router
+from apps.program_app.app_router import router as program_router
 from apps.payments_app.router import router as payment_router
 from apps.hotels_app.hotels.routers import router as hotel_routers
 from apps.hotels_app.hotel_rooms.routers import router as room_routers

@@ -1,4 +1,5 @@
 from datetime import datetime
+from fastapi.responses import JSONResponse
 
 from ...base.base_handler import BaseHandler
 from .dals import ClientDAL
@@ -44,6 +45,11 @@ class ClientHandler(ClientMixin, BaseHandler):
       client_program = await self.client_dal.get_client_current_program(client_slug)
     else:
       client_program = await self.client_dal.get_client_current_program_with_profile_and_doc(client_slug)
+    if client_program is None:
+      return JSONResponse(
+        status_code=200,
+        content='Client does not have a current program'
+      )
     return client_program
   
   

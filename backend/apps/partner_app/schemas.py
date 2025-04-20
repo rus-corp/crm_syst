@@ -1,6 +1,6 @@
 from typing import Optional, List, TypedDict
 from pydantic import BaseModel, ConfigDict
-from core.models.utils import PartnerCategory
+from core.models.utils import PartnerCategory, ExpenseType
 
 
 
@@ -60,6 +60,7 @@ class PartnerServiceBase(BaseModel):
   model_config = ConfigDict(from_attributes=True)
   service_name: str
   price: int
+  service_type: ExpenseType
 
 
 class PartnerServiceBaseResponse(PartnerServiceBase):
@@ -71,9 +72,11 @@ class PartnerServiceCreateRequest(PartnerServiceBase):
   partner_id: int
 
 
-class PartnerServiceUpdateRequest(PartnerServiceBase):
+class PartnerServiceUpdateRequest(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
   service_name: Optional[str] = None
   price: Optional[int] = None
+  service_type: Optional[ExpenseType] = None
 
 
 

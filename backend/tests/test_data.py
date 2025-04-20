@@ -1,43 +1,43 @@
 program_test_data = [
     {
-    'title': 'Архыз под Меркурием',
-    'start_date': '2025-01-01',
-    'end_date': '2025-01-10',
-    'place': 'Архыз',
-    'desc': 'Какое-то описание',
-    'price': 45000
+      'title': 'Архыз под Меркурием',
+      'start_date': '2025-01-01',
+      'end_date': '2025-01-10',
+      'place': 'Архыз',
+      'desc': 'Какое-то описание',
+      'client_count': 10
     },
     {
-        'title': 'Зимние каникулы в Сочи',
-        'start_date': '2025-02-15',
-        'end_date': '2025-02-22',
-        'place': 'Сочи',
-        'desc': 'Проведите неделю на побережье Черного моря!',
-        'price': 55000
+      'title': 'Зимние каникулы в Сочи',
+      'start_date': '2025-02-15',
+      'end_date': '2025-02-22',
+      'place': 'Сочи',
+      'desc': 'Проведите неделю на побережье Черного моря!',
+      'client_count': 10
     },
     {
-        'title': 'Весенний отдых в Алтае',
-        'start_date': '2025-03-10',
-        'end_date': '2025-03-20',
-        'place': 'Алтай',
-        'desc': 'Уникальная природа и тишина для вашей перезагрузки.',
-        'price': 60000
+      'title': 'Весенний отдых в Алтае',
+      'start_date': '2025-03-10',
+      'end_date': '2025-03-20',
+      'place': 'Алтай',
+      'desc': 'Уникальная природа и тишина для вашей перезагрузки.',
+      'client_count': 10
     },
     {
-        'title': 'Летнее путешествие на Байкал',
-        'start_date': '2025-06-01',
-        'end_date': '2025-06-10',
-        'place': 'Байкал',
-        'desc': 'Вас ждут прогулки по Байкалу, свежий воздух и вкусная кухня.',
-        'price': 70000
+      'title': 'Летнее путешествие на Байкал',
+      'start_date': '2025-06-01',
+      'end_date': '2025-06-10',
+      'place': 'Байкал',
+      'desc': 'Вас ждут прогулки по Байкалу, свежий воздух и вкусная кухня.',
+      'client_count': 10
     },
     {
-        'title': 'Осенний тур в Карелию',
-        'start_date': '2025-09-05',
-        'end_date': '2025-09-15',
-        'place': 'Карелия',
-        'desc': 'Погрузитесь в атмосферу осеннего леса и уединения.',
-        'price': 50000
+      'title': 'Осенний тур в Карелию',
+      'start_date': '2025-09-05',
+      'end_date': '2025-09-15',
+      'place': 'Карелия',
+      'desc': 'Погрузитесь в атмосферу осеннего леса и уединения.',
+      'client_count': 10
     }
 ]
 
@@ -192,6 +192,35 @@ test_clients_data = [
         "email": "alexey.ivanovich@example.com"
     }
 ]
+
+test_append_client_to_prog = [
+  {
+    'client_id': 1,
+    'program_id': 1
+  },
+  {
+    'client_id': 2,
+    'program_id': 1
+  },
+  {
+    'client_id': 3,
+    'program_id': 1
+  },
+  {
+    'client_id': 4,
+    'program_id': 1
+  },
+  {
+    'client_id': 5,
+    'program_id': 1
+  },
+  {
+    'client_id': 1,
+    'program_id': 2
+  },
+]
+
+
 
 test_client_details = [
     {
@@ -811,52 +840,62 @@ test_partner_service_data = [
   {
     "service_name": "Химчистка ковров",
     "price": 2500,
-    "partner_id": 1
+    "partner_id": 1,
+    'service_type': 'group'
   },
   {
     "service_name": "Ремонт смартфонов",
     "price": 5000,
-    "partner_id": 2
+    "partner_id": 2,
+    'service_type': 'group'
   },
   {
     "service_name": "Доставка продуктов",
     "price": 300,
-    "partner_id": 3
+    "partner_id": 3,
+    'service_type': 'group'
   },
   {
     "service_name": "Замена масла в автомобиле",
     "price": 2000,
-    "partner_id": 4
+    "partner_id": 4,
+    'service_type': 'group'
   },
   {
     "service_name": "Услуги электрика",
     "price": 3500,
-    "partner_id": 5
+    "partner_id": 5,
+    'service_type': 'group'
   },
   {
     "service_name": "Ремонт бытовой техники",
     "price": 4500,
-    "partner_id": 1
+    "partner_id": 1,
+    'service_type': 'client'
   },
   {
     "service_name": "Пошив одежды на заказ",
     "price": 7000,
-    "partner_id": 2
+    "partner_id": 2,
+    'service_type': 'group'
   },
   {
     "service_name": "Курьерская доставка",
     "price": 500,
-    "partner_id": 3
+    "partner_id": 3,
+    'service_type': 'client'
   },
   {
     "service_name": "Услуги грузчиков",
     "price": 1500,
-    "partner_id": 4
+    "partner_id": 4,
+    'service_type': 'group'
   },
   {
     "service_name": "Компьютерная помощь",
     "price": 4000,
-    "partner_id": 5
+    "partner_id": 5,
+    'service_type': 'client'
   }
 ]
 
@@ -870,11 +909,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Аренда автомобиля с водителем",
-        "price": 7000
+        "price": 7000,
+        'service_type': 'client'
       },
       {
         "service_name": "Экскурсионное сопровождение",
-        "price": 3500
+        "price": 3500,
+        'service_type': 'group'
       }
     ]
   },
@@ -886,11 +927,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Уборка квартиры",
-        "price": 3000
+        "price": 3000,
+        'service_type': 'client'
       },
       {
         "service_name": "Чистка мягкой мебели",
-        "price": 4000
+        "price": 4000,
+        'service_type': 'client'
       }
     ]
   },
@@ -902,11 +945,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Замена дисплея",
-        "price": 6000
+        "price": 6000,
+        'service_type': 'group'
       },
       {
         "service_name": "Ремонт ноутбуков",
-        "price": 8000
+        "price": 8000,
+        'service_type': 'group'
       }
     ]
   },
@@ -918,11 +963,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Экспресс-доставка",
-        "price": 500
+        "price": 500,
+        'service_type': 'client'
       },
       {
         "service_name": "Доставка готовых блюд",
-        "price": 400
+        "price": 400,
+        'service_type': 'client'
       }
     ]
   },
@@ -934,11 +981,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Шиномонтаж",
-        "price": 2500
+        "price": 2500,
+        'service_type': 'group'
       },
       {
         "service_name": "Диагностика двигателя",
-        "price": 3500
+        "price": 3500,
+        'service_type': 'client'
       }
     ]
   },
@@ -950,11 +999,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Ремонт электропроводки",
-        "price": 4000
+        "price": 4000,
+        'service_type': 'client'
       },
       {
         "service_name": "Установка розеток",
-        "price": 2000
+        "price": 2000,
+        'service_type': 'client'
       }
     ]
   },
@@ -966,11 +1017,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Ремонт стиральных машин",
-        "price": 5000
+        "price": 5000,
+        'service_type': 'group'
       },
       {
         "service_name": "Ремонт холодильников",
-        "price": 6000
+        "price": 6000,
+        'service_type': 'group'
       }
     ]
   },
@@ -982,11 +1035,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Ремонт одежды",
-        "price": 3000
+        "price": 3000,
+        'service_type': 'client'
       },
       {
         "service_name": "Индивидуальный пошив костюмов",
-        "price": 12000
+        "price": 12000,
+        'service_type': 'group'
       }
     ]
   },
@@ -998,11 +1053,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Переезд под ключ",
-        "price": 10000
+        "price": 10000,
+        'service_type': 'group'
       },
       {
         "service_name": "Вывоз строительного мусора",
-        "price": 5000
+        "price": 5000,
+        'service_type': 'client'
       }
     ]
   },
@@ -1014,11 +1071,13 @@ test_partner_and_services_data = [
     "partner_services": [
       {
         "service_name": "Настройка операционной системы",
-        "price": 2500
+        "price": 2500,
+        'service_type': 'client'
       },
       {
         "service_name": "Удаление вирусов",
-        "price": 3000
+        "price": 3000,
+        'service_type': 'client'
       }
     ]
   }
@@ -1064,10 +1123,10 @@ test_partner_bank_data = [
 ]
 
 test_static_expense = [
-  {"category": "margin", "amount": 13000, "program_id": 1},
-  {"category": "marketing", "amount": 12000, "program_id": 1},
-  {"category": "organization", "amount": 11000, "program_id": 1},
-  {"category": "merch", "amount": 1000, "program_id": 1}
+  {"category": "margin", "amount": 13000, "program_id": 1, 'expense_type': 'client'},
+  {"category": "marketing", "amount": 12000, "program_id": 1, 'expense_type': 'client'},
+  {"category": "organization", "amount": 11000, "program_id": 1, 'expense_type': 'group'},
+  {"category": "merch", "amount": 1000, "program_id": 1, 'expense_type': 'client'}
 ]
 
 test_empl_exp = [

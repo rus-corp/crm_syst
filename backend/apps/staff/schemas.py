@@ -2,7 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel, ConfigDict
 
 
-from core.models.utils import EmployeePosition, StaticCategory
+from core.models.utils import EmployeePosition, StaticCategory, ExpenseType
 
 
 
@@ -126,6 +126,7 @@ class ExpenseBaseCreate(BaseModel):
 
 class StaticExpenseCreate(ExpenseBaseCreate):
   program_id: int
+  expense_type: ExpenseType
 
 
 class EmployeeExpenseCreate(BaseModel):

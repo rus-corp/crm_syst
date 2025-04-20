@@ -9,7 +9,8 @@ from datetime import date
 
 from core.models.program_models import Program
 from core.models.staff_models import Expenses
-from core.models.association_models import ProgramClients, ProgramRooms
+from core.models.partners_models import ProgramPartners, PartnerService
+from core.models.association_models import ProgramClients, ProgramRooms, ProgramPartners
 from core.models.utils import ProgramStatus
 
 
@@ -25,6 +26,7 @@ class ProgramDAL(BaseDAL):
     place: str,
     desc: str,
     slug: str,
+    client_count: int,
   ):
     new_program: Program = Program(
       title=title,
@@ -33,6 +35,7 @@ class ProgramDAL(BaseDAL):
       place=place,
       desc=desc,
       slug=slug,
+      client_count=client_count
     )
     self.db_session.add(new_program)
     await self.db_session.commit()
@@ -106,6 +109,19 @@ class ProgramDAL(BaseDAL):
     return result or None
   
   
+  async def get_client_active_program(self, client_id: int):
+    query = select(ProgramClients).options(joinedload(ProgramClients.program)).filter(ProgramClients.client_id == client_id, Program.status == 'AC')
+    result = await self.db_session.execute(query)
+    return result.scalar()
+  
+  
+  async def change_client_program(self, program_client_id: int, updated_values: dict):
+    # stmt = update(ProgramClients).filter(ProgramClients.program_id == program_id, ProgramClients.client_id == client_id).values(**updated_values).returning(ProgramClients)
+    stmt = update(ProgramClients).where(ProgramClients.id == program_client_id).values(**updated_values).returning(ProgramClients)
+    result = await self.db_session.execute(stmt)
+    return result.scalar()
+  
+  
   
   async def delete_client_from_program(
     self,
@@ -148,9 +164,31 @@ class ProgramDAL(BaseDAL):
     return result.scalar()
   
   
-  async def get_program_prices(self, program_slug: str):
+  async def get_program_prices(self, program_id: int):
     query = (select(Program)
-             .where(Program.slug == program_slug)
+             .where(Program.id == program_id)
              .options(selectinload(Program.prices)))
+    result = await self.db_session.execute(query)
+    return result.scalar()
+  
+  
+  async def get_program_partners(self, program_id: int):
+    query = (select(ProgramPartners)
+             .where(ProgramPartners.program_id == program_id)
+             .options(
+               joinedload(ProgramPartners.partner),
+               joinedload(ProgramPartners.service),
+             ))
+    result = await self.db_session.execute(query)
+    return result.scalars().all()
+  
+  
+  async def get_program_by_id_with_expenses_and_partners(self, program_id: int):
+    query = (select(Program)
+             .where(Program.id == program_id)
+             .options(
+               selectinload(Program.expenses),
+               selectinload(Program.program_partner).joinedload(ProgramPartners.service)
+             ))
     result = await self.db_session.execute(query)
     return result.scalar()

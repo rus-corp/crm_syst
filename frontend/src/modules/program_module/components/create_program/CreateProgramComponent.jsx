@@ -14,7 +14,8 @@ export default function CreateProgramComponent() {
     start_date: '',
     end_date: '',
     place: '',
-    desc: ''
+    desc: '',
+    client_count: 10
   })
   const [alert, setAlert] = React.useState({severity:'', message:''})
 
@@ -29,7 +30,8 @@ export default function CreateProgramComponent() {
             state: {
               programId: response.data.id,
               programTitle: createProgramData.title,
-              nights: differenceInCalendarDays(createProgramData.end_date, createProgramData.start_date)
+              nights: differenceInCalendarDays(createProgramData.end_date, createProgramData.start_date),
+              clientCount: response.data.client_count
             }
           }
         )
@@ -89,6 +91,16 @@ export default function CreateProgramComponent() {
               fieldWidth='93%'
               fieldName='end_date'
               value={createProgramData.end_date}
+              changeFunc={handleChange}
+              />
+            </div>
+            <div className={style.programDate}>
+              <CreateItemInput
+              fieldTitle='Кол-во клиентов'
+              fieldType='number'
+              fieldWidth='93%'
+              fieldName='client_count'
+              value={createProgramData.client_count}
               changeFunc={handleChange}
               />
             </div>

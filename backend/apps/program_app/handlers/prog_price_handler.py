@@ -13,10 +13,9 @@ class ProgramPriceHandler(BaseHandler):
     self.program_dal = ProgramDAL(self.session)
   
   
-  async def _create_program_price(self, program_slug: str):
-    async with self.session.begin():
-      program_expenses = await self.program_dal.get_program_expenses(program_slug)
-      program_total_exp = 0
+  # async def _create_program_price(self, program_id: int, base_price: int):
+  #   async with self.session.begin():
+      
       # for expense in program_expenses.expenses:
       #   expenseItem = ExpenseFullResponse(**expense)
       #   program_total_exp += expenseItem.amount

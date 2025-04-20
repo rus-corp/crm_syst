@@ -7,7 +7,7 @@ export const formatedStatus = (status) => {
   } else if (status === "Full Payed") {
     return 'Полная оплата'
   } else {
-    return 'Не оплачено'
+    return 'Не подтверждено'
   }
 }
 
@@ -23,7 +23,7 @@ export const formatedContract = (contract) => {
 
 
 export const formatedClientStatus = (status) => {
-  if (status === 'New') {
+  if (status === 'New' || status === undefined) {
     return 'Новый'
   } else if (status === 'Regular') {
     return 'Постоянный'

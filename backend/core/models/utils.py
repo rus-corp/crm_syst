@@ -73,3 +73,9 @@ class StaticCategory(str, Enum):
   MARKETING = 'marketing'
   MARGIN = 'margin'
   MERCH = 'merch'
+
+
+
+class ExpenseType(str, Enum):
+  GR = 'group',
+  CL = 'client'

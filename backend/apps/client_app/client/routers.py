@@ -80,7 +80,10 @@ async def update_client_data(
 @router.get(
   '/program/{client_slug}',
   status_code=status.HTTP_200_OK,
-  response_model=schemas.ClientCurrentProgramBaseResponse
+  response_model=schemas.ClientCurrentProgramBaseResponse,
+  responses={
+    404: {'model': BaseMessageResponseModel}
+  }
 )
 async def get_client_current_program(
   client_slug: str,

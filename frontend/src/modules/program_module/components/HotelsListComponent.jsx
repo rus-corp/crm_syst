@@ -2,7 +2,7 @@ import React from 'react';
 
 import style from './styles/hotelsList.module.css'
 
-import { getProgramHotels } from '../../../api';
+import { getProgramHotelRooms } from '../../../api';
 
 
 
@@ -11,7 +11,7 @@ export default function HotelsListComponent({ programId }) {
   const [programHotels, setProgramHotels] = React.useState([])
 
   const handleGetProgramHotels = async(id) => {
-    const response = await getProgramHotels(id)
+    const response = await getProgramHotelRooms(id)
     if (response.status === 200) {
       setProgramHotels(response.data)
     }

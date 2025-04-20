@@ -3,26 +3,35 @@ import React from 'react';
 import style from './styles/current_program.module.css'
 
 import { clientProgramInterface } from '../interfaces/clientProgram';
-import { getClientProgramPayments } from '../../../../api';
+import { getClientProgramPayments, getClientCurrentProgram } from '../../../../api';
 import ClientProgramDetails from '../ui/ClientProgramDetails';
-import ClientProfileDetailes from '../ui/ClientProfileDetailes';
+import ClientContractDetailes from '../ui/ClientContractDetailes';
+import { formatedStatus, formatedContract } from '../../../../utils';
 
 
-export default function CurrentClientProgram({ clientProgramData }) {
+export default function CurrentClientProgram({ clientId, clientSlug, setProgramId }) {
   const [clientPayments, setClientPayments] = React.useState([])
+  const [clientCurrentProgram, setClientCurrentProgram] = React.useState()
 
-  const clientProgramPayments = async (clientProgramId) => {
-    const response = await getClientProgramPayments(clientProgramId)
+  const getClientProgram = async (clientData) => {
+    const response = await getClientCurrentProgram(clientData)
     if (response.status === 200) {
-      setClientPayments(response.data)
+      console.log(response.data)
+      setProgramId(response.data.program.id)
+      setClientCurrentProgram(response.data)
     }
   }
 
+  // const clientProgramPayments = async (clientProgramId) => {
+  //   const response = await getClientProgramPayments(clientProgramId)
+  //   if (response.status === 200) {
+  //     setClientPayments(response.data)
+  //   }
+  // }
+
   React.useEffect(() => {
-    if (clientProgramData?.id) {
-      clientProgramPayments(clientProgramData.id)
-    }
-  }, [clientProgramData?.id])
+    getClientProgram(clientSlug)
+  }, [clientSlug])
   
   return(
     <section className={style.currentClientProgram}>
@@ -32,12 +41,19 @@ export default function CurrentClientProgram({ clientProgramData }) {
         </div>
         <div className={style.programInfoDesc}>
           <ClientProgramDetails
-          clientProgramData={clientProgramData ? clientProgramData : clientProgramInterface}
+          clientId={clientId}
+          clientCurrentProgram={clientCurrentProgram?.program?.id}
+          clientProgramStatus={formatedStatus(clientCurrentProgram?.status) || ''}
+          createdAt={clientCurrentProgram?.created_at}
           />
-          {/* <ClientProfileDetailes
-          payments={clientPayments}
-          programPrice={clientProgramData?.price}
-          /> */}
+        </div>
+        <div className={style.programInfoDesc}>
+          <ClientContractDetailes
+          programContractStatus={clientCurrentProgram?.contract_status}
+          programPrice={clientCurrentProgram?.price}
+          // payments={clientPayments}
+          // programPrice={clientProgramData?.price}
+          />
         </div>
       </div>
     </section>

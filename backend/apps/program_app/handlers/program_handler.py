@@ -7,7 +7,7 @@ from .. import schemas
 from core.models.program_models import Program
 from core.models.association_models import ProgramClients
 from ...client_app.client.dals import ClientDAL
-from ..utils import data_format, program_response_format
+from ..utils import data_format, program_response_format, calculate_program_expenses, calculate_program_partners
 from apps.hotels_app.hotels.schemas import HotelWithRooms
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 from apps.base.exceptions import AppBaseExceptions
@@ -15,6 +15,7 @@ from apps.staff.schemas import AppendExpensesToProgram
 from apps.staff.dals.expenses_dal import ExpensesDAL
 from ..mixin import ProgramMixin
 from .program_base_handler import ProgramBaseHandler
+from ..dals.prog_price_dal import ProgramPriceDAL
 
 
 
@@ -45,18 +46,25 @@ class ProgramHandler(ProgramMixin, ProgramBaseHandler):
   ):
     async with self.session.begin():
       body_data = body.model_dump(exclude_none=True)
-      current_program: Program = await self.program_dal.get_program_by_id_with_clients(program_id=body_data['program_id'])
-      client_dal = ClientDAL(self.session)
-      current_client = await client_dal.get_client_by_id(body_data['client_id'])
-      current_program.program_clients_detail.append(
-        ProgramClients(
-          client=current_client,
-          program=current_program,
-          price=body_data.get('price')
+      client_program = await self.check_current_client_program(body_data['client_id'])
+      if client_program is None:
+        current_program: Program = await self.program_dal.get_program_by_id_with_clients(program_id=body_data['program_id'])
+        client_dal = ClientDAL(self.session)
+        current_client = await client_dal.get_client_by_id(body_data['client_id'])
+        current_program.program_clients_detail.append(
+          ProgramClients(
+            client=current_client,
+            program=current_program,
+          )
         )
-      )
-      await self.session.commit()
-      return JSONResponse('клиент добавлен', status_code=201)
+        await self.session.commit()
+        return JSONResponse('Клиент добавлен', status_code=201)
+      else:
+        updated_program = await self.program_dal.change_client_program(
+          program_client_id=client_program.id,
+          updated_values=body_data
+        )
+        return JSONResponse('Программа клиента изменена', status_code=201)
   
   
   async def _delete_client_from_program(
@@ -119,7 +127,6 @@ class ProgramHandler(ProgramMixin, ProgramBaseHandler):
       return JSONResponse(content=f'Expenses added to Program {program.title}', status_code=201)
   
   
-  
   async def _delete_expensive_from_program(self, body: AppendExpensesToProgram):
     async with self.session.begin():
       program, expensive_item = await self.check_program_and_expenses(body)
@@ -132,4 +139,31 @@ class ProgramHandler(ProgramMixin, ProgramBaseHandler):
         )
       program.expenses.remove(expensive_item)
       return JSONResponse(content='Expenses deleted from Program', status_code=200)
-      
+  
+  
+  async def _calculate_program_prices(self, program_id: int):
+    """
+    Получаем программу -> 
+    получаем статические затраты, затраты на аерсонал, затраты на партнеров -> 
+    считаем цену и пишем в базу
+    """
+    async with self.session.begin():
+      program = await self.program_dal.get_program_by_id_with_expenses_and_partners(program_id)
+      if program is None:
+        raise AppBaseExceptions.item_not_found('Program')
+      program_total_expenses = calculate_program_expenses(program.expenses, program.client_count)
+      program_total_partners = calculate_program_partners(program.program_partner, program.client_count)
+      program_prices_dal = ProgramPriceDAL(self.session)
+      program_prices = {
+        'base_price': program_total_expenses + program_total_partners,
+        'loayal_price': (program_total_expenses + program_total_partners) - 2000,
+        'comunity_price': (program_total_expenses + program_total_partners) - 5000,
+        'program_id': program.id
+      }
+      create_program_prices = await program_prices_dal.create_program_price(program_prices)
+      return create_program_prices
+  
+  
+  async def _get_program_partners(self, program_id: int):
+      program_partners = await self.program_dal.get_program_partners(program_id)
+      return list(program_partners)

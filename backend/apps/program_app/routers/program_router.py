@@ -15,7 +15,7 @@ from apps.staff.schemas import AppendExpensesToProgram
 
 
 router = APIRouter(
-  prefix='/programs',
+  prefix='/base',
   tags=['Programs']
 )
 
@@ -206,3 +206,32 @@ async def delete_program_expenses(
   program_handler = ProgramHandler(session)
   deleted_program_expenses = await program_handler._delete_expensive_from_program(body)
   return deleted_program_expenses
+
+
+@router.get(
+  '/program_prices/{program_slug}',
+  status_code=status.HTTP_200_OK,
+  response_model=schemas.ProgramPricesResponse
+)
+async def get_program_prices(
+  program_slug: str,
+  session: AsyncSession = Depends(get_db)
+):
+  program_handler = ProgramHandler(session)
+  program_prices = await program_handler._get_program_prices(program_slug)
+  return program_prices
+
+
+
+@router.get(
+  '/program_partners/{program_id}',
+  status_code=status.HTTP_200_OK,
+  # response_model=
+)
+async def get_program_partners(
+  program_id: int,
+  session: AsyncSession = Depends(get_db)
+):
+  program_handler = ProgramHandler(session)
+  program_partners = await program_handler._get_program_partners(program_id)
+  return program_partners

@@ -3,6 +3,8 @@ from apps.hotels_app.hotel_rooms.schemas import RoomForHotelResponse
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 from .schemas import ProgramBaseResponse
 from core.models.program_models import Program
+from core.models.staff_models import Expenses
+
 
 def data_format(data: List[Dict]) -> Dict:
   hotels = {}
@@ -44,7 +46,31 @@ def program_response_format(data: Program, duration: bool = False) -> ProgramBas
         "status": data.status,
         "desc": data.desc,
         "slug": data.slug,
+        "client_count": data.client_count,
     }
   if duration:
     common_data['duration'] = data.duration()
   return ProgramBaseResponse(**common_data)
+
+
+
+def calculate_program_expenses(program_expenses: list[Expenses], program_client_base_count: int) -> int:
+  total = 0
+  for item in program_expenses:
+    if item.expense_type == 'group':
+      total += (item.amount / program_client_base_count)
+    else:
+      total += item.amount
+  return int(total)
+
+
+
+def calculate_program_partners(program_partners: list[dict], program_client_base_count: int) -> int:
+  total = 0
+  for partner in program_partners:
+    partner_service = partner.service
+    if partner_service.service_type == 'group':
+      total += (partner_service.price / program_client_base_count)
+    else:
+      total += partner_service.price
+  return int(total)

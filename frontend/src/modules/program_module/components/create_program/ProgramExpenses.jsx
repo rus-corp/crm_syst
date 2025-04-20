@@ -23,7 +23,7 @@ const staticCategoriesMap = {
 export default function ProgramExpenses() {
   const location = useLocation()
   const navigation = useNavigate()
-  const { programId, programTitle, nights } = location.state
+  const { programId, programTitle, nights, clientCount } = location.state
   const [alert, setAlert] = React.useState({severity:'', message:''})
   const [staffExpenseItem, setStaffExpenseItem] = React.useState([{
     'program_id': programId,
@@ -31,7 +31,7 @@ export default function ProgramExpenses() {
     'expenses': []
   }])
   const [staticExpense, setStaticExpense] = React.useState(
-    staticCategories.map((category) => ({category: staticCategoriesMap[category], 'amount': 0, program_id: programId}))
+    staticCategories.map((category) => ({category: staticCategoriesMap[category], 'amount': 0, program_id: programId, 'expense_type': 'client'}))
   )
 
   const [staffData, setStaffData] = React.useState([])
@@ -81,7 +81,6 @@ export default function ProgramExpenses() {
       'static_expense': staticExpense,
       'employee_expense': staffExpenseItem
     }
-    console.log(payload)
     appendProgramExpenses(payload)
   }
 
@@ -132,7 +131,7 @@ export default function ProgramExpenses() {
           </div>
           <div className={style.programStaticData}>
             <ProfileInput
-            fieldData='15'
+            fieldData={clientCount}
             fieldTitle='Количество человек'
             />
           </div>

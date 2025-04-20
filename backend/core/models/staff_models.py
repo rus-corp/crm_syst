@@ -4,21 +4,11 @@ from sqlalchemy import func, String, ForeignKey, UniqueConstraint, Index
 from sqlalchemy import Enum as SQLEnum
 
 from ..database import Base
-from .utils import EmployeePosition, StaticCategory
+from .utils import EmployeePosition, StaticCategory, ExpenseType
 
 
 if TYPE_CHECKING:
   from .program_models import Program
-
-
-
-
-
-# class CostItem(Base):
-#   __tablename__ = 'cost_items'
-#   title: Mapped[str]
-#   expenses: Mapped[List['Expenses']] = relationship(back_populates='category')
-
 
 
 
@@ -46,7 +36,7 @@ class Expenses(Base):
   amount: Mapped[int]
   category: Mapped[str] = mapped_column(SQLEnum(StaticCategory))
   employee_id: Mapped[int] = mapped_column(ForeignKey('employees.id'), nullable=True)
-  
+  expense_type: Mapped[ExpenseType] = mapped_column(SQLEnum(ExpenseType), default=ExpenseType.GR, nullable=True)
   employee: Mapped[Employee] = relationship(back_populates='expenses')
   programs: Mapped[List['Program']] = relationship(
     secondary='program_expenses',

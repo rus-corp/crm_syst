@@ -6,37 +6,22 @@ import style from './styles/client_profile_data.module.css'
 import { ProfileInput } from '../../../../ui';
 import { formatedClientStatus } from '../../../../utils';
 import { updateClientMainData, updateClientProfileData } from '../../../../api';
-import { data } from 'react-router-dom';
 
 
-export default function ClientProfileData({
-  clientId,
-  clientFirstName,
-  clientLastName,
-  clientSecondName,
-  createdAt,
-  phoneNumber,
-  clientStatusData,
-  clientCity,
-  clientEmail,
-  clientDateOfBirth,
-  shortSize,
-  nutrition,
-  comment,
-  community=false
-}) {
+
+export default function ClientProfileData({ clientData, clientId }) {
   const [mainData, setMainData] = React.useState({
-    phone: phoneNumber,
-    email: clientEmail,
+    phone: clientData.phone || null,
+    email: clientData.email || null,
   })
   const [profileData, setProfileData] = React.useState({
-    city: clientCity,
-    date_of_birth: clientDateOfBirth,
-    shirt_size: shortSize,
-    nutrition_features: nutrition,
-    comment: comment
+    city: clientData.profile?.city || null,
+    date_of_birth: clientData.profile?.date_of_birth || null,
+    shirt_size: clientData.profile?.shirt_size || null,
+    nutrition_features: clientData.profile?.nutrition_features || null,
+    comment: clientData.profile?.comment || null,
+    community: clientData.profile?.date_of_birth || null
   })
-  const [checkedCom, setCheckedCom] = React.useState(community)
 
   const updateMainData = async (client, updatedData) => {
     const response = await updateClientMainData(client, updatedData)
@@ -77,50 +62,51 @@ export default function ClientProfileData({
 
   const handleChangeCommunity = (event) => {
     const newState = event.target.checked;
-    setCheckedCom(newState)
-    const updatedData = {'community': newState}
-    updateProfileData(clientId, updatedData)
+    const newData = {'community': newState}
+    setProfileData((prevData) => ({
+      ...prevData,
+      community: newState
+    }))
+    // console.log(profileData)
+    // console.log(updatedData)
+    updateProfileData(clientId, newData)
   }
 
-  const clientStatus = formatedClientStatus(clientStatusData)
-
-  React.useEffect(() => {
-    setCheckedCom(community)
-  }, [community])
+  const clientStatus = formatedClientStatus(clientData.profile?.status)
 
   return(
     <section className={style.clientProfile}>
       <div className={style.clientFio}>
         <div className={style.clientProfileHeader}>
-          <h3>{clientLastName}</h3>
-          <h3>{clientFirstName}</h3>
+          <h3>{clientData.last_name}</h3>
+          <h3>{clientData.name}</h3>
         </div>
-        <h6>{clientSecondName}</h6>
+        <h6>{clientData.second_name}</h6>
         <div className={style.clientCreated}>
           <p>Дата регистрации:</p>
-          <p>{createdAt?.slice(0, 10)}</p>
+          <p>{clientData.created_at?.slice(0, 10)}</p>
         </div>
         <div className="clientStatus">
           <p>Статус Клиента</p>
-          <h6>{clientStatus? clientStatus : ''}</h6>
+          <h6>{clientStatus}</h6>
         </div>
         <div className={style.community}>
           <p>Комьюнити</p>
-          <Checkbox checked={checkedCom ?? community} onChange={handleChangeCommunity}/>
+          <Checkbox checked={profileData.community || clientData.profile?.community || false} onChange={handleChangeCommunity}/>
         </div>
       </div>
       <div className={style.clientMainInfo}>
         <h5>Информация</h5>
         <ProfileInput
         fieldTitle="Город"
-        fieldData={profileData.city ?? clientCity ?? ''}
+        fieldData={profileData.city || clientData.profile?.city || ''}
         fieldName={'city'}
         handleChange={handleChangeProfileData}
         handleKeyDown={handleKeyDownProfileData}
         />
         <ProfileInput 
         fieldTitle="Телефон"
-        fieldData={mainData.phone ?? phoneNumber ?? ''}
+        fieldData={mainData.phone || clientData.phone || ''}
         fieldType={'number'}
         fieldName={'phone'}
         handleChange={handleChangeMainData}
@@ -129,13 +115,13 @@ export default function ClientProfileData({
         <ProfileInput 
         fieldTitle="Email"
         fieldName={'email'}
-        fieldData={mainData.email ?? clientEmail ?? ''}
+        fieldData={mainData.email || clientData.email || ''}
         handleChange={handleChangeMainData}
         handleKeyDown={handleKeyDownMainData}
         />
         <ProfileInput 
         fieldTitle="Дата рождения"
-        fieldData={profileData.date_of_birth ?? clientDateOfBirth ?? ''}
+        fieldData={profileData.date_of_birth || clientData.profile?.date_of_birth || ''}
         fieldName={'date_of_birth'}
         handleChange={handleChangeProfileData}
         handleKeyDown={handleKeyDownProfileData}
@@ -143,21 +129,21 @@ export default function ClientProfileData({
         />
         <ProfileInput 
         fieldTitle="Питание"
-        fieldData={profileData.nutrition_features ?? nutrition ?? ''}
+        fieldData={profileData.nutrition_features || clientData.profile?.nutrition_features || ''}
         fieldName={'nutrition_features'}
         handleChange={handleChangeProfileData}
         handleKeyDown={handleKeyDownProfileData}
         />
         <ProfileInput 
         fieldTitle="Размер футболки"
-        fieldData={profileData.shirt_size ?? shortSize ?? ''}
+        fieldData={profileData.shirt_size || clientData.profile?.shirt_size || ''}
         fieldName={'shirt_size'}
         handleChange={handleChangeProfileData}
         handleKeyDown={handleKeyDownProfileData}
         />
         <ProfileInput 
         fieldTitle="Комментарий"
-        fieldData={profileData.comment ?? comment ?? ''}
+        fieldData={profileData.comment || clientData.profile?.comment || ''}
         fieldName={'comment'}
         handleChange={handleChangeProfileData}
         handleKeyDown={handleKeyDownProfileData}

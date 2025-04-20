@@ -1,4 +1,6 @@
 import React from 'react';
+import Checkbox from '@mui/material/Checkbox';
+
 
 import style from '../../styles/create_partner.module.css'
 import { CreateItemInput } from '../../../../ui';
@@ -12,6 +14,11 @@ export default function CreatePartnerService({
 }) {
   const handleChangeData = (name, value) => {
     handleChange(itemIndx, name, value)
+  }
+
+  const handleChangeCheckbox = (event) => {
+    const { name, checked } = event.target;
+    handleChange(itemIndx, name, checked);
   }
   return(
     <div className={style.serviceItem}>
@@ -29,6 +36,17 @@ export default function CreatePartnerService({
         value={serviceData.price}
         fieldName={'price'}
         changeFunc={handleChangeData}
+        />
+      </div>
+      <div className={style.fieldItem}>
+        <p>Цена за группу</p>
+        <Checkbox
+        defaultChecked
+        sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+        inputProps={{ 'aria-label': 'controlled' }}
+        onChange={handleChangeCheckbox}
+        name='service_type'
+        value={serviceData.service_type}
         />
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import style from '../styles/create_program.module.css'
 import { SaveBtnComponent, SmallButton, NotificationComponent, ProfileInput } from '../../../../ui';
 import ProgramPartnerItem from './partials/ProgramPartnerItem';
-import { getPartnersFilterList, appendPartnerRoProgramReq } from '../../../../api';
+import { getPartnersFilterList, appendPartnerRoProgramReq, createProgramPrices } from '../../../../api';
 
 
 export default function ProgramServices() {
@@ -30,16 +30,29 @@ export default function ProgramServices() {
       }, 2000);
     }
   }
+  const handleCreateProgramPrices = async (programData) => {
+    const response = await createProgramPrices(programData)
+      // setAlert({severity: 'success', message: 'Партнер добавлен в программу'})
+      // setTimeout(() => {
+      //   setAlert({severity:'', message:''})
+      //   navigation('/create_program/total_program', {
+      //     state: {
+      //       programId: programId,
+      //       programTitle: programTitle,
+      //       nights: nights
+      //     }
+      //   })
+      // }, 2000);
+    // }
+  }
   const getPartnersList = async() => {
     const response = await getPartnersFilterList()
     if (response.status === 200) {
-      console.log(response.data)
       setPartnerList(response.data)
     }
   }
 
   const appendServiceToProgram = (partnerId, serviceId, state) => {
-    console.log(partnerId, serviceId, state)
     if (state) {
       setProgramPartner((prevData) => (
         [
@@ -58,8 +71,8 @@ export default function ProgramServices() {
     }
   }
   const handleSubmit = () => {
-    console.log('programPartner', programPartner)
     handleCreateProgramPartner(programPartner)
+    handleCreateProgramPrices(programId)
   }
 
   React.useEffect(() => {

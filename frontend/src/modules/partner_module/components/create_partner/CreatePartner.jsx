@@ -19,12 +19,17 @@ const categories = [
   {id: 3, title: "Остальное"},
 ]
 
+const serviceType = {
+  'true': 'group',
+  'false': 'client'
+}
 
 export default function CreatePartner() {
   const navigation = useNavigate()
   const [partnerServices, setPartnerServices] = React.useState([{
     service_name: '',
-    price: 0
+    price: 0,
+    service_type: 'group'
   }])
   const [partnerData, setPartnerData] = React.useState({
     title: "",
@@ -44,13 +49,20 @@ export default function CreatePartner() {
   const handleSubmit = () => {
     const payload = {
       ...partnerData,
-      partner_services: partnerServices
+      partner_services: partnerServices.filter((item) => (item.price !== 0 && item.service_name !== ''))
     }
-    console.log(payload)
     handlecreatePartner(payload)
   }
 
   const handleChangeServiceData = (indx, name, value) =>{
+    if (name === 'service_type') {
+      setPartnerServices(
+        (prevData) =>
+          prevData.map((item, ind) =>
+            indx === ind ? {...item, service_type: serviceType[value]} : item)
+      )
+      return
+    }
     setPartnerServices(
       (prevData) => 
         prevData.map((item, ind) => 

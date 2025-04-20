@@ -10,14 +10,14 @@ from apps.partner_app import schemas as partner_schemas
 
 async def test_update_program(ac: AsyncClient):
   updated_data = {'title': 'New Program Title'}
-  programs_list = await ac.get('/programs/')
+  programs_list = await ac.get('/program/base/')
   assert programs_list.status_code == 200
   programs_list_data = programs_list.json()
   program_slug = programs_list_data[0]['slug']
-  updatedProgramItem = await ac.patch(f'/programs/{program_slug}', json=updated_data)
+  updatedProgramItem = await ac.patch(f'/program/base/{program_slug}', json=updated_data)
   assert updatedProgramItem.status_code == 200
   updatedProgramJson = updatedProgramItem.json()
-  programItem = await ac.get(f'/programs/{program_slug}')
+  programItem = await ac.get(f'/program/base/{program_slug}')
   assert programItem.status_code == 200
   programDataJson = programItem.json()
   program = schemas.ProgramBaseResponse(**programDataJson)

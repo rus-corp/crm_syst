@@ -21,7 +21,6 @@ class ClientProgramBase(BaseModel):
   end_date: date
   place: str
   desc: str
-  price: int
   slug: str
   status: str
 
@@ -77,10 +76,10 @@ class ClientCurrentProgramBaseResponse(BaseModel):
   client_id: int
   status: ClientProgramStatus
   created_at: datetime
-  price: int
+  price: Optional[int] = None
   contract_status: ClientPorgramContractStatus
   program: ClientProgramBase
-  client: BaseShowClient
+  # client: BaseShowClient
 
 
 

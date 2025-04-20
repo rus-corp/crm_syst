@@ -23,9 +23,9 @@ from apps.hotels_app.hotel_rooms import schemas as room_schema
 
 async def test_create_program(ac: AsyncClient):
   for item in program_test_data:
-    prog = await ac.post('/programs/', json=item)
+    prog = await ac.post('/program/base/', json=item)
     assert prog.status_code == 201
-  program_db = await ac.get('/programs/')
+  program_db = await ac.get('/program/base/')
   assert program_db.status_code == 200
   program_data = program_db.json()
   assert len(program_data) == len(program_test_data)
@@ -39,11 +39,11 @@ async def test_create_program(ac: AsyncClient):
 
 
 async def test_get_one_program(ac: AsyncClient):
-  programs_list = await ac.get('/programs/')
+  programs_list = await ac.get('/program/base/')
   assert programs_list.status_code == 200
   programs_list_data = programs_list.json()
   program_slug = programs_list_data[0]['slug']
-  programItem = await ac.get(f'/programs/{program_slug}')
+  programItem = await ac.get(f'/program/base/{program_slug}')
   assert programItem.status_code == 200
   programItemData = programItem.json()
   program = schemas.ProgramBaseResponse(**programItemData)
