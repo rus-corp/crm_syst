@@ -4,7 +4,7 @@ import { backend } from "../_variables";
 export const getClientList = async() => {
   try {
     const response = await backend.get(
-      '/clients/'
+      '/clients/base/'
     )
     return response
   } catch (error) {
@@ -13,10 +13,10 @@ export const getClientList = async() => {
 }
 
 
-export const getClientDataWithProgram = async (clientSlug) => {
+export const getClientProfileAndDoc = async (clientSlug) => {
   try {
     const response = await backend.get(
-      `/clients/program_profile_doc/${clientSlug}`
+      `/clients/base/client_profile_doc/${clientSlug}`
     )
     return response
   } catch (error) {
@@ -52,10 +52,49 @@ export const createClient = async (clientData) => {
 export const getClientCurrentProgram = async (clientSlug) => {
   try {
     const response = await backend.get(
-      `/clients/program/${clientSlug}`
+      `/clients/base/program/${clientSlug}`
     )
     return response
   } catch (error) {
-    console.error(error)
+    return {'status': error.response.status, 'message': error.response.data}
+  }
+}
+
+
+export const updateClientMainData = async(clientId, data) => {
+  try {
+    const response = await backend.patch(
+      `/clients/base/${clientId}`,
+      data
+    )
+    return response
+  } catch (error) {
+    return {'status': error.response.status}
+  }
+}
+
+export const updateClientProfileData = async (clientId, data) => {
+  try {
+    const response = await backend.patch(
+      `/clients/profile/${clientId}`,
+      data
+    )
+    return response
+  } catch (error) {
+    return {'status': error.response.status}
+  }
+}
+
+
+export const appendClientToProgram = async (clientData) => {
+  try {
+    const response = await backend.post(
+      '/program/base/append_client/',
+      clientData
+    )
+    return response
+  }
+  catch (error) {
+    return error.response
   }
 }

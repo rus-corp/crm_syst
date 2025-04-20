@@ -21,7 +21,6 @@ class ClientProgramBase(BaseModel):
   end_date: date
   place: str
   desc: str
-  price: int
   slug: str
   status: str
 
@@ -56,8 +55,8 @@ class BaseShowClient(BaseModel):
 
 
 class ShowClientProfileDocument(BaseShowClient):
-  profile: ProfileResponse
-  document: DocumentResponse
+  profile: Optional[ProfileResponse] = None
+  document: Optional[DocumentResponse] = None
 
 
 
@@ -77,21 +76,25 @@ class ClientCurrentProgramBaseResponse(BaseModel):
   client_id: int
   status: ClientProgramStatus
   created_at: datetime
-  price: int
+  price: Optional[int] = None
   contract_status: ClientPorgramContractStatus
   program: ClientProgramBase
-  client: BaseShowClient
+  # client: BaseShowClient
 
 
-class ClientCurrentProgramResponse(BaseModel):
-  id: int
-  client_id: int
-  status: ClientProgramStatus
-  created_at: datetime
-  price: int
-  contract_status: ClientPorgramContractStatus
-  program: ClientProgramBase
-  client: ShowClientProfileDocument
+
+class ClientCurrentProgramResponse(ShowClientProfileDocument):
+  client_program_detail : Optional[List] = None
+
+# class ClientCurrentProgramResponse(BaseModel):
+#   id: int
+#   client_id: int
+#   status: ClientProgramStatus
+#   created_at: datetime
+#   price: int
+#   contract_status: Optional[ClientPorgramContractStatus] = None
+#   program: Optional[ClientProgramBase] = None
+#   client: ShowClientProfileDocument
 
 
 class CreateClientWithProfileRequest(CreateClient):

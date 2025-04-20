@@ -2,12 +2,17 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import style from './create_hotel.module.css'
-import { CreateItemInput, SaveBtnComponent, TextAreaComponent } from '../../../../ui';
-import { createHotel } from '../../../../api';
+import {
+  CreateItemInput,
+  SaveBtnComponent,
+  TextAreaComponent,
+  NotificationComponent
+} from '@/ui';
+import { createHotel } from '@/api';
 
 export default function CreateHotel() {
   const navigation = useNavigate()
-
+  const [alert, setAlert] = React.useState({severity: '', message: ''})
   const [hotelData, setHotelData] = React.useState({
     title: '',
     address: '',
@@ -17,16 +22,26 @@ export default function CreateHotel() {
     desc: ''
   })
 
-  const handleSubmit = async () => {
-    const response = await createHotel(hotelData)
+  const handleCreateHotel = async (createdData) => {
+    const response = await createHotel(createdData)
     if (response.status === 201) {
-      navigation('/hotels/create_hotel_rooms', {
-        state: {
-          hotelId: response.data.id,
-          hotelTitle: response.data.title
-        }
-      })
+      setAlert({severity: 'success', message: 'Отель успешно добавлен'})
+      setTimeout(() => {
+        setAlert({severity: '', message: ''})
+        navigation('/hotels/create_hotel_rooms', {
+          state: {
+            hotelId: response.data.id,
+            hotelTitle: response.data.title
+          }
+        })
+      }, 1500);
+    } else if(response.status === 403) {
+      setAlert({severity: 'error', message: response.message})
     }
+  }
+
+  const handleSubmit = async () => {
+    handleCreateHotel(hotelData)
   }
 
   const handleChangeField = (name, value) => {
@@ -41,6 +56,10 @@ export default function CreateHotel() {
       <div className={style.createHotelData}>
         <div className={style.sectionHeader}>
           <h2>Создать отель</h2>
+          <NotificationComponent
+          severity={alert.severity}
+          message={alert.message}
+          />
         </div>
         <div className={style.sectionCreateData}>
           <div className={style.createdField}>
@@ -101,7 +120,7 @@ export default function CreateHotel() {
             fieldTitle='Описание'
             fieldName='desc'
             value={hotelData.desc}
-            changeFunc={handleChangeField}
+            handleChange={handleChangeField}
             />
           </div>
           <div className={style.saveBtn}>

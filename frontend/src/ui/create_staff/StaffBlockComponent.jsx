@@ -15,7 +15,6 @@ export default function StaffBlockComponent() {
     const response = await getStaffs()
     if (response.status == 200) {
       setStaffData(response.data)
-      console.log(response.data)
     }
   }
   React.useEffect(() => {

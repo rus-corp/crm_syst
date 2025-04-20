@@ -63,12 +63,12 @@ class ClientProfile(Base):
   __tablename__ = 'client_profile'
   __table_args__ = (UniqueConstraint('client_id'),)
   
-  shirt_size: Mapped[str]
+  shirt_size: Mapped[str] = mapped_column(nullable=True)
   status: Mapped[ClientStatus] = mapped_column(SQLEnum(ClientStatus), default=ClientStatus.NW)
   nutrition_features: Mapped[str] = mapped_column(nullable=True)
   comment: Mapped[str] = mapped_column(nullable=True)
-  city: Mapped[str]
-  date_of_birth: Mapped[date]
+  city: Mapped[str] = mapped_column(nullable=True)
+  date_of_birth: Mapped[date] = mapped_column(nullable=True)
   community: Mapped[bool] = mapped_column(default=False)
   
   client_id: Mapped[int] = mapped_column(ForeignKey('client.id', ondelete='CASCADE'))

@@ -23,7 +23,10 @@ class ClientProfileDAL(BaseDAL):
   
   
   async def update_client_profile(self, client_id: int, values):
-    query = update(ClientProfile).where(ClientProfile.client_id == client_id).values(**values).returning(ClientProfile)
+    query = (update(ClientProfile)
+             .where(ClientProfile.client_id == client_id)
+             .values(**values)
+             .returning(ClientProfile))
     result = await self.db_session.scalar(query)
     return result
   

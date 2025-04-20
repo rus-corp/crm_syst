@@ -11,7 +11,7 @@ import { getHotelsWithoutRooms, appendHotelRoomToProgram } from '@/api';
 export default function AppendHotels() {
   const navigation = useNavigate()
   const location = useLocation()
-  const { programId, programTitle, nights } = location.state
+  const { programId, programTitle, nights, clientCount } = location.state
   const [programRoom, setProgramRoom] = React.useState([])
   const [hotelList, setHotelList] = React.useState([])
   const [alert, setAlert] = React.useState({severity:'', message:''})
@@ -35,7 +35,8 @@ export default function AppendHotels() {
             state: {
               programId: programId,
               programTitle: programTitle,
-              nights: nights
+              nights: nights,
+              clientCount: clientCount
             }
           }
         )
@@ -93,15 +94,11 @@ export default function AppendHotels() {
           </div>
           <div className={style.programStaticData}>
             <ProfileInput
-            fieldData='15'
+            fieldData={clientCount}
             fieldTitle='Количество человек'
             />
           </div>
         </div>
-
-
-
-
         <aside className={style.sectionCreateData}>
           <div className={style.dataHeader}>
             <h4>Добавить проживание</h4>
@@ -120,11 +117,6 @@ export default function AppendHotels() {
             </div>
           </div>
         </aside>
-
-
-
-
-
         <div className={style.saveBtn}>
           <SaveBtnComponent
           saveTitle='Программу'

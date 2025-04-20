@@ -1,3 +1,4 @@
+import re
 from ...base.base_handler import BaseHandler
 from ...base.exceptions import AppBaseExceptions
 from fastapi.exceptions import HTTPException
@@ -22,16 +23,27 @@ class HotelHandler(BaseHandler):
   async def _create_hotel(self, hotel_body: schemas.CreateHotelRequest):
     async with self.session.begin():
       hotel_data = hotel_body.model_dump(exclude_none=True)
-      created_hotel = await self.hotel_dal.create_hotel(**hotel_data)
-      return schemas.HotelBaseResponse(
-        id=created_hotel.id,
-        title=created_hotel.title,
-        address=created_hotel.address,
-        contacts=created_hotel.contacts,
-        city=created_hotel.city,
-        email=created_hotel.email,
-        des=created_hotel.desc
-      )
+      try:
+        created_hotel = await self.hotel_dal.create_hotel(**hotel_data)
+        return schemas.HotelBaseResponse(
+          id=created_hotel.id,
+          title=created_hotel.title,
+          address=created_hotel.address,
+          contacts=created_hotel.contacts,
+          city=created_hotel.city,
+          email=created_hotel.email,
+          des=created_hotel.desc
+        )
+      except Exception as e:
+        mes = e.args[0]
+        err_mes = mes.split('Key')[1]
+        spl_mes = err_mes.split('=')[1]
+        clean_message = re.sub(r"[\(\)]", "", spl_mes)
+        await self.session.rollback()
+        raise AppBaseExceptions.item_create_error(
+          item_data='Hotel',
+          exception_message=clean_message
+        )
   
   
   async def _get_all_hotels(self, flag: bool = False):
@@ -105,9 +117,10 @@ class HotelHandler(BaseHandler):
   ):
     async with self.session.begin():
       created_data = []
+      rooms_dal = HotelRoomsDAL(self.session)
+      program_dal = ProgramDAL(self.session)
       for item in body:
         body_data = item.model_dump()
-        rooms_dal = HotelRoomsDAL(self.session)
         room: HotelRooms = await rooms_dal.get_room_by_id(body_data['room_id'])
         if room.hotel_id != body_data['hotel_id']:
           raise AppBaseExceptions.relation_not_exsist(
@@ -115,7 +128,6 @@ class HotelHandler(BaseHandler):
             second_model='Rooms', second_item_id=body_data['room_id']
           )
         hotel = await self.hotel_dal.get_hotel_by_id(body_data['hotel_id'])
-        program_dal = ProgramDAL(self.session)
         current_program = await program_dal.get_program_by_id(body_data['program_id'])
         if not current_program or not hotel or not room:
           raise AppBaseExceptions.item_not_found('Программа, Отель либо номер')

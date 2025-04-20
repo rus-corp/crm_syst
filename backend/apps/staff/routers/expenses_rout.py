@@ -94,6 +94,21 @@ async def delete_expense_by_id(
 
 
 
+@router.post(
+  '/create_static_and_employee_expense/',
+  status_code=status.HTTP_201_CREATED
+)
+async def create_program_expenses(
+  body: schemas.StaticEmployeeExpenseCreateRequset,
+  session: AsyncSession = Depends(get_db),
+):
+  expenses_handler = ExpenseHandler(session)
+  appended_expense = await expenses_handler._create_program_static_empl_expenses(
+    body
+  )
+  return appended_expense
+  
+
 
 # @router.post(
 #   '/category_expense',

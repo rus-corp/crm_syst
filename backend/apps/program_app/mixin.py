@@ -4,12 +4,10 @@ from apps.staff.dals.expenses_dal import ExpensesDAL
 from apps.staff.schemas import AppendExpensesToProgram
 from apps.base.exceptions import AppBaseExceptions
 
+from .handlers.program_base_handler import ProgramBaseHandler
 
 
-class ProgramMixin:
-  def __init__(self, session: AsyncSession):
-    self.session = session
-    self.program_dal = ProgramDAL(self.session)
+class ProgramMixin(ProgramBaseHandler):
   
   async def check_program_and_expenses(self, body: AppendExpensesToProgram):
     body_data = body.model_dump()
@@ -25,3 +23,9 @@ class ProgramMixin:
         item_data='Expenses'
       )
     return (program, expensive_item)
+  
+  
+  async def check_current_client_program(self, client_id: int):
+    program_dal = ProgramDAL(self.session)
+    client_active_program = await program_dal.get_client_active_program(client_id)
+    return client_active_program

@@ -20,11 +20,8 @@
 .programInfoDesc {
   width: 100%;
   margin-top: 1rem;
-  min-height: 12rem;
+  min-height: 8rem;
   background-color: #fff;
   border-radius: 24px;
   padding: 1rem 1.3rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: start;
 }

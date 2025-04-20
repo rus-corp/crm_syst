@@ -11,7 +11,7 @@ from .utils import ProgramStatus, ProgramPriceCategory
 if TYPE_CHECKING:
   from .client_models import Client
   from .hotels_models import Hotels, HotelRooms
-  from .association_models import ProgramClients, ProgramRooms, ProgramClientRoom
+  from .association_models import ProgramClients, ProgramRooms, ProgramClientRoom, ProgramPartners
   from .staff_models import Expenses
 
 
@@ -27,9 +27,9 @@ class Program(Base):
   desc: Mapped[str]
   status: Mapped[ProgramStatus] = mapped_column(SQLEnum(ProgramStatus), default=ProgramStatus.AC)
   slug: Mapped[str] = mapped_column(unique=True)
-  # price: Mapped[int]
-  prices: Mapped[List['ProgramPrices']] = relationship(back_populates='program')
+  client_count: Mapped[int] = mapped_column(default=10)
   
+  prices: Mapped['ProgramPrices'] = relationship(back_populates='program')
   program_clients_detail: Mapped[list['ProgramClients']] = relationship(back_populates='program')
   
   program_hotel_room: Mapped[list['ProgramRooms']] = relationship(back_populates='program')
@@ -37,6 +37,8 @@ class Program(Base):
     secondary='program_expenses',
     back_populates='programs'
   )
+  program_partner: Mapped[list['ProgramPartners']] = relationship(back_populates='program')
+  
   
   
   # program: Mapped[List['Hotels']] = relationship(secondary='program_rooms', back_populates='programs')
@@ -55,8 +57,11 @@ class Program(Base):
 class ProgramPrices(Base):
   __tablename__ = 'program_prices'
   
-  name: Mapped[ProgramPriceCategory] = mapped_column(SQLEnum(ProgramPriceCategory), default=ProgramPriceCategory.FT)
-  price: Mapped[int]
+  # name: Mapped[ProgramPriceCategory] = mapped_column(SQLEnum(ProgramPriceCategory), default=ProgramPriceCategory.FT)
+  # price: Mapped[int]
+  base_price: Mapped[int]
+  loayal_price: Mapped[int]
+  comunity_price: Mapped[int]
   program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
   
   program: Mapped['Program'] = relationship(back_populates='prices')

@@ -2,8 +2,11 @@ import {
   createClient,
   getClientBySlug,
   getClientCurrentProgram,
-  getClientDataWithProgram,
-  getClientList
+  getClientProfileAndDoc,
+  getClientList,
+  updateClientMainData,
+  updateClientProfileData,
+  appendClientToProgram,
  } from "./clients_api/client_api";
 
 import {
@@ -17,19 +20,35 @@ import {
 
 import { createRoomsList } from "./hotels_api/rooms";
 
+import {
+  appendPartnerRoProgramReq,
+  createPartner,
+  deletePartnerById,
+  getPartnerById,
+  getPartnerByIdWithServiceAndBank,
+  getPartnersFilterList,
+  updatePartnerById
+} from "./partners/partners_api";
+
  import { 
   createClientProgramPayment,
   getClientProgramPayments
  } from "./payments_api/api";
 
 import { getProgramClients,
-  getProgramHotels,
+  getProgramHotelRooms,
   getPrograms,
-  createProgram }
+  createProgram, 
+  getProgramExpenses,
+  getProgramPartners,
+  createProgramPrices,
+  getProgramPrices}
   from "./programs_api/programs_api";
+
 import {
   createCostItem,
   createExpenseItem,
+  createProgramExpenses,
   createStaffItem,
   getCostItemsList,
   getEmployeePositions,
@@ -41,13 +60,18 @@ import {
 
 
 
-export { getPrograms, getProgramClients, getProgramHotels,
+export { getPrograms, getProgramClients, getProgramHotelRooms,
   getClientList, getClientBySlug, createClient,
-  getClientCurrentProgram, getClientDataWithProgram,
+  getClientCurrentProgram, getClientProfileAndDoc,
   createClientProgramPayment, getClientProgramPayments,
   createHotel, getHotels, getHotelByIdWithRooms, createRoomsList,
   updateHotelProfileById, createProgram, createStaffItem, getStaffs,
   getExpensesList, getEmployeePositions, createExpenseItem,
   createCostItem, getCostItemsList, getHotelsWithoutRooms,
-  appendHotelRoomToProgram,
+  appendHotelRoomToProgram, getPartnersFilterList, getPartnerById,
+  createPartner, updatePartnerById, deletePartnerById,
+  updateClientMainData, updateClientProfileData, createProgramExpenses,
+  getPartnerByIdWithServiceAndBank, appendPartnerRoProgramReq,
+  getProgramExpenses, getProgramPartners, createProgramPrices,
+  getProgramPrices, appendClientToProgram
  }

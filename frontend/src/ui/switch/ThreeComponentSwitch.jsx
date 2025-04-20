@@ -2,7 +2,12 @@ import React from 'react';
 
 import style from './three_switch.module.css'
 
-export default function ThreeComponentSwitch({ firstData, secondData, thirdData, componentSetData}) {
+export default function ThreeComponentSwitch({
+  firstData,
+  secondData,
+  thirdData,
+  componentSetData
+}) {
   const [activeOption, setActiveOption] = React.useState(0)
 
   function handleChangeOption(data) {

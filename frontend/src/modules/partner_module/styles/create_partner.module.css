@@ -1,0 +1,44 @@
+.createPartner {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.sectionCreateData {
+  margin-top: 2rem;
+}
+
+.createPartnerData {
+  position: relative;
+  width: 80%;
+  display: block;
+}
+
+.createField {
+  margin-bottom: 2rem;
+}
+
+.saveBtn {
+  position: absolute;
+  margin-top: 2rem;
+  right: 0;
+}
+
+.partnerServicesBlock {
+  width: 100%;
+}
+
+.serviceItem {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 30%;
+  gap: 2rem;
+  align-items: center;
+}
+
+.fieldItem {
+  margin-bottom: 1.4rem;
+}

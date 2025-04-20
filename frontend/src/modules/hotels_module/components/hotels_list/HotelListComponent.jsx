@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import itemBurger from '@/assets/menu_icons/item_burger.svg'
-
 import style from '../hotels.module.css'
 
 

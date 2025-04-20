@@ -1,0 +1,43 @@
+.partnerDataList {
+  padding: 1rem;
+}
+
+
+.partnerItem {
+  width: 100%;
+  min-height: 6rem;
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.partnerMainData {
+  width: 100%;
+}
+
+.partnerTitle {
+  margin-bottom: 1rem;
+}
+
+.partnerContent {
+  text-align: center;
+}
+
+
+
+.partnerServiceHeader {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+}
+
+.partnerServiceItem {
+  margin-top: .8rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+}

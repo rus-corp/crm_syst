@@ -2,6 +2,7 @@ import CreateNewItemBtn from "./buttons/CreateNewItemBtn";
 import SaveBtnComponent from "./buttons/SaveBtnComponent";
 import SmallButton from "./buttons/SmallButton";
 import ComponentHeader from "./component_header/ComponentHeader";
+import ComponentHeaderThreSwitch from "./component_header/ComponentHeaderThreSwitch";
 import CreateStaff from "./create_staff/CreateStaff";
 import StaffBlockComponent from "./create_staff/StaffBlockComponent";
 import Icon from "./icons/Icon";
@@ -28,4 +29,5 @@ export { ProgramIcon, Icon, MenuItem,
   SmallButton, CreateItemInput, TextAreaComponent,
   SaveBtnComponent, NotificationComponent, StaffSelect,
   companyIcon, CreateStaff,CreateExpense, ExpenseBlockComponent,
-  StaffBlockComponent, SelectDefComponent, EmployeeSelect }
+  StaffBlockComponent, SelectDefComponent, EmployeeSelect,
+  ComponentHeaderThreSwitch }

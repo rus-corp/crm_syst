@@ -3,9 +3,9 @@ import { backend } from "../_variables";
 export const getStaffs = async (limit=null) => {
   let url;
   if (limit) {
-    url = `/staff/employee/employee_expenses/?limit=${limit}`
+    url = `/staff/employee/?limit=${limit}`
   } else {
-    url = '/staff/employee/employee_expenses/'
+    url = '/staff/employee/'
   }
   try {
     const response = await backend.get(
@@ -94,5 +94,18 @@ export const getCostItemsList = async () => {
     return response
   } catch (error) {
     console.error(error)
+  }
+}
+
+
+export const createProgramExpenses = async (expenseData) => {
+  try {
+    const response = await backend.post(
+      '/staff/expenses/create_static_and_employee_expense/',
+      expenseData
+    )
+    return response
+  } catch (error) {
+    return error.response
   }
 }

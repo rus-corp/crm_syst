@@ -17,6 +17,7 @@ from .staff_models import Expenses
 if TYPE_CHECKING:
   from .client_models import Client
   from .program_models import Program
+  from .partners_models import Partner, PartnerService
 
 
 
@@ -64,13 +65,10 @@ class ProgramClientRoom(Base):
   
   program_client_id: Mapped[int] = mapped_column(ForeignKey('program_clients.id'))
   program_room_id: Mapped[int] = mapped_column(ForeignKey('program_rooms.id'))
-  # room_id: Mapped[int] = mapped_column(ForeignKey('hotel_rooms.id'))
-  # price: Mapped[int] = mapped_column(nullable=True)
   entry_date:Mapped[date]
   departue_date: Mapped[date]
   comment: Mapped[str] = mapped_column(nullable=True)
   
-  # room: Mapped[HotelRooms] = relationship(back_populates='program_client_room')
   program_client: Mapped[ProgramClients] = relationship(back_populates='program_client_room')
 
 
@@ -79,4 +77,14 @@ class ProgramExpenses(Base):
   __tablename__ = 'program_expenses'
   program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
   expenses_id: Mapped[int] = mapped_column(ForeignKey('expenses.id'))
+
+
+class ProgramPartners(Base):
+  __tablename__ = 'program_partners'
+  program_id: Mapped[int] = mapped_column(ForeignKey('programs.id'))
+  partner_id: Mapped[int] = mapped_column(ForeignKey('partners.id'))
+  service_id: Mapped[int] = mapped_column(ForeignKey('partner_services.id'))
   
+  partner: Mapped['Partner'] = relationship(back_populates='program_partner')
+  service: Mapped['PartnerService'] = relationship(back_populates='program_partner')
+  program: Mapped['Program'] = relationship(back_populates='program_partner')

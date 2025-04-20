@@ -1,0 +1,123 @@
+.createProgram {
+  width: 100%;
+}
+
+.programData {
+  width: 80%;
+}
+
+.programDataHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.staffExpense {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+
+.expenseHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.expenseHeader > img {
+  width: 4rem;
+  cursor: pointer;
+}
+
+.expenseItem {
+  width: 100%;
+  margin-left: 4rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  background-color: #fff;
+  border-radius: 24px;
+  margin: .5rem 0;
+  padding: .3rem 1rem;
+}
+
+.staffData {
+  width: 100%;
+}
+
+.staffDataContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+}
+
+.programTotalPrice {
+  margin-bottom: 1.3rem;
+}
+
+.blockHeader {
+  width: 100%;
+}
+
+.roomsList {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.roomItem {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8rem;
+  background-color: #fff;
+  margin: .5rem 0;
+  padding: .3rem 1rem;
+  border-radius: 24px;
+  min-height: 6rem;
+}
+
+.roomItemData {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.roomTotal > p {
+  text-align: start;
+}
+
+.prices {
+  display: flex;
+  align-self: center;
+}
+
+.partnerItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8rem;
+  background-color: #fff;
+  margin: .5rem 0;
+  padding: .3rem 1rem;
+  border-radius: 24px;
+}
+
+.partnerData {
+  width: 100%;
+}
+
+.partnerDataContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr 15%;
+  align-items: center;
+
+}
+
+.totalPriceData {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}

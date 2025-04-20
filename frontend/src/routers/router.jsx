@@ -5,12 +5,13 @@ import { CrmPage, HotelPage, ClientPage,
   CreateProgramPage, CompanyPage,
   CreateItemPage, ProgramPage,
   BlockItemPage, PartnerPage } from "../pages";
-import { HotelMainComponent, CreateHotel,
-  CreateRoom } from "../modules";
-import HotelProfileMainComponent from "../modules/hotels_module/components/hotel_profile/HotelProfileMainComponent";
-import { ClientProfile, ClientMainListComponent } from "../modules/client_module";
-import {CreateProgramComponent} from "../modules/program_module";
-import { ProgramExpenses, AppendHotels } from "../modules/program_module";
+
+  import { HotelMainComponent, CreateHotel,
+  CreateRoom, CreatePartner, 
+  PartnerMain, PartnerProfileComponent, HotelProfileMainComponent,
+  ClientProfile, ClientMainListComponent, CreateProgramComponent, 
+  ProgramExpenses, AppendHotels, ProgramServices, TotalProgramComponent,}
+  from "../modules";
 
 
 
@@ -39,6 +40,14 @@ export const router = createBrowserRouter([
         path: 'add_expenses',
         element: <ProgramExpenses />
       },
+      {
+        path: 'add_partners',
+        element: <ProgramServices />
+      },
+      {
+        path: 'total_program',
+        element: <TotalProgramComponent />
+      }
     ]
   },
   {
@@ -79,7 +88,21 @@ export const router = createBrowserRouter([
   },
   {
     path: '/partners',
-    element: <PartnerPage />
+    element: <PartnerPage />,
+    children: [
+      {
+        path: '',
+        element: <PartnerMain />
+      },
+      {
+        path: 'create_partner',
+        element: <CreatePartner />
+      },
+      {
+        path: ':partnerId',
+        element: <PartnerProfileComponent />
+      }
+    ]
   },
   {
     path: '/company',

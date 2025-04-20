@@ -9,7 +9,7 @@ export const createHotel = async (hotelData) => {
     )
     return response
   } catch (error) {
-    console.error(error)
+    return {'status': error.response.status, 'message': error.response.data.detail}
   }
 }
 

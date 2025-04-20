@@ -1,43 +1,43 @@
 program_test_data = [
     {
-    'title': 'Архыз под Меркурием',
-    'start_date': '2025-01-01',
-    'end_date': '2025-01-10',
-    'place': 'Архыз',
-    'desc': 'Какое-то описание',
-    'price': 45000
+      'title': 'Архыз под Меркурием',
+      'start_date': '2025-01-01',
+      'end_date': '2025-01-10',
+      'place': 'Архыз',
+      'desc': 'Какое-то описание',
+      'client_count': 10
     },
     {
-        'title': 'Зимние каникулы в Сочи',
-        'start_date': '2025-02-15',
-        'end_date': '2025-02-22',
-        'place': 'Сочи',
-        'desc': 'Проведите неделю на побережье Черного моря!',
-        'price': 55000
+      'title': 'Зимние каникулы в Сочи',
+      'start_date': '2025-02-15',
+      'end_date': '2025-02-22',
+      'place': 'Сочи',
+      'desc': 'Проведите неделю на побережье Черного моря!',
+      'client_count': 10
     },
     {
-        'title': 'Весенний отдых в Алтае',
-        'start_date': '2025-03-10',
-        'end_date': '2025-03-20',
-        'place': 'Алтай',
-        'desc': 'Уникальная природа и тишина для вашей перезагрузки.',
-        'price': 60000
+      'title': 'Весенний отдых в Алтае',
+      'start_date': '2025-03-10',
+      'end_date': '2025-03-20',
+      'place': 'Алтай',
+      'desc': 'Уникальная природа и тишина для вашей перезагрузки.',
+      'client_count': 10
     },
     {
-        'title': 'Летнее путешествие на Байкал',
-        'start_date': '2025-06-01',
-        'end_date': '2025-06-10',
-        'place': 'Байкал',
-        'desc': 'Вас ждут прогулки по Байкалу, свежий воздух и вкусная кухня.',
-        'price': 70000
+      'title': 'Летнее путешествие на Байкал',
+      'start_date': '2025-06-01',
+      'end_date': '2025-06-10',
+      'place': 'Байкал',
+      'desc': 'Вас ждут прогулки по Байкалу, свежий воздух и вкусная кухня.',
+      'client_count': 10
     },
     {
-        'title': 'Осенний тур в Карелию',
-        'start_date': '2025-09-05',
-        'end_date': '2025-09-15',
-        'place': 'Карелия',
-        'desc': 'Погрузитесь в атмосферу осеннего леса и уединения.',
-        'price': 50000
+      'title': 'Осенний тур в Карелию',
+      'start_date': '2025-09-05',
+      'end_date': '2025-09-15',
+      'place': 'Карелия',
+      'desc': 'Погрузитесь в атмосферу осеннего леса и уединения.',
+      'client_count': 10
     }
 ]
 
@@ -192,6 +192,35 @@ test_clients_data = [
         "email": "alexey.ivanovich@example.com"
     }
 ]
+
+test_append_client_to_prog = [
+  {
+    'client_id': 1,
+    'program_id': 1
+  },
+  {
+    'client_id': 2,
+    'program_id': 1
+  },
+  {
+    'client_id': 3,
+    'program_id': 1
+  },
+  {
+    'client_id': 4,
+    'program_id': 1
+  },
+  {
+    'client_id': 5,
+    'program_id': 1
+  },
+  {
+    'client_id': 1,
+    'program_id': 2
+  },
+]
+
+
 
 test_client_details = [
     {
@@ -533,43 +562,22 @@ test_bank_data = [
         "bank_name": "Сбербанк",
         "bic": "044525225",
         "account_number": "40702810400000001234",
-        "cor_account": "30101810400000000225"
+        "cor_account": "30101810400000000225",
+        "partner_id": 1
     },
     {
         "bank_name": "ВТБ",
         "bic": "044525187",
         "account_number": "40702810900000005678",
-        "cor_account": "30101810300000000187"
+        "cor_account": "30101810300000000187",
+        "partner_id": 2
     },
     {
         "bank_name": "Альфа-Банк",
         "bic": "044525593",
         "account_number": "40702810100000009876",
-        "cor_account": "30101810200000000593"
-    }
-]
-
-test_partners = [
-    {
-        "title": "ООО 'ТехИнвест'",
-        "law_title": "Общество с ограниченной ответственностью 'ТехИнвест'",
-        "price": 150000,
-        "contract_number": "C-2024-001",
-        "bank_account_id": 1
-    },
-    {
-        "title": "ИП Иванов И.И.",
-        "law_title": "Индивидуальный предприниматель Иванов Иван Иванович",
-        "price": 75000,
-        "contract_number": "C-2024-002",
-        "bank_account_id": 2
-    },
-    {
-        "title": "ЗАО 'СтройКомплект'",
-        "law_title": "Закрытое акционерное общество 'СтройКомплект'",
-        "price": 250000,
-        "contract_number": "C-2024-003",
-        "bank_account_id": 3
+        "cor_account": "30101810200000000593",
+        "partner_id": 3
     }
 ]
 
@@ -699,74 +707,66 @@ test_client_prof_doc = [
 
 test_expenses = [
     {
-        "category_id": 2,
         "amount": 150000,
-        "employee_id": 1
+        "employee_id": 1,
+        "category": 'Трансфер'
     },
     {
-        "category_id": 1,
         "amount": 20000,
-        "employee_id": 1
+        "employee_id": 1,
+        "category": 'Реклама'
     },
     {
-        "category_id": 5,
         "amount": 120000,
+        "category": 'Трансфер',
         "employee_id": 2
     },
     {
-        "category_id": 4,
         "amount": 100000,
+        "category": 'Зарплата',
         "employee_id": 3
     },
     {
-        "category_id": 3,
         "amount": 15000,
+        "category": 'Организация',
         "employee_id": 3
     },
     {
-        "category_id": 2,
         "amount": 110000,
+        "category": 'Питание'
     },
     {
-        "category_id": 1,
         "amount": 8000,
+        "category": 'Зарплата',
         "employee_id": 4
     },
     {
-        "category_id": 5,
         "amount": 105000,
+        "category": 'Проживание',
         "employee_id": 5
     },
     {
-        "category_id": 4,
         "amount": 25000,
+        "category": 'Организация',
         "employee_id": 5
     },
     {
-        "category_id": 3,
         "amount": 95000,
+        "category": 'Реклама',
         "employee_id": 6
     },
     {
-        "category_id": 2,
         "amount": 115000,
+        "category": 'Маржа'
     },
     {
-        "category_id": 1,
         "amount": 10000,
+        "category": 'Мерчь',
         "employee_id": 7
     }
 ]
 
 
-
-test_cost_items = [
-    {'title': 'Зарплата'},
-    {'title': 'Реклама'},
-    {'title': 'Аренда камина'},
-    {'title': 'Мерч'},
-    {'title': 'Трансфер'},
-]
 
 
 test_program_expenses = [
@@ -800,4 +800,403 @@ test_program_rooms = [
     {"program_id": 2, "hotel_id": 5, "room_id": 11},
     {"program_id": 2, "hotel_id": 1, "room_id": 1},
 ]
+
+
+test_partners_data = [
+  {
+    "title": "ООО 'Анта'",
+    "law_title": "Общество с ограниченной ответственностью 'Анта'",
+    "contract_number": "12-342",
+    "category": "Трансфер"
+  },
+  {
+    "title": "ИП 'Вектор'",
+    "law_title": "Индивидуальный предприниматель Иванов Петр Сергеевич",
+    "contract_number": "45-678",
+    "category": "Трансфер"
+  },
+  {
+    "title": "ООО 'Быстрый маршрут'",
+    "law_title": "Общество с ограниченной ответственностью 'Быстрый маршрут'",
+    "contract_number": "98-765",
+    "category": "Трансфер"
+  },
+  {
+    "title": "ООО 'КомфортТранс'",
+    "law_title": "Общество с ограниченной ответственностью 'КомфортТранс'",
+    "contract_number": "33-221",
+    "category": "Трансфер"
+  },
+  {
+    "title": "ИП 'ГлобалКар'",
+    "law_title": "Индивидуальный предприниматель Смирнов Алексей Викторович",
+    "contract_number": "77-889",
+    "category": "Трансфер"
+  }
+]
+
+
+test_partner_service_data = [
+  {
+    "service_name": "Химчистка ковров",
+    "price": 2500,
+    "partner_id": 1,
+    'service_type': 'group'
+  },
+  {
+    "service_name": "Ремонт смартфонов",
+    "price": 5000,
+    "partner_id": 2,
+    'service_type': 'group'
+  },
+  {
+    "service_name": "Доставка продуктов",
+    "price": 300,
+    "partner_id": 3,
+    'service_type': 'group'
+  },
+  {
+    "service_name": "Замена масла в автомобиле",
+    "price": 2000,
+    "partner_id": 4,
+    'service_type': 'group'
+  },
+  {
+    "service_name": "Услуги электрика",
+    "price": 3500,
+    "partner_id": 5,
+    'service_type': 'group'
+  },
+  {
+    "service_name": "Ремонт бытовой техники",
+    "price": 4500,
+    "partner_id": 1,
+    'service_type': 'client'
+  },
+  {
+    "service_name": "Пошив одежды на заказ",
+    "price": 7000,
+    "partner_id": 2,
+    'service_type': 'group'
+  },
+  {
+    "service_name": "Курьерская доставка",
+    "price": 500,
+    "partner_id": 3,
+    'service_type': 'client'
+  },
+  {
+    "service_name": "Услуги грузчиков",
+    "price": 1500,
+    "partner_id": 4,
+    'service_type': 'group'
+  },
+  {
+    "service_name": "Компьютерная помощь",
+    "price": 4000,
+    "partner_id": 5,
+    'service_type': 'client'
+  }
+]
+
+
+test_partner_and_services_data = [
+  {
+    "title": "ООО 'Быстрый маршрут'",
+    "law_title": "Общество с ограниченной ответственностью 'Быстрый маршрут'",
+    "contract_number": "98-765",
+    "category": "Трансфер",
+    "partner_services": [
+      {
+        "service_name": "Аренда автомобиля с водителем",
+        "price": 7000,
+        'service_type': 'client'
+      },
+      {
+        "service_name": "Экскурсионное сопровождение",
+        "price": 3500,
+        'service_type': 'group'
+      }
+    ]
+  },
+  {
+    "title": "ИП 'Чистый Дом'",
+    "law_title": "Индивидуальный предприниматель 'Чистый Дом'",
+    "contract_number": "45-321",
+    "category": "Трансфер",
+    "partner_services": [
+      {
+        "service_name": "Уборка квартиры",
+        "price": 3000,
+        'service_type': 'client'
+      },
+      {
+        "service_name": "Чистка мягкой мебели",
+        "price": 4000,
+        'service_type': 'client'
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Быстрый ремонт'",
+    "law_title": "Общество с ограниченной ответственностью 'Быстрый ремонт'",
+    "contract_number": "12-876",
+    "category": "Экскурсии",
+    "partner_services": [
+      {
+        "service_name": "Замена дисплея",
+        "price": 6000,
+        'service_type': 'group'
+      },
+      {
+        "service_name": "Ремонт ноутбуков",
+        "price": 8000,
+        'service_type': 'group'
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Доставка24'",
+    "law_title": "Общество с ограниченной ответственностью 'Доставка24'",
+    "contract_number": "77-999",
+    "category": "Экскурсии",
+    "partner_services": [
+      {
+        "service_name": "Экспресс-доставка",
+        "price": 500,
+        'service_type': 'client'
+      },
+      {
+        "service_name": "Доставка готовых блюд",
+        "price": 400,
+        'service_type': 'client'
+      }
+    ]
+  },
+  {
+    "title": "ИП 'Мой Авто'",
+    "law_title": "Индивидуальный предприниматель 'Мой Авто'",
+    "contract_number": "34-567",
+    "category": "Экскурсии",
+    "partner_services": [
+      {
+        "service_name": "Шиномонтаж",
+        "price": 2500,
+        'service_type': 'group'
+      },
+      {
+        "service_name": "Диагностика двигателя",
+        "price": 3500,
+        'service_type': 'client'
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Мастер-Сервис'",
+    "law_title": "Общество с ограниченной ответственностью 'Мастер-Сервис'",
+    "contract_number": "89-432",
+    "category": "Остальное",
+    "partner_services": [
+      {
+        "service_name": "Ремонт электропроводки",
+        "price": 4000,
+        'service_type': 'client'
+      },
+      {
+        "service_name": "Установка розеток",
+        "price": 2000,
+        'service_type': 'client'
+      }
+    ]
+  },
+  {
+    "title": "ИП 'Чиним всё'",
+    "law_title": "Индивидуальный предприниматель 'Чиним всё'",
+    "contract_number": "56-123",
+    "category": "Остальное",
+    "partner_services": [
+      {
+        "service_name": "Ремонт стиральных машин",
+        "price": 5000,
+        'service_type': 'group'
+      },
+      {
+        "service_name": "Ремонт холодильников",
+        "price": 6000,
+        'service_type': 'group'
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Мода и Стиль'",
+    "law_title": "Общество с ограниченной ответственностью 'Мода и Стиль'",
+    "contract_number": "23-876",
+    "category": "Остальное",
+    "partner_services": [
+      {
+        "service_name": "Ремонт одежды",
+        "price": 3000,
+        'service_type': 'client'
+      },
+      {
+        "service_name": "Индивидуальный пошив костюмов",
+        "price": 12000,
+        'service_type': 'group'
+      }
+    ]
+  },
+  {
+    "title": "ИП 'Грузовичок'",
+    "law_title": "Индивидуальный предприниматель 'Грузовичок'",
+    "contract_number": "65-543",
+    "category": "Остальное",
+    "partner_services": [
+      {
+        "service_name": "Переезд под ключ",
+        "price": 10000,
+        'service_type': 'group'
+      },
+      {
+        "service_name": "Вывоз строительного мусора",
+        "price": 5000,
+        'service_type': 'client'
+      }
+    ]
+  },
+  {
+    "title": "ООО 'Компьютерная помощь'",
+    "law_title": "Общество с ограниченной ответственностью 'Компьютерная помощь'",
+    "contract_number": "99-111",
+    "category": "Экскурсии",
+    "partner_services": [
+      {
+        "service_name": "Настройка операционной системы",
+        "price": 2500,
+        'service_type': 'client'
+      },
+      {
+        "service_name": "Удаление вирусов",
+        "price": 3000,
+        'service_type': 'client'
+      }
+    ]
+  }
+]
+
+
+test_partner_bank_data = [
+  {
+    "bank_name": "ПАО Сбербанк",
+    "bic": "044525225",
+    "account_number": "40702810100000001234",
+    "cor_account": "30101810400000000225",
+    "partner_id": 1
+  },
+  {
+    "bank_name": "АО Альфа-Банк",
+    "bic": "044525593",
+    "account_number": "40702810300000005678",
+    "cor_account": "30101810200000000593",
+    "partner_id": 2
+  },
+  {
+    "bank_name": "ВТБ (ПАО)",
+    "bic": "044525187",
+    "account_number": "40702810400000009876",
+    "cor_account": "30101810300000000187",
+    "partner_id": 3
+  },
+  {
+    "bank_name": "Газпромбанк (АО)",
+    "bic": "044525823",
+    "account_number": "40702810500000004321",
+    "cor_account": "30101810500000000823",
+    "partner_id": 4
+  },
+  {
+    "bank_name": "ПАО Росбанк",
+    "bic": "044525256",
+    "account_number": "40702810600000006543",
+    "cor_account": "30101810600000000256",
+    "partner_id": 5
+  }
+]
+
+test_static_expense = [
+  {"category": "margin", "amount": 13000, "program_id": 1, 'expense_type': 'client'},
+  {"category": "marketing", "amount": 12000, "program_id": 1, 'expense_type': 'client'},
+  {"category": "organization", "amount": 11000, "program_id": 1, 'expense_type': 'group'},
+  {"category": "merch", "amount": 1000, "program_id": 1, 'expense_type': 'client'}
+]
+
+test_empl_exp = [
+    {
+        "program_id": 3,
+        "employee_id": 1,
+        "expenses": [
+            {
+                "category": "transfer",
+                "amount": "1"
+            },
+            {
+                "category": "food",
+                "amount": "2"
+            },
+            {
+                "category": "salary",
+                "amount": "3"
+            },
+            {
+                "category": "habitation",
+                "amount": "4"
+            }
+        ]
+    },
+    {
+        "program_id": 3,
+        "employee_id": 2,
+        "expenses": [
+            {
+                "category": "transfer",
+                "amount": "4"
+            },
+            {
+                "category": "food",
+                "amount": "5"
+            },
+            {
+                "category": "salary",
+                "amount": "6"
+            },
+            {
+                "category": "habitation",
+                "amount": "7"
+            }
+        ]
+    }
+]
+
+
+
+
+
+test_static_and_employee_expense_data = {
+  "static_expense": test_static_expense,
+  "employee_expense": test_empl_exp
+}
+
+
+test_partner_prog = [
+  {
+    'program_id': 1,
+    'partner_id': 1,
+    'service_id': 1,
+  },
+  {
+    'program_id': 1,
+    'partner_id': 2,
+    'service_id': 2,
+  }
+]
+
 

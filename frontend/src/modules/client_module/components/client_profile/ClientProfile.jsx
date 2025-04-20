@@ -6,18 +6,17 @@ import style from './styles/client_profile.module.css'
 import ClientProfileData from './ClientProfileData';
 import ClientProgram from './ClientProgram';
 
-import { getClientDataWithProgram } from '../../../../api';
+import { getClientProfileAndDoc } from '../../../../api';
 
 
 export default function ClientProfile() {
   const slug = useSelector((state) => state.client.slug)
-  const [clientData, setClientData] = React.useState()
+  const [clientData, setClientData] = React.useState({})
   
   const getClientData = async(clientSlug) => {
-    const response = await getClientDataWithProgram(clientSlug)
+    const response = await getClientProfileAndDoc(clientSlug)
     if (response.status == 200) {
       setClientData(response.data)
-      console.log(response)
     }
   }
 
@@ -31,8 +30,14 @@ export default function ClientProfile() {
     <section className={style.clientProfileSection}>
       <h2>Профиль клиента</h2>
       <div className={style.clientData}>
-        <ClientProfileData clientProfile={clientData?.client}/>
-        <ClientProgram programData={clientData} />
+        <ClientProfileData
+        clientId={clientData.id}
+        clientData={clientData}
+        />
+        <ClientProgram
+        clientId={clientData.id}
+        clientSlug={slug}
+        />
       </div>
     </section>
   );

@@ -2,9 +2,34 @@
   width: 100%;
 }
 
+.clientSectionList {
+  margin-top: 2rem;
+}
+
+.clientSectionHeader {
+  width: 100%;
+}
+
 .profileDataContainer {
   margin-top: 2rem;
   display: flex;
   align-items: start;
   gap: 1rem;
+}
+
+.clientItem {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 24px;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  min-height: 6rem;
+  text-align: center;
+}
+
+.clientDataItem > p {
+  margin-bottom: 1rem;
+
 }
