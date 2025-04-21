@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Depends, status
-from apps.hotels_app.hotels.schemas import HotelWithRooms
+from apps.hotels_app.hotels.schemas import ProgramHotelRoomsResponse
 
 
 
@@ -151,7 +151,7 @@ async def get_program_clients_with_payments(
 @router.get(
   '/program_hotels/{program_id}',
   status_code=status.HTTP_200_OK,
-  response_model=List[HotelWithRooms]
+  response_model=List[ProgramHotelRoomsResponse]
 )
 async def get_program_hotels(
   program_id: int,

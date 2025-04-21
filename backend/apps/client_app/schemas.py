@@ -73,6 +73,7 @@ class UpdateClientRequest(BaseModel):
 
 
 class ClientCurrentProgramBaseResponse(BaseModel):
+  id: int
   client_id: int
   status: ClientProgramStatus
   created_at: datetime

@@ -53,7 +53,10 @@ async def test_append_client_to_program(ac: AsyncClient):
 
 
 
+async def test_append_hotel_room_to_program(ac: AsyncClient):...
 
+
+async def test_append_client_to_program_room(ac: AsyncClient):...
 
 
 
@@ -68,9 +71,4 @@ async def test_append_client_to_program(ac: AsyncClient):
 
 # async def test_get_program_clients(ac: AsyncClient):...
 
-
-# async def test_append_client_to_program(ac: AsyncClient):...
-
 # async def test_delete_client_to_program(ac: AsyncClient):...
-
-# async def test_append_hotel_to_program(ac: AsyncClient):...

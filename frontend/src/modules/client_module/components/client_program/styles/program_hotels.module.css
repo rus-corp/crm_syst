@@ -19,9 +19,56 @@
 
 .programHotelDesc {
   width: 100%;
-  margin-top: 1rem;
   min-height: 8rem;
-  background-color: #fff;
   border-radius: 24px;
   padding: 1rem 1.3rem;
+}
+
+.hotelItem {
+  min-height: 8rem;
+  border-radius: 24px;
+  padding: 1rem 1.3rem;
+  background-color: #fff;
+  margin: .7rem 0;
+}
+
+.hotelContent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: 2rem;
+}
+
+.dataItem {
+  margin: .5rem 0;
+}
+
+.hotelRooms {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.roomsHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+}
+
+.roomsHeader > img {
+  width: 2.4rem;
+  cursor: pointer;
+}
+.roomsList {
+  width: 100%;
+}
+
+.roomItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.roomDataItem {
+  text-align: center;
 }

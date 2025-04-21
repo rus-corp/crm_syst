@@ -67,8 +67,6 @@ export default function ClientProfileData({ clientData, clientId }) {
       ...prevData,
       community: newState
     }))
-    // console.log(profileData)
-    // console.log(updatedData)
     updateProfileData(clientId, newData)
   }
 

@@ -43,6 +43,8 @@ class HotelWithRooms(HotelBaseResponse):
   hotel_rooms_volume: Optional[int] = None
 
 
+class ProgramHotelRoomsResponse(HotelWithRooms):
+  program_room_id: int
 
 
 class AppendHotelAndRoomToProgram(BaseModel):

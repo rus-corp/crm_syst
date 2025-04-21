@@ -8,7 +8,7 @@ from core.models.program_models import Program
 from core.models.association_models import ProgramClients
 from ...client_app.client.dals import ClientDAL
 from ..utils import data_format, program_response_format, calculate_program_expenses, calculate_program_partners
-from apps.hotels_app.hotels.schemas import HotelWithRooms
+from apps.hotels_app.hotels.schemas import HotelWithRooms, ProgramHotelRoomsResponse
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 from apps.base.exceptions import AppBaseExceptions
 from apps.staff.schemas import AppendExpensesToProgram
@@ -100,8 +100,9 @@ class ProgramHandler(ProgramMixin, ProgramBaseHandler):
       for key, value in response_data.items():
         rooms_volume = get_hotel_rooms_volume(value['rooms'])
         response_list.append(
-          HotelWithRooms(
+          ProgramHotelRoomsResponse(
             id=key,
+            program_room_id=value['program_room_id'],
             title=value['title'],
             address=value['address'],
             contacts=value['contacts'],

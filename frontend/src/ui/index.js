@@ -8,6 +8,8 @@ import StaffBlockComponent from "./create_staff/StaffBlockComponent";
 import Icon from "./icons/Icon";
 import { clientIcon, DashBoardIcon, HotelsIcon, ProgramIcon, partnersIcon, companyIcon } from "./icons/icons";
 import MenuItem from "./menu_item/MenuItem";
+import CheckInModal from "./modal/CheckInModal";
+import ModalComponent from "./modal/ModalComponent";
 import NotificationComponent from "./notifications/NotificationComponent";
 import CreateItemInput from "./profile_inputs/CreateItemInput";
 import ProfileInput from "./profile_inputs/ProfileInput";
@@ -30,4 +32,4 @@ export { ProgramIcon, Icon, MenuItem,
   SaveBtnComponent, NotificationComponent, StaffSelect,
   companyIcon, CreateStaff,CreateExpense, ExpenseBlockComponent,
   StaffBlockComponent, SelectDefComponent, EmployeeSelect,
-  ComponentHeaderThreSwitch }
+  ComponentHeaderThreSwitch, ModalComponent, CheckInModal }

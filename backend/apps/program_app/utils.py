@@ -13,8 +13,10 @@ def data_format(data: List[Dict]) -> Dict:
     hotel_id = entry.hotel.id
     hotel_info = entry.hotel
     room_info = entry.room
+    program_room_id = entry.id
     if hotel_id not in hotels:
       hotels[hotel_id] = {
+        'program_room_id': program_room_id,
         "title": hotel_info.title,
         "address": hotel_info.address,
         "desc": hotel_info.desc,

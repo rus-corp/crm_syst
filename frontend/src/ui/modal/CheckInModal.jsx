@@ -2,12 +2,12 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useSelector } from 'react-redux';
 
 
 import CreateItemInput from '../profile_inputs/CreateItemInput';
 import SaveBtnComponent from '../buttons/SaveBtnComponent';
 import NotificationComponent from '../notifications/NotificationComponent';
-import { createCostItem } from '../../api';
 
 
 const style = {
@@ -22,10 +22,17 @@ const style = {
   p: 4,
 };
 
-export default function ModalComponent({ visible, close }) {
+export default function CheckInModal({ visible, close, programRoomId }) {
+  const programStartDate = useSelector((state) => state.program.programStartDate);
+  const programEndDate = useSelector((state) => state.program.programEndDate);
+  const clientProgram = useSelector((state) => state.program.clientProgram);
   const [open, setOpen] = React.useState(visible);
-  const [title, setTitle] = React.useState({
-    title: ''
+  const [data, setData] = React.useState({
+    program_client_id: clientProgram,
+    program_room_id: programRoomId,
+    entry_date: programStartDate,
+    departue_date: programEndDate,
+    comment: ''
   })
   const [alert, setAlert] = React.useState({severity: '', message: ''})
   const handleOpen = () => setOpen(true);
@@ -34,24 +41,15 @@ export default function ModalComponent({ visible, close }) {
     close(false)
   };
   const handleChange = (name, value) => {
-    setTitle({[name]: value})
-  }
-
-  const createNewItem = async (itemData) => {
-    const response = await createCostItem(itemData)
-    if (response.status === 201) {
-      setAlert({severity: 'success', message: 'Статья создана'})
-      setTimeout(() => {
-        setAlert({severity: '', message: ''})
-        setOpen(false)
-      }, 2000);
-    } else if (response.status !== 201) {
-      setAlert({severity: 'error', message: 'Статья не создана'})
-    }
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }))
   }
 
   const handleSubbmit = () => {
-    createNewItem(title)
+    console.log(data)
+    // createNewItem(title)
   }
 
   return (
@@ -64,19 +62,33 @@ export default function ModalComponent({ visible, close }) {
         >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Создать Статью
+            Заселить клиента
             <NotificationComponent
             severity={alert.severity}
             message={alert.message}
             />
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ marginBottom: '2rem'}}>
-            Название Статьи:
             <CreateItemInput
-            fieldName={'title'}
-            fieldType={'text'}
-            value={title.title}
+            fieldTitle={'Дата заезда'}
+            fieldType={'date'}
             changeFunc={handleChange}
+            fieldName={'entry_date'}
+            value={data.entry_date}
+            />
+            <CreateItemInput
+            fieldTitle={'Дата выезда'}
+            fieldType={'date'}
+            changeFunc={handleChange}
+            fieldName={'departue_date'}
+            value={data.departue_date}
+            />
+            <CreateItemInput
+            fieldTitle={'Комментарий'}
+            fieldType={'text'}
+            changeFunc={handleChange}
+            fieldName={'comment'}
+            value={data.comment}
             />
           </Typography>
           <SaveBtnComponent
