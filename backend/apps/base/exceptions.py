@@ -38,3 +38,11 @@ class AppBaseExceptions:
       status_code=status.HTTP_404_NOT_FOUND,
       detail=f'Need Data {item_data} for create'
     )
+  
+  
+  @staticmethod
+  def closed_setlement():
+    raise HTTPException(
+      status_code=status.HTTP_403_FORBIDDEN,
+      detail='Подселение закрыто'
+    )

@@ -2,7 +2,13 @@ from httpx import AsyncClient
 from fastapi.exceptions import HTTPException
 import pytest
 
-from .test_data import test_program_expenses, program_test_data, test_hotel_rooms, test_program_rooms, test_hotels, test_append_client_to_prog
+from .test_data import (
+  program_test_data,
+  test_hotel_rooms,
+  test_program_rooms,
+  test_hotels,
+  test_append_client_to_prog
+)
 from apps.base.base_schemas import BaseMessageResponseModel
 from apps.hotels_app.hotels import schemas as hote_schemas
 
@@ -51,9 +57,6 @@ async def test_append_client_to_program(ac: AsyncClient):
   client_cur_prog = client_cur_prog_req.json()
   assert client_cur_prog['program']['id'] == 2
 
-
-
-async def test_append_hotel_room_to_program(ac: AsyncClient):...
 
 
 async def test_append_client_to_program_room(ac: AsyncClient):...

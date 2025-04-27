@@ -13,3 +13,14 @@ export const createRoomsList = async (roomsDataList) => {
   }
 }
 
+
+export const getProgramRoomClient = async (programRoomId) => {
+  try {
+    const response = await backend.get(
+      `/program_rooms/${programRoomId}`,
+    )
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}

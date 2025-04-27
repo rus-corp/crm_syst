@@ -18,7 +18,7 @@ import {
   appendHotelRoomToProgram
 } from "./hotels_api/hotels";
 
-import { createRoomsList } from "./hotels_api/rooms";
+import { createRoomsList, getProgramRoomClient } from "./hotels_api/rooms";
 
 import {
   appendPartnerRoProgramReq,
@@ -73,5 +73,5 @@ export { getPrograms, getProgramClients, getProgramHotelRooms,
   updateClientMainData, updateClientProfileData, createProgramExpenses,
   getPartnerByIdWithServiceAndBank, appendPartnerRoProgramReq,
   getProgramExpenses, getProgramPartners, createProgramPrices,
-  getProgramPrices, appendClientToProgram
+  getProgramPrices, appendClientToProgram, getProgramRoomClient
  }

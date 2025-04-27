@@ -112,3 +112,12 @@ class CreateClientWithProfileAndDocRequest(CreateClientWithProfileRequest):
 
 class ClientProfileDocCreateResponse(ClientProfileCreateResponse):
   document: DocumentResponse
+
+
+class AppendClientToProgramRoom(BaseModel):
+  program_client_id: int
+  program_room_id: int
+  entry_date: date
+  departue_date: date
+  comment: Optional[str] = None
+  sharing: Optional[bool] = False

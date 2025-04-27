@@ -12,6 +12,7 @@ from apps.hotels_app.hotel_rooms.routers import router as room_routers
 from apps.commands.router import router as command_router
 from apps.staff.main_router import router as staff_router
 from apps.partner_app.router import router as partner_router
+from apps.program_rooms_app.routers import router as program_room_router
 
 
 app = FastAPI(
@@ -67,3 +68,4 @@ app.include_router(room_routers)
 app.include_router(command_router)
 app.include_router(staff_router)
 app.include_router(partner_router)
+app.include_router(program_room_router)

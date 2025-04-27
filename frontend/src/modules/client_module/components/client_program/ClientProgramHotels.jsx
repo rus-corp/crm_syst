@@ -4,7 +4,7 @@ import style from './styles/program_hotels.module.css'
 import { SmallButton, CheckInModal } from '../../../../ui';
 import openList from '@/assets/app_img/open_btn.png'
 
-import { getProgramHotelRooms } from '../../../../api';
+import { getProgramHotelRooms, getProgramRoomClient } from '../../../../api';
 
 
 export default function ClientProgramHotels({ programId }) {
@@ -108,6 +108,7 @@ function HotelItem({
 function RoomItem({ roomVol, roomType, roomPrice, programRoomId }) {
   const [open, setOpen] = React.useState(false)
   const handleClick = () => setOpen(true)
+  const handleGetRoomClient = async () => {}
   return (
     <div className={style.roomItem}>
       <div className={style.roomDataItem}>

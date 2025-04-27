@@ -1,10 +1,11 @@
+from typing import Optional
 from sqlalchemy.orm import selectinload, joinedload, contains_eager
-from sqlalchemy import select, update, delete, and_
-
+from sqlalchemy import select, update, delete, and_, or_
+from datetime import date
 
 from ...base.base_dal import BaseDAL
 
-from core.models.association_models import ProgramClients
+from core.models.association_models import ProgramClients, ProgramClientRoom
 from core.models.client_models import Client
 from core.models.program_models import Program
 from core.models.utils import ProgramStatus
@@ -63,30 +64,37 @@ class ClientDAL(BaseDAL):
   
   
   async def get_client_current_program_with_profile_and_doc(self, client_slug: str):
-    # query = (
-    #     select(ProgramClients)
-    #     .options(
-    #         joinedload(ProgramClients.client).joinedload(Client.profile),
-    #         joinedload(ProgramClients.client).joinedload(Client.document),
-    #         joinedload(ProgramClients.program)
-    #     )
-    #     .join(Client, ProgramClients.client_id == Client.id)
-    #     .where(Client.slug == client_slug)
-    #     .where(ProgramClients.program.has(Program.status == ProgramStatus.AC))
-    # )
-    query = select(Client).where(Client.slug == client_slug).options(selectinload(Client.client_program_detail).selectinload(ProgramClients.program), joinedload(Client.profile), joinedload(Client.document))
+    query = (select(Client)
+             .where(Client.slug == client_slug)
+             .options(
+               selectinload(Client.client_program_detail)
+               .selectinload(ProgramClients.program),
+               joinedload(Client.profile),
+               joinedload(Client.document)
+             ))
     result = await self.db_session.execute(query)
     return result.scalar()
   
   
   async def get_client_profile_and_doc(self, client_slug: str):
-    query = select(Client).where(Client.slug == client_slug).options(joinedload(Client.profile), joinedload(Client.document))
+    query = (select(Client)
+             .where(Client.slug == client_slug)
+             .options(
+               joinedload(Client.profile),
+               joinedload(Client.document)
+             ))
     result = await self.db_session.scalar(query)
     return result
   
   
   async def get_get_client_profile_and_doc_with_family(self, client_slug: str):
-    query = select(Client).where(Client.slug == client_slug).options(joinedload(Client.profile), joinedload(Client.document), joinedload(Client.client_family))
+    query = (select(Client)
+             .where(Client.slug == client_slug)
+             .options(
+               joinedload(Client.profile),
+               joinedload(Client.document),
+               joinedload(Client.client_family)
+             ))
     result = await self.db_session.scalar(query)
     return result
   
@@ -104,4 +112,46 @@ class ClientDAL(BaseDAL):
     return result
   
   
-  async def append_client_to_room(self):pass
+  async def append_client_to_room(
+    self,
+    program_client_id: int,
+    program_room_id: int,
+    entry_date: date,
+    departue_date: date,
+    comment: Optional[str] = None
+  ):
+    new_client_room = ProgramClientRoom(
+      program_client_id=program_client_id,
+      program_room_id=program_room_id,
+      entry_date=entry_date,
+      departue_date=departue_date,
+      comment=comment
+    )
+    self.db_session.add(new_client_room)
+    await self.db_session.flush()
+    return new_client_room
+  
+  
+  async def get_program_room_all_clients(self, program_room_id: int, entry_date: date, departue_date: date):
+    query = select(ProgramClientRoom).where(ProgramClientRoom.program_room_id == program_room_id)
+#     stmt = select(ProgramClientRoom).where(
+#     ProgramClientRoom.program_room_id == program_room_id,
+#     or_(
+#         and_(
+#             ProgramClientRoom.entry_date <= entry_date,
+#             ProgramClientRoom.departue_date > entry_date
+#         ),
+#         and_(
+#             ProgramClientRoom.entry_date < entry_date,
+#             ProgramClientRoom.departue_date >= departue_date
+#         ),
+#         and_(
+#             ProgramClientRoom.entry_date >= entry_date,
+#             ProgramClientRoom.departue_date <= departue_date
+#         )
+#     )
+# )
+
+    """
+    првоерить что дата вьезда клиента меньше 
+    """

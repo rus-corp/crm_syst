@@ -168,3 +168,22 @@ async def get_client_with_profile_and_doc(
     client_slug=client_slug
   )
   return client_data
+
+
+@router.post(
+  '/append_client_to_prog_room',
+  status_code=status.HTTP_201_CREATED,
+  # response_model=
+)
+async def append_client_to_program_room(
+  body: schemas.AppendClientToProgramRoom,
+  session: AsyncSession = Depends(get_db)
+):
+  client_handler = ClientHandler(session)
+  appended_client = client_handler._append_client_to_program_room(body)
+  return appended_client
+
+
+# program_client_id
+# program_room_id 
+# dates & comment

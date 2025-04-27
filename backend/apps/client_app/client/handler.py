@@ -1,6 +1,8 @@
 from datetime import datetime
 from fastapi.responses import JSONResponse
 
+from apps.program_rooms_app.dals import ProgramRoomDAL
+
 from ...base.base_handler import BaseHandler
 from .dals import ClientDAL
 from .. import schemas
@@ -8,6 +10,7 @@ from ...utils.slug import create_slug
 from ..mixin import ClientMixin
 from apps.base.exceptions import AppBaseExceptions
 from core.models.client_models import ClientProfile, ClientDocument
+from .utils import check_sharing, check_free_room_volume
 
 
 
@@ -150,3 +153,30 @@ class ClientHandler(ClientMixin, BaseHandler):
         profile=client_profile,
         document=client_doc
       )
+  
+  
+  async def _append_client_to_program_room(self, body: schemas.AppendClientToProgramRoom):
+    async with self.session.begin():
+      body_data = body.model_dump(exclude_none=True)
+      program_room_dal = ProgramRoomDAL(self.session)
+      program_room_clients = await program_room_dal.get_program_room_client(body_data['program_room_id'])
+      sharing = check_sharing(program_room_clients)
+      if not sharing:
+        raise AppBaseExceptions.closed_setlement()
+      free_room_vol = check_free_room_volume(program_room_clients)
+      if free_room_vol == 0:
+        raise AppBaseExceptions.closed_setlement()
+      append_client_to_room = await program_room_dal
+      
+      
+      
+      # room_volume = program_room.room.room_volume
+      # check_program_client_room = await self.client_dal.
+      """
+      1. проверить наличие места в комнате
+      2. заселить клиента
+      3. посчитать и записать стоимость поездки клиента в ProgramClients
+      """
+      # check_value_program_room = 
+      # client_program_room = await self.client_dal.append_client_to_room(**body_data)
+      

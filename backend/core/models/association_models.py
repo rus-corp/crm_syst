@@ -37,7 +37,7 @@ class ProgramClients(Base):
   program: Mapped["Program"] = relationship(back_populates='program_clients_detail')
   client: Mapped["Client"] = relationship(back_populates='client_program_detail')
   
-  program_client_room: Mapped['ProgramClientRoom'] = relationship(back_populates='program_client')
+  program_client_room: Mapped['ProgramClientRoom'] = relationship(back_populates='program_clients')
   
   client_program_payments: Mapped[list[ClientProgramPayment]] = relationship(back_populates='client_program')
 
@@ -55,6 +55,8 @@ class ProgramRooms(Base):
   program: Mapped['Program'] = relationship(back_populates='program_hotel_room')
   hotel: Mapped[Hotels] = relationship(back_populates='program_hotel_room')
   room: Mapped[HotelRooms] = relationship(back_populates='program_hotel_room')
+  
+  program_client_room: Mapped['ProgramClientRoom'] = relationship(back_populates='program_room')
 
 
 
@@ -68,8 +70,10 @@ class ProgramClientRoom(Base):
   entry_date:Mapped[date]
   departue_date: Mapped[date]
   comment: Mapped[str] = mapped_column(nullable=True)
+  no_sharing: Mapped[bool] = mapped_column(default=False)
   
-  program_client: Mapped[ProgramClients] = relationship(back_populates='program_client_room')
+  program_clients: Mapped[ProgramClients] = relationship(back_populates='program_client_room')
+  program_room: Mapped[ProgramRooms] = relationship(back_populates='program_client_room')
 
 
 

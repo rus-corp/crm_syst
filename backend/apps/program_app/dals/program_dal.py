@@ -192,3 +192,9 @@ class ProgramDAL(BaseDAL):
              ))
     result = await self.db_session.execute(query)
     return result.scalar()
+  
+  
+  async def get_program_hotel_rooms(self, program_room_id: int):
+    query = select(ProgramRooms).where(ProgramRooms.id == program_room_id).options(joinedload(ProgramRooms.room))
+    result = await self.db_session.execute(query)
+    return result.scalar()
