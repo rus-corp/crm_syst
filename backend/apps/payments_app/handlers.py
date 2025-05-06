@@ -47,3 +47,12 @@ class PaymentHandler(BaseHandler):
   async def _get_client_program_payments(self, program_client_id: int):
     client_program_payments = await self.payment_dal.get_client_program_payments(program_client_id)
     return client_program_payments
+  
+  
+  async def _update_client_program_price(self, program_client_id: int, amount: int):
+    values = {'price': amount}
+    update_price = await self.payment_dal.update_program_clients_table(
+      program_clients_id=program_client_id,
+      values=values
+    )
+    return update_price

@@ -7,7 +7,7 @@ const clientSlice = createSlice({
   },
   reducers: {
     setClientSlug(state, action) {
-      state.slug = action.payload
+      state.clientSlug = action.payload
     }
   }
 })

@@ -1,16 +1,16 @@
 from typing import List
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Depends, status
+
+
+from .. import schemas
 from apps.hotels_app.hotels.schemas import ProgramHotelRoomsResponse
-
-
+from apps.base.base_schemas import BaseMessageResponseModel
+from apps.staff.schemas import AppendExpensesToProgram
+from ..handlers.program_handler import ProgramHandler
+from apps.base.association_schemas import ProgramClientsPayments
 
 from core.database import get_db
-from .. import schemas
-from ..handlers.program_handler import ProgramHandler
-from apps.base.base_schemas import BaseMessageResponseModel
-from apps.base.association_schemas import ProgramClientsPayments
-from apps.staff.schemas import AppendExpensesToProgram
 
 
 

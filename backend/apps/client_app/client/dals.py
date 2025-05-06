@@ -47,6 +47,11 @@ class ClientDAL(BaseDAL):
     return result
   
   
+  async def get_client_by_id_with_profile(self, client_id: int):
+    query = select(Client).where(Client.id == client_id).options(joinedload(Client.profile))
+    return await self.db_session.scalar(query)
+  
+  
   async def get_client_by_slug(self, client_slug: str):
     query = select(Client).where(Client.slug == client_slug).options(joinedload(Client.profile), joinedload(Client.document), joinedload(Client.client_family))
     result = await self.db_session.scalar(query)
@@ -110,26 +115,6 @@ class ClientDAL(BaseDAL):
       values=values
     )
     return result
-  
-  
-  async def append_client_to_room(
-    self,
-    program_client_id: int,
-    program_room_id: int,
-    entry_date: date,
-    departue_date: date,
-    comment: Optional[str] = None
-  ):
-    new_client_room = ProgramClientRoom(
-      program_client_id=program_client_id,
-      program_room_id=program_room_id,
-      entry_date=entry_date,
-      departue_date=departue_date,
-      comment=comment
-    )
-    self.db_session.add(new_client_room)
-    await self.db_session.flush()
-    return new_client_room
   
   
   async def get_program_room_all_clients(self, program_room_id: int, entry_date: date, departue_date: date):

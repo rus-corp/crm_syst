@@ -33,7 +33,7 @@ class ProgramRoomDAL(BaseDAL):
     program_room_id: int,
     entry_date: date,
     departue_date: date,
-    sharing: bool,
+    no_sharing: bool,
     comment: Optional[str] = None
   ):
     new_client_room = ProgramClientRoom(
@@ -41,11 +41,11 @@ class ProgramRoomDAL(BaseDAL):
       program_room_id=program_room_id,
       entry_date=entry_date,
       departue_date=departue_date,
-      sharing=sharing,
+      no_sharing=no_sharing,
       comment=comment,
     )
     self.db_session.add(new_client_room)
-    await self.db_session.commit()
+    await self.db_session.flush()
     return new_client_room
   
   

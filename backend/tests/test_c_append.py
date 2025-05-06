@@ -7,7 +7,9 @@ from .test_data import (
   test_hotel_rooms,
   test_program_rooms,
   test_hotels,
-  test_append_client_to_prog
+  test_append_client_to_prog,
+  test_append_client_to_prog_room,
+  test_append_client_to_prog_room_bad
 )
 from apps.base.base_schemas import BaseMessageResponseModel
 from apps.hotels_app.hotels import schemas as hote_schemas
@@ -43,6 +45,7 @@ async def test_append_client_to_program(ac: AsyncClient):
   for item in test_append_client_to_prog[:-1]:
     req = await ac.post('/program/base/append_client/', json=item)
     assert req.status_code == 201
+  # проверка на изменение программы, а не создания доп записи клиент - программа
   bad_req = await ac.post('/program/base/append_client/', json=test_append_client_to_prog[-1])
   assert bad_req.status_code == 201
   client_list_req = await ac.get('/clients/base/')
@@ -55,14 +58,20 @@ async def test_append_client_to_program(ac: AsyncClient):
   client_cur_prog_req = await ac.get(f'/clients/base/program/{current_client['slug']}')
   assert client_cur_prog_req.status_code == 200
   client_cur_prog = client_cur_prog_req.json()
-  assert client_cur_prog['program']['id'] == 2
+  assert client_cur_prog['program']['id'] == 3
 
 
 
-async def test_append_client_to_program_room(ac: AsyncClient):...
+async def test_append_client_to_program_room(ac: AsyncClient):
+  for item in test_append_client_to_prog_room:
+    req = await ac.post('/clients/base/append_client_to_prog_room', json=item)
+    assert req.status_code == 201
+  for item in test_append_client_to_prog_room_bad:
+    req = await ac.post('/clients/base/append_client_to_prog_room', json=item)
+    assert req.status_code == 403
 
 
-
+# async def test_bad_append_cleint_to_room(ac: AsyncClient):...
 
 
 

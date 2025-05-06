@@ -10,7 +10,7 @@ import { getClientProfileAndDoc } from '../../../../api';
 
 
 export default function ClientProfile() {
-  const slug = useSelector((state) => state.client.slug)
+  const slug = useSelector((state) => state.client.clientSlug)
   const [clientData, setClientData] = React.useState({})
   
   const getClientData = async(clientSlug) => {

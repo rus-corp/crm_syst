@@ -1,7 +1,7 @@
 from typing import List, Optional
 from pydantic import BaseModel, ConfigDict
 
-from ..hotel_rooms.schemas import RoomForHotelResponse, RoomForAppendToProgramResponse
+from ..hotel_rooms.schemas import RoomForHotelResponse, RoomForAppendToProgramResponse, HotelRoomClientResponse
 from apps.program_app.schemas import ProgramResponseForAppendHotelAndRoom
 
 
@@ -44,7 +44,8 @@ class HotelWithRooms(HotelBaseResponse):
 
 
 class ProgramHotelRoomsResponse(HotelWithRooms):
-  program_room_id: int
+  rooms: Optional[List[HotelRoomClientResponse]] = []
+  hotel_rooms_volume: Optional[int] = None
 
 
 class AppendHotelAndRoomToProgram(BaseModel):

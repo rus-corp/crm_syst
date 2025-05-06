@@ -120,4 +120,4 @@ class AppendClientToProgramRoom(BaseModel):
   entry_date: date
   departue_date: date
   comment: Optional[str] = None
-  sharing: Optional[bool] = False
+  no_sharing: Optional[bool] = False

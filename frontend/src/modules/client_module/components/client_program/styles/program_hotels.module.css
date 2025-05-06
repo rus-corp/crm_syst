@@ -64,11 +64,18 @@
 }
 
 .roomItem {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
   justify-content: space-around;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #E4E6E8;
 }
 
 .roomDataItem {
   text-align: center;
+}
+
+.roomClient {
+  margin-bottom: 1rem;
 }

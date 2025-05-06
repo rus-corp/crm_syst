@@ -1,5 +1,6 @@
 from datetime import datetime
 from fastapi.responses import JSONResponse
+from fastapi import status
 
 from apps.program_rooms_app.dals import ProgramRoomDAL
 
@@ -11,7 +12,7 @@ from ..mixin import ClientMixin
 from apps.base.exceptions import AppBaseExceptions
 from core.models.client_models import ClientProfile, ClientDocument
 from .utils import check_sharing, check_free_room_volume
-
+from ...payments_app.handlers import PaymentHandler
 
 
 
@@ -161,12 +162,21 @@ class ClientHandler(ClientMixin, BaseHandler):
       program_room_dal = ProgramRoomDAL(self.session)
       program_room_clients = await program_room_dal.get_program_room_client(body_data['program_room_id'])
       sharing = check_sharing(program_room_clients)
-      if not sharing:
+      if sharing:
         raise AppBaseExceptions.closed_setlement()
       free_room_vol = check_free_room_volume(program_room_clients)
       if free_room_vol == 0:
         raise AppBaseExceptions.closed_setlement()
-      append_client_to_room = await program_room_dal
+      try:
+        append_client_to_room = await program_room_dal.append_client_to_program_room(**body_data)
+        client_program_price = await self.save_program_price(body_data['program_client_id'])
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content='Клиент заселен, цена поездки сохранена')
+      except Exception as e:
+        await self.session.rollback()
+        raise AppBaseExceptions.item_create_error(
+          item_data='Client Program Room',
+          exception_message=f'Не удалось заселить клиента {e}'
+        )
       
       
       

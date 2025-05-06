@@ -8,7 +8,7 @@ from core.models.program_models import Program
 from core.models.association_models import ProgramClients
 from ...client_app.client.dals import ClientDAL
 from ..utils import data_format, program_response_format, calculate_program_expenses, calculate_program_partners
-from apps.hotels_app.hotels.schemas import HotelWithRooms, ProgramHotelRoomsResponse
+from apps.hotels_app.hotels.schemas import ProgramHotelRoomsResponse
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 from apps.base.exceptions import AppBaseExceptions
 from apps.staff.schemas import AppendExpensesToProgram
@@ -102,7 +102,6 @@ class ProgramHandler(ProgramMixin, ProgramBaseHandler):
         response_list.append(
           ProgramHotelRoomsResponse(
             id=key,
-            program_room_id=value['program_room_id'],
             title=value['title'],
             address=value['address'],
             contacts=value['contacts'],
@@ -158,7 +157,7 @@ class ProgramHandler(ProgramMixin, ProgramBaseHandler):
       program_prices = {
         'base_price': program_total_expenses + program_total_partners,
         'loayal_price': (program_total_expenses + program_total_partners) - 2000,
-        'comunity_price': (program_total_expenses + program_total_partners) - 5000,
+        'comunity_price': (program_total_expenses + program_total_partners) - 2000 - 5000,
         'program_id': program.id
       }
       create_program_prices = await program_prices_dal.create_program_price(program_prices)

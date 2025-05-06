@@ -1,5 +1,5 @@
 from typing import List, Dict
-from apps.hotels_app.hotel_rooms.schemas import RoomForHotelResponse
+from apps.hotels_app.hotel_rooms.schemas import HotelRoomClientResponse
 from apps.hotels_app.hotels.utils import get_hotel_rooms_volume
 from .schemas import ProgramBaseResponse
 from core.models.program_models import Program
@@ -16,7 +16,6 @@ def data_format(data: List[Dict]) -> Dict:
     program_room_id = entry.id
     if hotel_id not in hotels:
       hotels[hotel_id] = {
-        'program_room_id': program_room_id,
         "title": hotel_info.title,
         "address": hotel_info.address,
         "desc": hotel_info.desc,
@@ -26,11 +25,12 @@ def data_format(data: List[Dict]) -> Dict:
         "rooms": []
       }
     hotels[hotel_id]['rooms'].append(
-      RoomForHotelResponse(
+      HotelRoomClientResponse(
         id=room_info.id,
         room_price=room_info.room_price,
         room_type=room_info.room_type,
-        room_volume=room_info.room_volume
+        room_volume=room_info.room_volume,
+        program_room_id=program_room_id
       )
     )
   

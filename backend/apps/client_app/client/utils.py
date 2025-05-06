@@ -2,7 +2,7 @@ from typing import List
 from core.models.association_models import ProgramClientRoom
 
 
-def check_sharing(program_room_clients: List[ProgramClientRoom]):
+def check_sharing(program_room_clients: List[ProgramClientRoom]) -> bool:
   if not program_room_clients:
     return False
   for program_room in program_room_clients:

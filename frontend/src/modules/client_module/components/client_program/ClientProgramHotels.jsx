@@ -2,6 +2,9 @@ import React from 'react';
 
 import style from './styles/program_hotels.module.css'
 import { SmallButton, CheckInModal } from '../../../../ui';
+import { useSelector } from 'react-redux';
+
+
 import openList from '@/assets/app_img/open_btn.png'
 
 import { getProgramHotelRooms, getProgramRoomClient } from '../../../../api';
@@ -35,7 +38,6 @@ export default function ClientProgramHotels({ programId }) {
           hotelAddress={hotelItem.address}
           hotelRooms={hotelItem.rooms}
           hotelRoomVol={hotelItem.hotel_rooms_volume}
-          programRoomId={hotelItem.program_room_id}
           />
         ))}
       </div>
@@ -51,11 +53,9 @@ function HotelItem({
   hotelContacts,
   hotelAddress,
   hotelRooms,
-  hotelRoomVol,
-  programRoomId
+  hotelRoomVol
 }) {
   const [activeList, setActiveList] = React.useState(false)
-
   const handleClickImg = () => setActiveList(!activeList)
   return (
     <div className={style.hotelItem}>
@@ -93,7 +93,7 @@ function HotelItem({
               roomVol={roomItem.room_volume}
               roomType={roomItem.room_type}
               roomPrice={roomItem.room_price}
-              programRoomId={programRoomId}
+              programRoomId={roomItem.program_room_id}
               />
             ))
           )}
@@ -106,9 +106,36 @@ function HotelItem({
 
 
 function RoomItem({ roomVol, roomType, roomPrice, programRoomId }) {
+  const slug = useSelector((state) => state.client.clientSlug)
+  const [roomClient, setRoomClient] = React.useState([])
+  const [clientInRoom, setClientInRoom] = React.useState(false)
+  const handleGetRoomClient = async (programRoomData) => {
+    const response = await getProgramRoomClient(programRoomData)
+    if (response.status === 200) {
+      console.log(response.data)
+      const responseData = response.data
+      const roomClientsLastName = responseData.map((item) => `${item.program_clients.client.last_name} ${item.program_clients.client.name}`)
+      setRoomClient(roomClientsLastName)
+      const clientHasInRoom = responseData.find((item) => item.program_clients.client.slug === slug)
+      setClientInRoom(!!clientHasInRoom)
+      console.log(!!clientHasInRoom)
+      // console.log(roomClientsLastName)
+    }
+  }
   const [open, setOpen] = React.useState(false)
   const handleClick = () => setOpen(true)
-  const handleGetRoomClient = async () => {}
+
+  const btnLabel = () => {
+    if (clientInRoom) {
+      return 'Выселить'
+    }else {
+      return 'Заселить'
+    }
+  }
+
+  React.useEffect(() => {
+    handleGetRoomClient(programRoomId)
+  }, [programRoomId])
   return (
     <div className={style.roomItem}>
       <div className={style.roomDataItem}>
@@ -123,14 +150,20 @@ function RoomItem({ roomVol, roomType, roomPrice, programRoomId }) {
         <p>Цена номера</p>
         <h6>{roomPrice}</h6>
       </div>
-      <SmallButton
-      btnData={'Заселить'}
-      handleClick={handleClick}
-      />
+      <div className={style.roomClient}>
+        {roomClient?.map((client, indx) => (
+          <p key={indx}>{client}</p>
+        ))}
+          <SmallButton
+            btnData={btnLabel()}
+            handleClick={handleClick}
+            />
+      </div>
       <CheckInModal
       visible={open}
       close={() => setOpen(false)}
       programRoomId={programRoomId}
+      dataFunc={clientInRoom}
       />
     </div>
   );

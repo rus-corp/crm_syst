@@ -2,8 +2,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Checkbox from '@mui/material/Checkbox';
 import { useSelector } from 'react-redux';
 
+import { appendClientToProgramRoom } from '../../api';
 
 import CreateItemInput from '../profile_inputs/CreateItemInput';
 import SaveBtnComponent from '../buttons/SaveBtnComponent';
@@ -22,7 +24,7 @@ const style = {
   p: 4,
 };
 
-export default function CheckInModal({ visible, close, programRoomId }) {
+export default function CheckInModal({ visible, close, programRoomId, dataFunc }) {
   const programStartDate = useSelector((state) => state.program.programStartDate);
   const programEndDate = useSelector((state) => state.program.programEndDate);
   const clientProgram = useSelector((state) => state.program.clientProgram);
@@ -32,10 +34,10 @@ export default function CheckInModal({ visible, close, programRoomId }) {
     program_room_id: programRoomId,
     entry_date: programStartDate,
     departue_date: programEndDate,
-    comment: ''
+    comment: null,
+    no_sharing: false
   })
   const [alert, setAlert] = React.useState({severity: '', message: ''})
-  const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false)
     close(false)
@@ -47,9 +49,28 @@ export default function CheckInModal({ visible, close, programRoomId }) {
     }))
   }
 
+  const handlePopulateClient = async (clientData) => {
+    const response = await appendClientToProgramRoom(clientData)
+    if (response.status === 201) {
+      setAlert({severity: 'success', message: 'Клиент Заселен'})
+      setTimeout(() => {
+        setAlert({severity: '', message: ''})
+        handleClose()
+      }, 2000);
+    }
+  }
+
+  const handleChangeSharing = (event) => {
+    const newState = event.target.checked;
+    setData((prevData) => ({
+      ...prevData,
+      no_sharing: newState
+    }))
+  }
+  // dataFunc if false -> заселяем клиента if true -> выселяем
   const handleSubbmit = () => {
     console.log(data)
-    // createNewItem(title)
+    handlePopulateClient(data)
   }
 
   return (
@@ -90,6 +111,8 @@ export default function CheckInModal({ visible, close, programRoomId }) {
             fieldName={'comment'}
             value={data.comment}
             />
+            <span>Запретить подселение</span>
+            <Checkbox onChange={handleChangeSharing}/>
           </Typography>
           <SaveBtnComponent
           clicked={handleSubbmit}/>

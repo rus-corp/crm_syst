@@ -43,3 +43,7 @@ class RoomForAppendToProgramResponse(BaseModel):
   room_type: str
   room_volume: int
   room_price: int
+
+
+class HotelRoomClientResponse(RoomForHotelResponse):
+  program_room_id: int

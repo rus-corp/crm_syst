@@ -1,3 +1,4 @@
+import { appendClientToProgramRoom } from "./client_program_room/clientProgramRoom";
 import { 
   createClient,
   getClientBySlug,
@@ -73,5 +74,6 @@ export { getPrograms, getProgramClients, getProgramHotelRooms,
   updateClientMainData, updateClientProfileData, createProgramExpenses,
   getPartnerByIdWithServiceAndBank, appendPartnerRoProgramReq,
   getProgramExpenses, getProgramPartners, createProgramPrices,
-  getProgramPrices, appendClientToProgram, getProgramRoomClient
+  getProgramPrices, appendClientToProgram, getProgramRoomClient,
+  appendClientToProgramRoom
  }

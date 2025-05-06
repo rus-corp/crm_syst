@@ -193,6 +193,7 @@ test_clients_data = [
     }
 ]
 
+#14
 test_append_client_to_prog = [
   {
     'client_id': 1,
@@ -215,8 +216,40 @@ test_append_client_to_prog = [
     'program_id': 1
   },
   {
-    'client_id': 1,
+    'client_id': 6,
+    'program_id': 1
+  },
+  {
+    'client_id': 7,
+    'program_id': 1
+  },
+  {
+    'client_id': 8,
+    'program_id': 1
+  },
+  {
+    'client_id': 9,
     'program_id': 2
+  },
+  {
+    'client_id': 10,
+    'program_id': 2
+  },
+  {
+    'client_id': 11,
+    'program_id': 2
+  },
+  {
+    'client_id': 12,
+    'program_id': 2
+  },
+  {
+    'client_id': 13,
+    'program_id': 3
+  },
+  {
+    'client_id': 1,
+    'program_id': 3
   },
 ]
 
@@ -785,7 +818,7 @@ test_program_expenses = [
     {"program_id": 2, "expenses_id": 1},
 ]
 
-
+#12
 test_program_rooms = [
     {"program_id": 1, "hotel_id": 1, "room_id": 1},
     {"program_id": 1, "hotel_id": 1, "room_id": 2},
@@ -800,6 +833,103 @@ test_program_rooms = [
     {"program_id": 2, "hotel_id": 5, "room_id": 11},
     {"program_id": 2, "hotel_id": 1, "room_id": 1},
 ]
+
+
+test_append_client_to_prog_room = [
+  {
+    "program_client_id": 1,
+    "program_room_id": 1,
+    "entry_date": "2025-06-01",
+    "departue_date": "2025-06-10",
+    "comment": "First booking",
+    "no_sharing": False
+  },
+  {
+    "program_client_id": 2,
+    "program_room_id": 2,
+    "entry_date": "2025-06-05",
+    "departue_date": "2025-06-15",
+    "comment": "Wants sea view",
+    "no_sharing": False
+  },
+  {
+    "program_client_id": 3,
+    "program_room_id": 3,
+    "entry_date": "2025-07-01",
+    "departue_date": "2025-07-08",
+    "comment": "Early check-in requested",
+    "no_sharing": False
+  },
+  {
+    "program_client_id": 4,
+    "program_room_id": 4,
+    "entry_date": "2025-07-10",
+    "departue_date": "2025-07-18",
+    "comment": "Vegetarian meals",
+    "no_sharing": True
+  },
+  {
+    "program_client_id": 5,
+    "program_room_id": 6,
+    "entry_date": "2025-08-01",
+    "departue_date": "2025-08-14",
+    "comment": "No special requests",
+    "no_sharing": False
+  },
+  {
+    "program_client_id": 6,
+    "program_room_id": 6,
+    "entry_date": "2025-08-15",
+    "departue_date": "2025-08-20",
+    "comment": "Late departure",
+    "no_sharing": False
+  },
+  {
+    "program_client_id": 7,
+    "program_room_id": 7,
+    "entry_date": "2025-09-01",
+    "departue_date": "2025-09-10",
+    "comment": "Allergic to peanuts",
+    "no_sharing": False
+  }
+]
+
+test_append_client_to_prog_room_bad = [
+  {
+    "program_client_id": 8,
+    "program_room_id": 6,
+    "entry_date": "2025-06-01",
+    "departue_date": "2025-06-10",
+    "comment": "First booking",
+    "no_sharing": False
+  },
+  {
+    "program_client_id": 9,
+    "program_room_id": 4,
+    "entry_date": "2025-06-05",
+    "departue_date": "2025-06-15",
+    "comment": "Wants sea view",
+    "no_sharing": True
+  }
+  # {
+  #   "program_client_id": 10,
+  #   "program_room_id": 1,
+  #   "entry_date": "2025-07-01",
+  #   "departue_date": "2025-07-08",
+  #   "comment": "Early check-in requested",
+  #   "sharing": False
+  # },
+  # {
+  #   "program_client_id": 11,
+  #   "program_room_id": 2,
+  #   "entry_date": "2025-07-10",
+  #   "departue_date": "2025-07-18",
+  #   "comment": "Vegetarian meals",
+  #   "sharing": False
+  # }
+]
+
+
 
 
 test_partners_data = [
