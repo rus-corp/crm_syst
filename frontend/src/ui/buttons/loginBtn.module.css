@@ -1,0 +1,5 @@
+.btn {
+  width: 14rem;
+  padding: 1.1rem 1rem;
+  transition: background-color .3s ease-in-out, color .3s ease-in-out;
+}

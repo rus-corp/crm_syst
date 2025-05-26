@@ -3,7 +3,7 @@ import jwt
 from datetime import datetime, timezone, timedelta
 from fastapi.security import OAuth2PasswordBearer, OAuth2AuthorizationCodeBearer, OAuth2PasswordRequestForm
 from fastapi import Depends, HTTPException
-from .helpers import AuthJWT
+from .utils import AuthJWT
 from apps.users.dals import UserDAL
 
 from .hasher import validate_password
@@ -66,9 +66,9 @@ async def get_user_from_token(
 ):
   try:
     data = decode_jwt(token)
-    user_id = data.get('sub')
+    user_email = data.get('sub')
     user_dal = UserDAL(session)
-    user = await user_dal.get_user_by_id(user_id)
+    user = await user_dal.get_user_by_email(user_email)
     if user is None:
       raise HTTPException(
           status_code=401,
@@ -85,7 +85,8 @@ async def get_user_from_token(
 
 def create_access_token(user: User):
   to_encode = {
-    'sub': user.id.hex,
+    'sub': user.email,
+    'role': user.role,
     'exp': expire_func(ACCESS_TOKEN_TYPE)
   }
   return encode_jwt(
@@ -95,7 +96,7 @@ def create_access_token(user: User):
 
 def create_refresh_token(user: User):
   to_encode = {
-    'sub': user.id.hex,
+    'sub': user.email,
     'exp': expire_func(REFRESH_TOKEN_TYPE)
   }
   return encode_jwt(
@@ -139,9 +140,9 @@ async def get_current_user_refresh(
 ):
   try:
     data = decode_jwt(token)
-    user_id = data.get('sub')
+    user_email = data.get('sub')
     user_dal = UserDAL(session)
-    user_data = await user_dal.get_user_by_id(user_id)
+    user_data = await user_dal.get_user_by_email(user_email)
     return user_data
   except:
     raise HTTPException(

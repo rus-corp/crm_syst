@@ -4,7 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { CrmPage, HotelPage, ClientPage,
   CreateProgramPage, CompanyPage,
   CreateItemPage, ProgramPage,
-  BlockItemPage, PartnerPage } from "../pages";
+  BlockItemPage, PartnerPage, LoginPage } from "../pages";
 
   import { HotelMainComponent, CreateHotel,
   CreateRoom, CreatePartner, 
@@ -115,6 +115,10 @@ export const router = createBrowserRouter([
   {
     path: '/create_item/:type',
     element: <CreateItemPage />
+  },
+  {
+    path: '/login',
+    element: <LoginPage />
   }
 ], {
   future: {

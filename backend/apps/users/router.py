@@ -93,7 +93,7 @@ async def delete_user(
   response_model=schemas.UserBaseResponse
 )
 async def create_super_user(
-  body: schemas.UserBase,
+  body: schemas.UserAdminCreateRequest,
   session: AsyncSession = Depends(get_db),
 ):
   user_handler = UserHandler(session)

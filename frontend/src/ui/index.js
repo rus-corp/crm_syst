@@ -1,4 +1,5 @@
 import CreateNewItemBtn from "./buttons/CreateNewItemBtn";
+import LoginBtn from "./buttons/LoginBtn";
 import SaveBtnComponent from "./buttons/SaveBtnComponent";
 import SmallButton from "./buttons/SmallButton";
 import ComponentHeader from "./component_header/ComponentHeader";
@@ -34,4 +35,4 @@ export { ProgramIcon, Icon, MenuItem,
   companyIcon, CreateStaff,CreateExpense, ExpenseBlockComponent,
   StaffBlockComponent, SelectDefComponent, EmployeeSelect,
   ComponentHeaderThreSwitch, ModalComponent, CheckInModal,
-  CheckOutModal }
+  CheckOutModal, LoginBtn }

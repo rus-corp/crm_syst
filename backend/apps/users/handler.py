@@ -5,7 +5,7 @@ from config import settings
 
 from .schemas import UserBase, UpdateUserRequest
 from core.models.user_models import User
-from config import super_user_email
+from core.models.utils import UserRole
 from apps.auth.hasher import hash_password
 from apps.base.exceptions import AppBaseExceptions
 
@@ -17,8 +17,9 @@ class UserHandler(BaseHandler):
   
   async def _create_super_user(self, body: UserBase):
     async with self.session.begin():
-      if body.email == settings.super_user_email:
+      if body.email == settings.SUPER_ADMIN:
         body_data = body.model_dump()
+        body_data['role'] = UserRole.SP
         body_data['password'] = hash_password(body_data['password']).decode()
         try:
           user = await self.user_dal.create_user(**body_data)

@@ -13,6 +13,14 @@ export const backend = axios.create({
   }
 })
 
+
+export const authBackend = axios.create({
+  baseURL: urlConfig.VITE_DEV_URL,
+  // timeout: 1000,
+})
+
+
+
 export const getHeader = (token) => {
   return (
     {'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json'}

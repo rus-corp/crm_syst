@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from pathlib import Path
+from typing import ClassVar
 
 class Settings(BaseSettings):
     DB_USER: str
@@ -14,8 +15,8 @@ class Settings(BaseSettings):
 
     SECRET_KEY: str
     ALGORITHM: str
-    super_user_email: str
-    BASE_DIR = Path(__file__).resolve().parent
+    SUPER_ADMIN: str
+    BASE_DIR: ClassVar[Path] = Path(__file__).resolve().parent
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

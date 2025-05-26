@@ -13,6 +13,13 @@ class UserBase(BaseModel):
   role: UserRole = UserRole.MG
 
 
+class UserAdminCreateRequest(BaseModel):
+  model_config = ConfigDict(from_attributes=True)
+  email: str
+  first_name: str
+  last_name: str
+  password: str
+
 class UserBaseResponse(UserBase):
   id : int
 

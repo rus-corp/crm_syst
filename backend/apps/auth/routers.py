@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 @router.post(
-  '/login',
+  '/login/',
   status_code=status.HTTP_201_CREATED,
   response_model=AuthTokenResponse
 )

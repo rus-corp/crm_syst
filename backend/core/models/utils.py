@@ -82,7 +82,7 @@ class ExpenseType(str, Enum):
 
 
 class UserRole(str, Enum):
-  AD = 'Admin'
-  MG = 'Manager'
-  SP = 'Superuser'
-  SZ = 'Spritzer'
+  AD = 'admin'
+  MG = 'manager'
+  SP = 'superuser'
+  SZ = 'spritzer'
