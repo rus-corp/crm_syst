@@ -9,11 +9,12 @@ from sqlalchemy.pool import NullPool
 
 
 from core.database import get_db, Base
-from config import DB_NAME_TEST, DB_PORT_TEST, DB_USER, DB_PASSWORD, DB_HOST_TEST
+from config import settings
+
 from main import app
 
 
-DATABASE_URL_TEST = f'postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST_TEST}:{DB_PORT_TEST}/{DB_NAME_TEST}'
+DATABASE_URL_TEST = f'postgresql+asyncpg://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST_TEST}:{settings.DB_PORT_TEST}/{settings.DB_NAME_TEST}'
 engine_test = create_async_engine(DATABASE_URL_TEST, future=True, poolclass=NullPool)
 async_session_maker = async_sessionmaker(engine_test, class_=AsyncSession, expire_on_commit=False)
 Base.metadata.bind=engine_test

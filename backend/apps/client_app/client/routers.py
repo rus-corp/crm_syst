@@ -182,3 +182,11 @@ async def append_client_to_program_room(
   client_handler = ClientHandler(session)
   appended_client = await client_handler._append_client_to_program_room(body)
   return appended_client
+
+
+@router.delete(
+  '/delete_client_from_prog_room/',
+  status_code=status.HTTP_200_OK,
+  response_model=BaseMessageResponseModel
+)
+async def delete_client_from_program_room():...

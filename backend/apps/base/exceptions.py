@@ -46,3 +46,11 @@ class AppBaseExceptions:
       status_code=status.HTTP_403_FORBIDDEN,
       detail='Подселение закрыто'
     )
+  
+  
+  @staticmethod
+  def access_denied():
+    raise HTTPException(
+      status_code=status.HTTP_403_FORBIDDEN,
+      detail='Access denied'
+    )

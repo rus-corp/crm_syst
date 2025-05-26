@@ -79,3 +79,10 @@ class StaticCategory(str, Enum):
 class ExpenseType(str, Enum):
   GR = 'group',
   CL = 'client'
+
+
+class UserRole(str, Enum):
+  AD = 'Admin'
+  MG = 'Manager'
+  SP = 'Superuser'
+  SZ = 'Spritzer'

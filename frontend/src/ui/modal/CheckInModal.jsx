@@ -24,24 +24,20 @@ const style = {
   p: 4,
 };
 
-export default function CheckInModal({ visible, close, programRoomId, dataFunc }) {
+export default function CheckInModal({ visible, close, programRoomId }) {
   const programStartDate = useSelector((state) => state.program.programStartDate);
   const programEndDate = useSelector((state) => state.program.programEndDate);
   const clientProgram = useSelector((state) => state.program.clientProgram);
-  const [open, setOpen] = React.useState(visible);
   const [data, setData] = React.useState({
     program_client_id: clientProgram,
     program_room_id: programRoomId,
     entry_date: programStartDate,
     departue_date: programEndDate,
-    comment: null,
+    comment: '',
     no_sharing: false
   })
   const [alert, setAlert] = React.useState({severity: '', message: ''})
-  const handleClose = () => {
-    setOpen(false)
-    close(false)
-  };
+  const handleClose = () => close(false)
   const handleChange = (name, value) => {
     setData((prevData) => ({
       ...prevData,
@@ -67,7 +63,7 @@ export default function CheckInModal({ visible, close, programRoomId, dataFunc }
       no_sharing: newState
     }))
   }
-  // dataFunc if false -> заселяем клиента if true -> выселяем
+
   const handleSubbmit = () => {
     console.log(data)
     handlePopulateClient(data)
@@ -89,7 +85,10 @@ export default function CheckInModal({ visible, close, programRoomId, dataFunc }
             message={alert.message}
             />
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ marginBottom: '2rem'}}>
+          <Typography
+          component={'div'}
+          id="modal-modal-description"
+          sx={{ mt: 2 }} style={{ marginBottom: '2rem'}}>
             <CreateItemInput
             fieldTitle={'Дата заезда'}
             fieldType={'date'}

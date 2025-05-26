@@ -1,7 +1,7 @@
 import React from 'react';
 
 import style from './styles/program_hotels.module.css'
-import { SmallButton, CheckInModal } from '../../../../ui';
+import { SmallButton, CheckInModal, CheckOutModal } from '../../../../ui';
 import { useSelector } from 'react-redux';
 
 
@@ -118,18 +118,28 @@ function RoomItem({ roomVol, roomType, roomPrice, programRoomId }) {
       setRoomClient(roomClientsLastName)
       const clientHasInRoom = responseData.find((item) => item.program_clients.client.slug === slug)
       setClientInRoom(!!clientHasInRoom)
-      console.log(!!clientHasInRoom)
-      // console.log(roomClientsLastName)
+      handleBtnLabel(!!clientHasInRoom)
     }
   }
-  const [open, setOpen] = React.useState(false)
-  const handleClick = () => setOpen(true)
+  const [btnLabel, setBtnLabel] = React.useState('')
+  const [Inopen, setInOpen] = React.useState(false)
+  const [outOpen, setOutOpen] = React.useState(false)
 
-  const btnLabel = () => {
+  const handleClick = () => {
+    console.log('btnLabel', btnLabel)
+    if (btnLabel === 'Заселить') {
+      setInOpen(true)
+    } else if (btnLabel === 'Выселить') {
+      setOutOpen(true)
+    }
+    
+  }
+
+  const handleBtnLabel = (clientInRoom) => {
     if (clientInRoom) {
-      return 'Выселить'
+      setBtnLabel('Выселить')
     }else {
-      return 'Заселить'
+      setBtnLabel('Заселить')
     }
   }
 
@@ -155,15 +165,20 @@ function RoomItem({ roomVol, roomType, roomPrice, programRoomId }) {
           <p key={indx}>{client}</p>
         ))}
           <SmallButton
-            btnData={btnLabel()}
+            btnData={btnLabel}
             handleClick={handleClick}
             />
       </div>
       <CheckInModal
-      visible={open}
-      close={() => setOpen(false)}
+      visible={Inopen}
+      close={() => setInOpen(false)}
       programRoomId={programRoomId}
-      dataFunc={clientInRoom}
+      // dataFunc={clientInRoom}
+      />
+      <CheckOutModal
+      visible={outOpen}
+      close={() => setOutOpen(false)}
+      programRoomId={programRoomId}
       />
     </div>
   );

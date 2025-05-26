@@ -9,6 +9,7 @@ import Icon from "./icons/Icon";
 import { clientIcon, DashBoardIcon, HotelsIcon, ProgramIcon, partnersIcon, companyIcon } from "./icons/icons";
 import MenuItem from "./menu_item/MenuItem";
 import CheckInModal from "./modal/CheckInModal";
+import CheckOutModal from "./modal/CheckOutModal";
 import ModalComponent from "./modal/ModalComponent";
 import NotificationComponent from "./notifications/NotificationComponent";
 import CreateItemInput from "./profile_inputs/CreateItemInput";
@@ -32,4 +33,5 @@ export { ProgramIcon, Icon, MenuItem,
   SaveBtnComponent, NotificationComponent, StaffSelect,
   companyIcon, CreateStaff,CreateExpense, ExpenseBlockComponent,
   StaffBlockComponent, SelectDefComponent, EmployeeSelect,
-  ComponentHeaderThreSwitch, ModalComponent, CheckInModal }
+  ComponentHeaderThreSwitch, ModalComponent, CheckInModal,
+  CheckOutModal }
