@@ -13,7 +13,7 @@ class Base(DeclarativeBase):
 from config import settings
 
 
-DATABASE_URL = f'postgresql+asyncpg://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}'
+DATABASE_URL = f'postgresql+asyncpg://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.POSTGRES_DB}'
 
 engine = create_async_engine(DATABASE_URL, echo=True)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)

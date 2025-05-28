@@ -3,11 +3,11 @@ from pathlib import Path
 from typing import ClassVar
 
 class Settings(BaseSettings):
-    DB_USER: str
-    DB_PASSWORD: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
     DB_HOST: str
     DB_PORT: str
-    DB_NAME: str
+    POSTGRES_DB: str
 
     DB_PORT_TEST: str
     DB_NAME_TEST: str

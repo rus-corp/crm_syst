@@ -14,7 +14,7 @@ from config import settings
 from main import app
 
 
-DATABASE_URL_TEST = f'postgresql+asyncpg://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST_TEST}:{settings.DB_PORT_TEST}/{settings.DB_NAME_TEST}'
+DATABASE_URL_TEST = f'postgresql+asyncpg://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.DB_HOST_TEST}:{settings.DB_PORT_TEST}/{settings.DB_NAME_TEST}'
 engine_test = create_async_engine(DATABASE_URL_TEST, future=True, poolclass=NullPool)
 async_session_maker = async_sessionmaker(engine_test, class_=AsyncSession, expire_on_commit=False)
 Base.metadata.bind=engine_test
