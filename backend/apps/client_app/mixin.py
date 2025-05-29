@@ -50,3 +50,6 @@ class ClientMixin:
       values=client_program_price
     )
     return save_client_program_price
+  
+  
+  # async def delete_client_price_after_check_out(self)

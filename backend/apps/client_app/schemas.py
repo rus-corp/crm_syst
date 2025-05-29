@@ -121,3 +121,9 @@ class AppendClientToProgramRoom(BaseModel):
   departue_date: date
   comment: Optional[str] = None
   no_sharing: Optional[bool] = False
+
+
+class DeleteClientFromProgramRoom(BaseModel):
+  program_client_id: int
+  program_room_id: int
+  model_config = ConfigDict(from_attributes=True)

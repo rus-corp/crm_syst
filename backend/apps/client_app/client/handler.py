@@ -177,16 +177,14 @@ class ClientHandler(ClientMixin, BaseHandler):
           item_data='Client Program Room',
           exception_message=f'Не удалось заселить клиента {e}'
         )
-      
-      
-      
-      # room_volume = program_room.room.room_volume
-      # check_program_client_room = await self.client_dal.
-      """
-      1. проверить наличие места в комнате
-      2. заселить клиента
-      3. посчитать и записать стоимость поездки клиента в ProgramClients
-      """
-      # check_value_program_room = 
-      # client_program_room = await self.client_dal.append_client_to_room(**body_data)
-      
+  
+  
+  async def _delete_client_from_program_room(self, body: schemas.DeleteClientFromProgramRoom):
+    async with self.session.begin():
+      # if self.permissions.superuser_permission():
+        program_room_dal = ProgramRoomDAL(self.session)
+        delete_client = await program_room_dal.delete_client_from_program_room(
+          program_client_id=body.program_client_id,
+          program_room_id=body.program_room_id
+        )
+        return JSONResponse(status_code=status.HTTP_200_OK, content='Клиент выселен')

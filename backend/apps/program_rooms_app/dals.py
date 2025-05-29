@@ -1,6 +1,6 @@
 from typing import Optional
 from ..base.base_dal import BaseDAL
-from sqlalchemy import select, delete
+from sqlalchemy import select, delete, and_
 from sqlalchemy.orm import joinedload, selectinload
 from core.models.association_models import ProgramClientRoom, ProgramClients, ProgramRooms
 from datetime import date
@@ -47,6 +47,20 @@ class ProgramRoomDAL(BaseDAL):
     self.db_session.add(new_client_room)
     await self.db_session.flush()
     return new_client_room
+  
+  async def delete_client_from_program_room(
+    self,
+    program_client_id: int,
+    program_room_id: int,
+  ):
+    query = delete(ProgramClientRoom).where(
+      and_(
+        ProgramClientRoom.program_room_id == program_room_id,
+        ProgramClientRoom.program_client_id == program_client_id
+      )
+    ).returning(ProgramClientRoom.id)
+    result = await self.db_session.execute(query)
+    return result.scalar()
   
   
   async def get_all_program_hotel_rooms(self):pass

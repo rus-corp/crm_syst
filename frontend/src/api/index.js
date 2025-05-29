@@ -1,5 +1,5 @@
 import { authLogin } from "./auth_api/authApi";
-import { appendClientToProgramRoom } from "./client_program_room/clientProgramRoom";
+import { appendClientToProgramRoom, deleteClientFromProgramRoom } from "./client_program_room/clientProgramRoom";
 import { 
   createClient,
   getClientBySlug,
@@ -76,5 +76,5 @@ export { getPrograms, getProgramClients, getProgramHotelRooms,
   getPartnerByIdWithServiceAndBank, appendPartnerRoProgramReq,
   getProgramExpenses, getProgramPartners, createProgramPrices,
   getProgramPrices, appendClientToProgram, getProgramRoomClient,
-  appendClientToProgramRoom, authLogin
+  appendClientToProgramRoom, authLogin, deleteClientFromProgramRoom
  }

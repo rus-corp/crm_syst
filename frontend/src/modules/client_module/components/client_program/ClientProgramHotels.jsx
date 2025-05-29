@@ -15,7 +15,6 @@ export default function ClientProgramHotels({ programId }) {
   const handleProgramRooms = async (programData) => {
     const response = await getProgramHotelRooms(programData)
     if (response.status === 200) {
-      console.log(response.data)
       setProgramHotels(response.data)
     }
   }
@@ -112,7 +111,6 @@ function RoomItem({ roomVol, roomType, roomPrice, programRoomId }) {
   const handleGetRoomClient = async (programRoomData) => {
     const response = await getProgramRoomClient(programRoomData)
     if (response.status === 200) {
-      console.log(response.data)
       const responseData = response.data
       const roomClientsLastName = responseData.map((item) => `${item.program_clients.client.last_name} ${item.program_clients.client.name}`)
       setRoomClient(roomClientsLastName)
@@ -126,7 +124,6 @@ function RoomItem({ roomVol, roomType, roomPrice, programRoomId }) {
   const [outOpen, setOutOpen] = React.useState(false)
 
   const handleClick = () => {
-    console.log('btnLabel', btnLabel)
     if (btnLabel === 'Заселить') {
       setInOpen(true)
     } else if (btnLabel === 'Выселить') {

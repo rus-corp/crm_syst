@@ -1,7 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { deleteClientFromProgramRoom } from '../../api';
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
 
 const style = {
   position: 'absolute',
@@ -21,13 +26,28 @@ import NotificationComponent from '../notifications/NotificationComponent';
 
 
 export default function CheckOutModal({ programRoomId, visible, close }) {
+  const clientProgram = useSelector((state) => state.program.clientProgram);
   const [alert, setAlert] = React.useState({severity: '', message: ''})
-  const [clientRoomData, setClientRoomData] = React.useState({
+  const [checkOutData, setCheckOutData] = React.useState({
     program_room_id: programRoomId,
+    program_client_id: clientProgram
   })
-  const handleSubbmit = () => console.log('submit') 
+  const handleOutClient = async (clientData) => {
+    const response = await deleteClientFromProgramRoom(clientData)
+    if (response.status === 200) {
+      setAlert({severity: 'access', message: 'Клиент выселен'})
+      setTimeout(() => {
+        setAlert({severity: '', message: ''})
+        close(false)
+      }, 2000);
+    }
+  }
+  const handleSubbmit = () => {
+    handleOutClient(checkOutData)
+  } 
   
   const handleClose = () => close(false)
+
   return(
     <Modal
         open={visible}
